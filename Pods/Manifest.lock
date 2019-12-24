@@ -1,24 +1,24 @@
 PODS:
-  - Alamofire (4.9.1)
+  - CocoaAsyncSocket (7.6.3)
   - RTTrPSwift (0.2)
   - SwiftOSC (1.3.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.9.1)
+  - CocoaAsyncSocket (~> 7.6.3)
   - RTTrPSwift
   - SwiftOSC (~> 1.3)
 
 SPEC REPOS:
   trunk:
-    - Alamofire
+    - CocoaAsyncSocket
     - RTTrPSwift
     - SwiftOSC
 
 SPEC CHECKSUMS:
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   RTTrPSwift: 543ab8702ebba1a1ed6d110dd594d8c59d1241aa
   SwiftOSC: 18cd3dc7cb90210972f7883a4c56c4710fcb7af5
 
-PODFILE CHECKSUM: cb7c2527eb423bb93265e59c1387936d68942096
+PODFILE CHECKSUM: f5b9ce0b5b9605c5e44a6fb91ee2377e61ce7624
 
 COCOAPODS: 1.8.4
