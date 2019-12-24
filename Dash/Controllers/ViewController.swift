@@ -6,20 +6,28 @@
 
 import Cocoa
 
+
+
+
+
 class ViewController: NSViewController {
 
+    @IBOutlet var liveTableView: NSTableView!
+    @IBOutlet var recordedTableView: NSTableView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
+    
+    
+    @IBAction func buttonLive(_ sender: Any) {
+    
     }
-
-
+    
+    
+    @IBAction func buttonRecorded(_ sender: Any) {
+    
+    }
 }
-
