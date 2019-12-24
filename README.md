@@ -32,8 +32,6 @@ Dash is available under the MIT license. See the LICENSE file for more info.
 
 
 
-
-[//]: # (Links)
 [RTTrP]: (https://rttrp.github.io/RTTrP-Wiki/RTTrPM.html)
 [BlackTrax]: (https://blacktrax.cast-soft.com/)
 [OSC]: (http://opensoundcontrol.org/)
