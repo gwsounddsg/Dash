@@ -1,2 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-Dash/Pods-Dash-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/RTTrPSwift/RTTrPSwift.framework
+${BUILT_PRODUCTS_DIR}/SwiftOSC/SwiftOSC.framework
