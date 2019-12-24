@@ -1,0 +1,16 @@
+PODS:
+  - RTTrPSwift (0.2)
+
+DEPENDENCIES:
+  - RTTrPSwift
+
+SPEC REPOS:
+  trunk:
+    - RTTrPSwift
+
+SPEC CHECKSUMS:
+  RTTrPSwift: 543ab8702ebba1a1ed6d110dd594d8c59d1241aa
+
+PODFILE CHECKSUM: 1ecd353154cbea405bce843d2bdd3aadbc848c07
+
+COCOAPODS: 1.8.4
