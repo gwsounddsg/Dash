@@ -15,6 +15,8 @@
 		578C801B23B299A40014EFDD /* DashUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578C801A23B299A40014EFDD /* DashUITests.swift */; };
 		57AF9D7323B2AFD6001A27A6 /* ReceiveUDP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */; };
 		57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7623B2B54E001A27A6 /* Extensions.swift */; };
+		57AF9D7923B2B630001A27A6 /* DashOSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7823B2B630001A27A6 /* DashOSC.swift */; };
+		57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7A23B2B869001A27A6 /* DS100.swift */; };
 		6B21898E7B892105727D0E3C /* Pods_Dash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +54,8 @@
 		578C801C23B299A40014EFDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveUDP.swift; sourceTree = "<group>"; };
 		57AF9D7623B2B54E001A27A6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		57AF9D7823B2B630001A27A6 /* DashOSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSC.swift; sourceTree = "<group>"; };
+		57AF9D7A23B2B869001A27A6 /* DS100.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DS100.swift; sourceTree = "<group>"; };
 		651BB45AE5E5B9541C7EA030 /* Pods-Dash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.release.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.release.xcconfig"; sourceTree = "<group>"; };
 		F43F3A006F031062C7D58C58 /* Pods-Dash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.debug.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,8 +105,10 @@
 		5707DEE223B2ADA500A76810 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */,
+				57AF9D7823B2B630001A27A6 /* DashOSC.swift */,
+				57AF9D7A23B2B869001A27A6 /* DS100.swift */,
 				57AF9D7623B2B54E001A27A6 /* Extensions.swift */,
+				57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -346,8 +352,10 @@
 			files = (
 				5707DEDF23B2AB6D00A76810 /* ViewController.swift in Sources */,
 				57AF9D7323B2AFD6001A27A6 /* ReceiveUDP.swift in Sources */,
+				57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */,
 				578C7FFD23B299A30014EFDD /* AppDelegate.swift in Sources */,
 				57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */,
+				57AF9D7923B2B630001A27A6 /* DashOSC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
