@@ -46,32 +46,41 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
 
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        if tableColumn == nil || _liveData.isEmpty {return NSTextField()}
+        if tableColumn == nil || _liveData.isEmpty {return nil}
         
-        let textView = NSTextField()
         let data = _liveData[row]
+        var id = NSUserInterfaceItemIdentifier("")
+        var text = ""
+        
         
         switch tableColumn!.identifier {
-            case COLUMN_TRACKABLE:
-                textView.stringValue = data.trackable?.name ?? ""
-            
-            case COLUMN_X:
-                guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return textView}
-                textView.stringValue = "\(packet[0].position.x)"
-            
-            case COLUMN_Y:
-                guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return textView}
-                textView.stringValue = "\(packet[0].position.y)"
-            
-            case COLUMN_Z:
-                guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return textView}
-                textView.stringValue = "\(packet[0].position.y)"
-            
+            case DashID.Column.trackable:
+                text = data.trackable?.name ?? ""
+                id = DashID.Cell.trackable
+
+            case DashID.Column.x:
+                guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
+                text = "\(packet[0].position.x)"
+                id = DashID.Cell.x
+
+            case DashID.Column.y:
+                guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
+                text = "\(packet[0].position.y)"
+                id = DashID.Cell.y
+
+            case DashID.Column.z:
+                guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
+                text = "\(packet[0].position.z)"
+                id = DashID.Cell.z
+
             default:
-                break
+                return nil
         }
         
-        return textView
+        guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? NSTableCellView else {return nil}
+        cell.textField?.stringValue = text
+        
+        return cell
     }
 }
 

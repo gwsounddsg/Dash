@@ -12,16 +12,23 @@ import Cocoa
 
 
 //MARK: - Identifiers
-let RTT_TABLE_LIVE = NSUserInterfaceItemIdentifier("rttTableLive")
-let RTT_TABLE_REC = NSUserInterfaceItemIdentifier("rttTableRec")
-
-let COLUMN_TRACKABLE = NSUserInterfaceItemIdentifier("trackable")
-let COLUMN_X = NSUserInterfaceItemIdentifier("x")
-let COLUMN_Y = NSUserInterfaceItemIdentifier("y")
-let COLUMN_Z = NSUserInterfaceItemIdentifier("z")
-
-
-let CELL_TRACKABLE = NSUserInterfaceItemIdentifier("cellTrackable")
-let CELL_X = NSUserInterfaceItemIdentifier("cellX")
-let CELL_Y = NSUserInterfaceItemIdentifier("cellY")
-let CELL_Z = NSUserInterfaceItemIdentifier("cellZ")
+enum DashID {
+    enum TableType {
+        static let live = NSUserInterfaceItemIdentifier("rttTableLive")
+        static let recorded = NSUserInterfaceItemIdentifier("rttTableRec")
+    }
+    
+    enum Column {
+        static let trackable = NSUserInterfaceItemIdentifier("trackable")
+        static let x = NSUserInterfaceItemIdentifier("x")
+        static let y = NSUserInterfaceItemIdentifier("y")
+        static let z = NSUserInterfaceItemIdentifier("z")
+    }
+    
+    enum Cell {
+        static let trackable = NSUserInterfaceItemIdentifier("cellTrackable")
+        static let x = NSUserInterfaceItemIdentifier("cellX")
+        static let y = NSUserInterfaceItemIdentifier("cellY")
+        static let z = NSUserInterfaceItemIdentifier("cellZ")
+    }
+}
