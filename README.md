@@ -2,7 +2,6 @@
 
 ![](https://app.bitrise.io/app/0314e875da278a91/status.svg?token=IITYTwRrMOh3YL0XZfSF9g)
 
----
 
 ## Description
 
@@ -10,7 +9,6 @@ The TL;DR of this app is it listens to two sets of data, and outputs one.
 
 The two types of data it listens to is raw [RTTrP] packets from [BlackTrax], and a prerecorded set of data in [OSC]. The user can toggle between these two data sets and the program will output [OSC] data to redundant [d&b][db] DS100 matrices using [Soundscape].
 
----
 
 ## Setup
 
@@ -20,7 +18,6 @@ Configure all the ports and IP addresses in the preferences menu.
   * Output IP address and port for the recorded data
   * Output IP address and port for both DS100's.
 
----
 
 ## Author
 
