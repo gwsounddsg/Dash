@@ -714,7 +714,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tabView fixedFrame="YES" initialItem="X8d-y6-UHu" translatesAutoresizingMaskIntoConstraints="NO" id="O14-S2-hIg">
-                                <rect key="frame" x="79" y="13" width="357" height="272"/>
+                                <rect key="frame" x="13" y="55" width="357" height="272"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>

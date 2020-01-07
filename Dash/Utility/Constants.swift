@@ -49,3 +49,43 @@ enum DashOSCType {
         case recorded, control
     }
 }
+
+
+
+
+
+//MARK: - UserDefaults
+enum DashDefaultIDs {
+    enum Network {
+        enum Incoming {
+            static let blacktraxPort = "networkIncomingBlackTraxPort"
+            static let controlPort = "networkIncomingControlPort"
+            static let recordedPort = "netowrkIncomingRecordedPort"
+        }
+        
+        enum Outgoing {
+            static let recordedIP = "networkOutgoingRecordedIP"
+            static let recordedPort = "networkOutgoingRecordedPort"
+            static let liveIP = "networkOutgoingLiveIP"
+            static let livePort = "networkOutgoingLivePort"
+        }
+    }
+}
+
+
+enum DashDefaultValues {
+    enum Network {
+        enum Incoming {
+            static let blacktraxPort = "24002"
+            static let controlPort = "1212"
+            static let recordedPort = "414"
+        }
+        
+        enum Outgoing {
+            static let recordedIP = "127.0.0.1"
+            static let recordedPort = "184"
+            static let liveIP = "192.168.50.99" // DS100 (do I need two?)
+            static let livePort = "4444" // check number
+        }
+    }
+}
