@@ -24,6 +24,7 @@ struct DS100 {
         self.y = y
     }
     
+    
     func addy() -> String {
         return "\(mapping)/\(input)"
     }
