@@ -46,7 +46,7 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
 
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        if tableColumn == nil {return NSTextField()}
+        if tableColumn == nil || _liveData.isEmpty {return NSTextField()}
         
         let textView = NSTextField()
         let data = _liveData[row]

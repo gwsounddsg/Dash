@@ -24,6 +24,7 @@
 		9AEA614D23C4DE6700B27003 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AEA614C23C4DE6700B27003 /* Preferences.storyboard */; };
 		9AEA614F23C4DFCB00B27003 /* PreferencesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA614E23C4DFCB00B27003 /* PreferencesVC.swift */; };
 		9AEA615123C4E0D400B27003 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615023C4E0D400B27003 /* PreferencesWindowController.swift */; };
+		9AEA615423C5083F00B27003 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615323C5083F00B27003 /* Message.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		9AEA614C23C4DE6700B27003 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		9AEA614E23C4DFCB00B27003 /* PreferencesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesVC.swift; sourceTree = "<group>"; };
 		9AEA615023C4E0D400B27003 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
+		9AEA615323C5083F00B27003 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		F43F3A006F031062C7D58C58 /* Pods-Dash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.debug.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,10 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				9AC6902623C3A9240047320A /* Constants.swift */,
-				57AF9D7823B2B630001A27A6 /* DashOSC.swift */,
-				57AF9D7A23B2B869001A27A6 /* DS100.swift */,
 				57AF9D7623B2B54E001A27A6 /* Extensions.swift */,
-				57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -156,6 +155,8 @@
 				578C7FFC23B299A30014EFDD /* AppDelegate.swift */,
 				578C800223B299A40014EFDD /* Main.storyboard */,
 				5707DEDB23B2AB3600A76810 /* Controllers */,
+				9AEA615223C5080100B27003 /* Model */,
+				9AEA615523C5088200B27003 /* Networking */,
 				9AC6902323C3A8470047320A /* Views */,
 				5707DEE223B2ADA500A76810 /* Utility */,
 				9AC6902823C3AD3C0047320A /* Xib */,
@@ -199,6 +200,24 @@
 				9AEA614C23C4DE6700B27003 /* Preferences.storyboard */,
 			);
 			path = Xib;
+			sourceTree = "<group>";
+		};
+		9AEA615223C5080100B27003 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				57AF9D7A23B2B869001A27A6 /* DS100.swift */,
+				9AEA615323C5083F00B27003 /* Message.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9AEA615523C5088200B27003 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				57AF9D7823B2B630001A27A6 /* DashOSC.swift */,
+				57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		F2B6F2D02B923DC85F0CCEFC /* Pods */ = {
@@ -392,6 +411,7 @@
 				57AF9D7323B2AFD6001A27A6 /* ReceiveUDP.swift in Sources */,
 				57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */,
 				9AC6902523C3A8800047320A /* RttTableView.swift in Sources */,
+				9AEA615423C5083F00B27003 /* Message.swift in Sources */,
 				578C7FFD23B299A30014EFDD /* AppDelegate.swift in Sources */,
 				57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */,
 				57AF9D7923B2B630001A27A6 /* DashOSC.swift in Sources */,
