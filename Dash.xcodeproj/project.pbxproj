@@ -21,6 +21,9 @@
 		9AC6902523C3A8800047320A /* RttTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902423C3A8800047320A /* RttTableView.swift */; };
 		9AC6902723C3A9240047320A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902623C3A9240047320A /* Constants.swift */; };
 		9AC6902A23C3AD570047320A /* RttTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC6902923C3AD570047320A /* RttTableView.xib */; };
+		9AEA614D23C4DE6700B27003 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AEA614C23C4DE6700B27003 /* Preferences.storyboard */; };
+		9AEA614F23C4DFCB00B27003 /* PreferencesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA614E23C4DFCB00B27003 /* PreferencesVC.swift */; };
+		9AEA615123C4E0D400B27003 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615023C4E0D400B27003 /* PreferencesWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +66,9 @@
 		9AC6902423C3A8800047320A /* RttTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RttTableView.swift; sourceTree = "<group>"; };
 		9AC6902623C3A9240047320A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9AC6902923C3AD570047320A /* RttTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RttTableView.xib; sourceTree = "<group>"; };
+		9AEA614C23C4DE6700B27003 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
+		9AEA614E23C4DFCB00B27003 /* PreferencesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesVC.swift; sourceTree = "<group>"; };
+		9AEA615023C4E0D400B27003 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		F43F3A006F031062C7D58C58 /* Pods-Dash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.debug.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				5707DEDE23B2AB6D00A76810 /* ViewController.swift */,
+				9AEA614E23C4DFCB00B27003 /* PreferencesVC.swift */,
+				9AEA615023C4E0D400B27003 /* PreferencesWindowController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -188,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				9AC6902923C3AD570047320A /* RttTableView.xib */,
+				9AEA614C23C4DE6700B27003 /* Preferences.storyboard */,
 			);
 			path = Xib;
 			sourceTree = "<group>";
@@ -310,6 +319,7 @@
 				578C800123B299A40014EFDD /* Assets.xcassets in Resources */,
 				578C800423B299A40014EFDD /* Main.storyboard in Resources */,
 				9AC6902A23C3AD570047320A /* RttTableView.xib in Resources */,
+				9AEA614D23C4DE6700B27003 /* Preferences.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,7 +386,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AEA614F23C4DFCB00B27003 /* PreferencesVC.swift in Sources */,
 				5707DEDF23B2AB6D00A76810 /* ViewController.swift in Sources */,
+				9AEA615123C4E0D400B27003 /* PreferencesWindowController.swift in Sources */,
 				57AF9D7323B2AFD6001A27A6 /* ReceiveUDP.swift in Sources */,
 				57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */,
 				9AC6902523C3A8800047320A /* RttTableView.swift in Sources */,
