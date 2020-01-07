@@ -12,6 +12,7 @@ import Cocoa
 
 
 //MARK: - Identifiers
+
 enum DashID {
     enum TableType {
         static let live = NSUserInterfaceItemIdentifier("rttTableLive")
@@ -30,5 +31,21 @@ enum DashID {
         static let x = NSUserInterfaceItemIdentifier("cellX")
         static let y = NSUserInterfaceItemIdentifier("cellY")
         static let z = NSUserInterfaceItemIdentifier("cellZ")
+    }
+}
+
+
+
+
+
+//MARK: - Types
+
+enum DashOSCType {
+    enum Client {
+        case recorded, ds100
+    }
+    
+    enum Server {
+        case recorded, control
     }
 }

@@ -15,7 +15,8 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var liveTabView: NSTabView!
     
-    fileprivate var _blackTrax: ReceiveUDP?
+    let networkManager = NetworkManager.instance
+    
     fileprivate var _liveTable: RttTableView!
     fileprivate var _recordedTable: RttTableView!
     fileprivate var _liveData = [RTTrPM]()
@@ -52,7 +53,6 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
         var id = NSUserInterfaceItemIdentifier("")
         var text = ""
         
-        
         switch tableColumn!.identifier {
             case DashID.Column.trackable:
                 text = data.trackable?.name ?? ""
@@ -88,11 +88,11 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
 
 
 
-//MARK: - ReceiveUDP Delegate
-extension ViewController: ReceiveUDPDelegate {
-    
-    func newPacket(_ data: RTTrP) {
-        _liveData = data.pmPackets
-        _liveTable.reload()
-    }
-}
+////MARK: - ReceiveUDP Delegate
+//extension ViewController: ReceiveUDPDelegate {
+//    
+//    func newPacket(_ data: RTTrP) {
+//        _liveData = data.pmPackets
+//        _liveTable.reload()
+//    }
+//}

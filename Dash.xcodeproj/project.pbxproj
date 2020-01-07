@@ -15,7 +15,6 @@
 		578C801B23B299A40014EFDD /* DashUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578C801A23B299A40014EFDD /* DashUITests.swift */; };
 		57AF9D7323B2AFD6001A27A6 /* ReceiveUDP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */; };
 		57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7623B2B54E001A27A6 /* Extensions.swift */; };
-		57AF9D7923B2B630001A27A6 /* DashOSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7823B2B630001A27A6 /* DashOSC.swift */; };
 		57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7A23B2B869001A27A6 /* DS100.swift */; };
 		6B21898E7B892105727D0E3C /* Pods_Dash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */; };
 		9AC6902523C3A8800047320A /* RttTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902423C3A8800047320A /* RttTableView.swift */; };
@@ -25,6 +24,9 @@
 		9AEA614F23C4DFCB00B27003 /* PreferencesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA614E23C4DFCB00B27003 /* PreferencesVC.swift */; };
 		9AEA615123C4E0D400B27003 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615023C4E0D400B27003 /* PreferencesWindowController.swift */; };
 		9AEA615423C5083F00B27003 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615323C5083F00B27003 /* Message.swift */; };
+		9AEA615723C50CBB00B27003 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615623C50CBB00B27003 /* NetworkManager.swift */; };
+		9AEA615923C5126300B27003 /* DashOSCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615823C5126300B27003 /* DashOSCClient.swift */; };
+		9AEA615B23C5126B00B27003 /* DashOSCServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615A23C5126B00B27003 /* DashOSCServer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +63,6 @@
 		578C801C23B299A40014EFDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveUDP.swift; sourceTree = "<group>"; };
 		57AF9D7623B2B54E001A27A6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		57AF9D7823B2B630001A27A6 /* DashOSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSC.swift; sourceTree = "<group>"; };
 		57AF9D7A23B2B869001A27A6 /* DS100.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DS100.swift; sourceTree = "<group>"; };
 		651BB45AE5E5B9541C7EA030 /* Pods-Dash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.release.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.release.xcconfig"; sourceTree = "<group>"; };
 		9AC6902423C3A8800047320A /* RttTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RttTableView.swift; sourceTree = "<group>"; };
@@ -71,6 +72,9 @@
 		9AEA614E23C4DFCB00B27003 /* PreferencesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesVC.swift; sourceTree = "<group>"; };
 		9AEA615023C4E0D400B27003 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		9AEA615323C5083F00B27003 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		9AEA615623C50CBB00B27003 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		9AEA615823C5126300B27003 /* DashOSCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCClient.swift; sourceTree = "<group>"; };
+		9AEA615A23C5126B00B27003 /* DashOSCServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCServer.swift; sourceTree = "<group>"; };
 		F43F3A006F031062C7D58C58 /* Pods-Dash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.debug.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,7 +218,9 @@
 		9AEA615523C5088200B27003 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				57AF9D7823B2B630001A27A6 /* DashOSC.swift */,
+				9AEA615823C5126300B27003 /* DashOSCClient.swift */,
+				9AEA615A23C5126B00B27003 /* DashOSCServer.swift */,
+				9AEA615623C50CBB00B27003 /* NetworkManager.swift */,
 				57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */,
 			);
 			path = Networking;
@@ -405,6 +411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AEA615723C50CBB00B27003 /* NetworkManager.swift in Sources */,
 				9AEA614F23C4DFCB00B27003 /* PreferencesVC.swift in Sources */,
 				5707DEDF23B2AB6D00A76810 /* ViewController.swift in Sources */,
 				9AEA615123C4E0D400B27003 /* PreferencesWindowController.swift in Sources */,
@@ -412,9 +419,10 @@
 				57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */,
 				9AC6902523C3A8800047320A /* RttTableView.swift in Sources */,
 				9AEA615423C5083F00B27003 /* Message.swift in Sources */,
+				9AEA615B23C5126B00B27003 /* DashOSCServer.swift in Sources */,
 				578C7FFD23B299A30014EFDD /* AppDelegate.swift in Sources */,
+				9AEA615923C5126300B27003 /* DashOSCClient.swift in Sources */,
 				57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */,
-				57AF9D7923B2B630001A27A6 /* DashOSC.swift in Sources */,
 				9AC6902723C3A9240047320A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

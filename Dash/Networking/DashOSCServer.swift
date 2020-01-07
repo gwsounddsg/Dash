@@ -1,8 +1,9 @@
-// ===================================================
+// ==================================================================
 // Created by:  GW Rodriguez
-// Date:        12/24/19
-// Copyright:   Copyright © 2019 GW Rodriguez. All rights reserved.
-// ===================================================
+// Date:        1/7/20
+// Swift:       5.0
+// Copyright:   Copyright © 2020 GW Rodriguez. All rights reserved.
+// ==================================================================
 
 import Foundation
 import SwiftOSC
@@ -11,7 +12,7 @@ import SwiftOSC
 
 
 
-protocol DashOSCDelegate {
+protocol DashOSCServerDelegate {
     func oscDataReceived(_ msg: Message)
 }
 
@@ -19,22 +20,16 @@ protocol DashOSCDelegate {
 
 
 
-class DashOSC {
+class DashOSCServer {
     
-    let client: OSCClient?
+    let type: DashOSCType.Server
     let server: OSCServer?
-    var delegate: DashOSCDelegate?
+    var delegate: DashOSCServerDelegate?
     
     
-    init(client address: String, _ port: Int) {
-        client = OSCClient(address: address, port: port)
-        server = nil
-    }
-    
-    
-    init(server address: String, _ port: Int) {
+    init(_ type: DashOSCType.Server, _ address: String, _ port: Int) {
+        self.type = type
         server = OSCServer(address: address, port: port)
-        client = nil
     }
 }
 
@@ -42,7 +37,7 @@ class DashOSC {
 
 
 
-extension DashOSC: OSCServerDelegate {
+extension DashOSCServer: OSCServerDelegate {
     
     func didReceive(_ message: OSCMessage) {
         if let msg = getFloatsFrom(message) {
