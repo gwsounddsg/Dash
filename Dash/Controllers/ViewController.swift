@@ -31,6 +31,8 @@ class ViewController: NSViewController {
         _liveTable.tableView.delegate = self
         _liveTable.tableView.dataSource = self
         tabViewItem.view = _liveTable
+        
+        networkManager.delegate = self
     }
 }
 
@@ -88,11 +90,11 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
 
 
 
-////MARK: - ReceiveUDP Delegate
-//extension ViewController: ReceiveUDPDelegate {
-//    
-//    func newPacket(_ data: RTTrP) {
-//        _liveData = data.pmPackets
-//        _liveTable.reload()
-//    }
-//}
+//MARK: - NetworkManagerDelegate
+extension ViewController: NetworkManagerDelegate {
+    
+    func liveBlackTrax(_ data: RTTrP) {
+        _liveData = data.pmPackets
+        _liveTable.reload()
+    }
+}

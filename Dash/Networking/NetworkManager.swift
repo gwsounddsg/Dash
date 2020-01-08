@@ -12,10 +12,21 @@ import RTTrPSwift
 
 
 
+protocol NetworkManagerDelegate {
+    func liveBlackTrax(_ data: RTTrP)
+}
+
+
+
+
+
 class NetworkManager {
     
     // Singleton
     static let instance = NetworkManager()
+    
+    // iVars
+    var delegate: NetworkManagerDelegate? = nil
     
     // States
     fileprivate (set) var isBlackTraxConnect: Bool = false
@@ -44,10 +55,11 @@ class NetworkManager {
 
 
 //MARK: - Receive BlackTrax
+
 extension NetworkManager: ReceiveUDPDelegate {
     
     func newPacket(_ data: RTTrP) {
-        
+        delegate?.liveBlackTrax(data)
     }
 }
 
@@ -216,6 +228,7 @@ extension NetworkManager {
 
 
 //MARK: - Sending Messages
+
 extension NetworkManager {
     
     func sendOSC(message: Message, to client: DashNetworkType.Client) -> Bool {
@@ -245,6 +258,7 @@ extension NetworkManager {
 
 
 //MARK: - Utility
+
 fileprivate extension NetworkManager {
     
     func getDefault(withKey key: String) -> Int? {
