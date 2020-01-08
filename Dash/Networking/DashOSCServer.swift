@@ -23,13 +23,41 @@ protocol DashOSCServerDelegate {
 class DashOSCServer {
     
     let type: DashOSCType.Server
-    let server: OSCServer?
+    let server: OSCServer
     var delegate: DashOSCServerDelegate?
     
     
     init(_ type: DashOSCType.Server, _ address: String, _ port: Int) {
         self.type = type
         server = OSCServer(address: address, port: port)
+    }
+    
+    
+    deinit {
+        disconnect()
+        delegate = nil
+    }
+}
+
+
+
+
+
+extension DashOSCServer {
+    
+    func start() {
+        server.start()
+    }
+    
+    
+    func stop() {
+        server.stop()
+    }
+    
+    
+    func disconnect() {
+        if !server.running {return}
+        stop()
     }
 }
 
