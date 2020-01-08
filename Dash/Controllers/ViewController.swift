@@ -14,6 +14,7 @@ import RTTrPSwift
 class ViewController: NSViewController {
     
     @IBOutlet weak var liveTabView: NSTabView!
+    @IBOutlet weak var recordedTabView: NSTabView!
     
     let networkManager = NetworkManager.instance
     
@@ -25,12 +26,18 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tabViewItem = liveTabView.tabViewItem(at: 0)
+        let liveTabViewItem = liveTabView.tabViewItem(at: 0)
+        let recTabViewItem = recordedTabView.tabViewItem(at: 0)
         
-        _liveTable = RttTableView(frame: tabViewItem.view!.frame)
+        _liveTable = RttTableView(frame: liveTabViewItem.view!.frame)
         _liveTable.tableView.delegate = self
         _liveTable.tableView.dataSource = self
-        tabViewItem.view = _liveTable
+        liveTabViewItem.view = _liveTable
+        
+        _recordedTable = RttTableView(frame: liveTabViewItem.view!.frame)
+        _recordedTable.tableView.delegate = self
+        _recordedTable.tableView.dataSource = self
+        recTabViewItem.view = _recordedTable
         
         networkManager.delegate = self
     }
@@ -44,39 +51,96 @@ class ViewController: NSViewController {
 extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return _liveData.count
+        print(tableView.identifier.debugDescription)
+        
+        switch tableView.identifier {
+            case DashID.TableType.live:
+                return _liveData.count
+            case DashID.TableType.recorded:
+                return 10 //TODO
+            default:
+                return 0
+        }
     }
 
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        if tableColumn == nil || _liveData.isEmpty {return nil}
+        if tableColumn == nil {return nil}
         
+        switch tableView.identifier {
+            case DashID.TableType.live:
+                return createViewForBlackTrax(tableView, tableColumn!.identifier, row)
+            
+            case DashID.TableType.recorded:
+                return createViewForRecorded(tableView, tableColumn!.identifier, row)
+            
+            default:
+                return nil
+        }
+    }
+    
+    
+    private func createViewForBlackTrax(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
+        if _liveData.isEmpty {return nil}
+        
+        var id = NSUserInterfaceItemIdentifier("")
+        var text = ""
         let data = _liveData[row]
+        
+        switch columnIdentifier {
+        case DashID.Column.trackable:
+            text = data.trackable?.name ?? ""
+            id = DashID.Cell.trackable
+            
+        case DashID.Column.x:
+            guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
+            text = "\(packet[0].position.x)"
+            id = DashID.Cell.x
+            
+        case DashID.Column.y:
+            guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
+            text = "\(packet[0].position.y)"
+            id = DashID.Cell.y
+            
+        case DashID.Column.z:
+            guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
+            text = "\(packet[0].position.z)"
+            id = DashID.Cell.z
+            
+        default:
+            return nil
+        }
+        
+        guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? NSTableCellView else {return nil}
+        cell.textField?.stringValue = text
+        
+        return cell
+    }
+    
+    
+    private func createViewForRecorded(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         var id = NSUserInterfaceItemIdentifier("")
         var text = ""
         
-        switch tableColumn!.identifier {
-            case DashID.Column.trackable:
-                text = data.trackable?.name ?? ""
-                id = DashID.Cell.trackable
-
-            case DashID.Column.x:
-                guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-                text = "\(packet[0].position.x)"
-                id = DashID.Cell.x
-
-            case DashID.Column.y:
-                guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-                text = "\(packet[0].position.y)"
-                id = DashID.Cell.y
-
-            case DashID.Column.z:
-                guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-                text = "\(packet[0].position.z)"
-                id = DashID.Cell.z
-
-            default:
-                return nil
+        switch columnIdentifier {
+        case DashID.Column.trackable:
+            text = "Trackable \(row)"
+            id = DashID.Cell.trackable
+            
+        case DashID.Column.x:
+            text = "x\(row)"
+            id = DashID.Cell.x
+            
+        case DashID.Column.y:
+            text = "y\(row)"
+            id = DashID.Cell.y
+            
+        case DashID.Column.z:
+            text = "z\(row)"
+            id = DashID.Cell.z
+            
+        default:
+            return nil
         }
         
         guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? NSTableCellView else {return nil}

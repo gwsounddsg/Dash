@@ -710,11 +710,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Dash" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="570" height="341"/>
+                        <rect key="frame" x="0.0" y="0.0" width="930" height="512"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tabView fixedFrame="YES" initialItem="X8d-y6-UHu" translatesAutoresizingMaskIntoConstraints="NO" id="O14-S2-hIg">
-                                <rect key="frame" x="13" y="55" width="357" height="272"/>
+                                <rect key="frame" x="13" y="155" width="357" height="272"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <font key="font" metaFont="system"/>
                                 <tabViewItems>
@@ -732,15 +732,35 @@
                                     </tabViewItem>
                                 </tabViewItems>
                             </tabView>
+                            <tabView fixedFrame="YES" initialItem="eU6-7G-3Ls" translatesAutoresizingMaskIntoConstraints="NO" id="Mux-Bv-p4z">
+                                <rect key="frame" x="560" y="155" width="357" height="272"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <tabViewItems>
+                                    <tabViewItem label="Table" identifier="" id="eU6-7G-3Ls">
+                                        <view key="view" identifier="rttTableRec" ambiguous="YES" id="qpv-gC-x2W" customClass="RttTableView" customModule="Dash" customModuleProvider="target">
+                                            <rect key="frame" x="10" y="33" width="337" height="226"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                    </tabViewItem>
+                                    <tabViewItem label="Graph" identifier="" id="vWg-fh-Qvh">
+                                        <view key="view" id="KOC-xo-CkH">
+                                            <rect key="frame" x="10" y="33" width="337" height="226"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                    </tabViewItem>
+                                </tabViewItems>
+                            </tabView>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="liveTabView" destination="O14-S2-hIg" id="JZX-nU-T6K"/>
+                        <outlet property="recordedTabView" destination="Mux-Bv-p4z" id="n3v-yY-5Zv"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-170" y="369.5"/>
+            <point key="canvasLocation" x="8.5" y="455"/>
         </scene>
     </scenes>
 </document>

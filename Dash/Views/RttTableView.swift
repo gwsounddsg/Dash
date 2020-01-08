@@ -21,6 +21,7 @@ class RttTableView: NSView {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         Bundle.main.loadNibNamed("RttTableView", owner: self, topLevelObjects: nil)
+        //TODO: - add identifier to tableView
         self.addSubview(self.view)
     }
     
