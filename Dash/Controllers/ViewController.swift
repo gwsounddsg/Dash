@@ -47,7 +47,7 @@ class ViewController: NSViewController {
 
 
 
-//MARK: - Table View
+// MARK: - Table View
 extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -154,7 +154,7 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
 
 
 
-//MARK: - NetworkManagerDelegate
+// MARK: - NetworkManagerDelegate
 extension ViewController: NetworkManagerDelegate {
     
     func liveBlackTrax(_ data: RTTrP) {

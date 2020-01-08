@@ -53,7 +53,7 @@ class PreferencesVC: NSViewController {
 
 
 
-//MARK: - Defaults
+// MARK: - Defaults
 extension PreferencesVC {
     
     func setDefaults() {

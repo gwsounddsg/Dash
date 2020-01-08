@@ -7,11 +7,13 @@
 
 import Cocoa
 
+// swiftlint:disable nesting
 
 
 
 
-//MARK: - Identifiers
+
+// MARK: - Identifiers
 
 enum DashID {
     enum TableType {
@@ -38,7 +40,7 @@ enum DashID {
 
 
 
-//MARK: - Types
+// MARK: - Types
 
 enum DashNetworkType {
     enum Client {
@@ -54,7 +56,7 @@ enum DashNetworkType {
 
 
 
-//MARK: - UserDefaults
+// MARK: - UserDefaults
 enum DashDefaultIDs {
     enum Network {
         enum Incoming {

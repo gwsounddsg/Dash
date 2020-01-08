@@ -247,6 +247,7 @@
 				578C7FF623B299A30014EFDD /* Frameworks */,
 				578C7FF723B299A30014EFDD /* Resources */,
 				404852F5DC0AB46866E8A629 /* [CP] Embed Pods Frameworks */,
+				9A402FDB23C67C22005596AA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -403,6 +404,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dash/Pods-Dash-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9A402FDB23C67C22005596AA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -12,7 +12,7 @@ import RTTrPSwift
 
 
 
-protocol ReceiveUDPDelegate {
+protocol ReceiveUDPDelegate: class {
     func newPacket(_ data: RTTrP)
 }
 
@@ -28,7 +28,7 @@ class ReceiveUDP: NSObject {
     }
     
     fileprivate var _socket: GCDAsyncUdpSocket!
-    fileprivate var _delegate: ReceiveUDPDelegate?
+    fileprivate weak var _delegate: ReceiveUDPDelegate?
     
     
     override init() {
@@ -49,7 +49,7 @@ class ReceiveUDP: NSObject {
 
 
 
-//MARK: - Socket Delegate
+// MARK: - Socket Delegate
 extension ReceiveUDP: GCDAsyncUdpSocketDelegate {
     
     func udpSocket(_ sock: GCDAsyncUdpSocket, didReceive data: Data, fromAddress address: Data, withFilterContext filterContext: Any?) {
@@ -67,7 +67,7 @@ extension ReceiveUDP: GCDAsyncUdpSocketDelegate {
 
 
 
-//MARK: - Utility
+// MARK: - Utility
 extension ReceiveUDP {
     
     func connect(port: Int) throws {

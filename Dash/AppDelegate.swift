@@ -20,15 +20,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let defaultNetIn = DashDefaultValues.Network.Incoming.self
         let defaultNetOut = DashDefaultValues.Network.Outgoing.self
         
+        // swiftlint:disable colon
         UserDefaults.standard.register(defaults: [
-                idNetIn.blacktraxPort :     defaultNetIn.blacktraxPort,
-                idNetIn.controlPort :       defaultNetIn.controlPort,
-                idNetIn.recordedPort :      defaultNetIn.recordedPort,
-                idNetOut.liveIP :           defaultNetOut.liveIP,
-                idNetOut.livePort :         defaultNetOut.livePort,
-                idNetOut.recordedIP :       defaultNetOut.recordedIP,
-                idNetOut.recordedPort :     defaultNetOut.recordedPort
+                idNetIn.blacktraxPort:     defaultNetIn.blacktraxPort,
+                idNetIn.controlPort:       defaultNetIn.controlPort,
+                idNetIn.recordedPort:      defaultNetIn.recordedPort,
+                idNetOut.liveIP:           defaultNetOut.liveIP,
+                idNetOut.livePort:         defaultNetOut.livePort,
+                idNetOut.recordedIP:       defaultNetOut.recordedIP,
+                idNetOut.recordedPort:     defaultNetOut.recordedPort
         ])
+        // swiftlint:enable colon
     }
 
     

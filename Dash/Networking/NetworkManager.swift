@@ -12,7 +12,7 @@ import RTTrPSwift
 
 
 
-protocol NetworkManagerDelegate {
+protocol NetworkManagerDelegate: class {
     func liveBlackTrax(_ data: RTTrP)
 }
 
@@ -26,7 +26,7 @@ class NetworkManager {
     static let instance = NetworkManager()
     
     // iVars
-    var delegate: NetworkManagerDelegate? = nil
+    weak var delegate: NetworkManagerDelegate?
     
     // States
     fileprivate (set) var isBlackTraxConnect: Bool = false
@@ -37,12 +37,12 @@ class NetworkManager {
     
     // Incoming
     fileprivate let _blackTrax = ReceiveUDP()
-    fileprivate var _oscServerControl: DashOSCServer? = nil
-    fileprivate var _oscServerRecorded: DashOSCServer? = nil
+    fileprivate var _oscServerControl: DashOSCServer?
+    fileprivate var _oscServerRecorded: DashOSCServer?
     
     // Outgoing
-    fileprivate var _oscClientRecorded: DashOSCClient? = nil
-    fileprivate var _oscClientLive: DashOSCClient? = nil
+    fileprivate var _oscClientRecorded: DashOSCClient?
+    fileprivate var _oscClientLive: DashOSCClient?
     
     
     init() {
@@ -54,7 +54,7 @@ class NetworkManager {
 
 
 
-//MARK: - Receive BlackTrax
+// MARK: - Receive BlackTrax
 
 extension NetworkManager: ReceiveUDPDelegate {
     
@@ -67,7 +67,7 @@ extension NetworkManager: ReceiveUDPDelegate {
 
 
 
-//MARK: - OSC Server Delegate
+// MARK: - OSC Server Delegate
 
 extension NetworkManager: DashOSCServerDelegate {
     
@@ -78,7 +78,7 @@ extension NetworkManager: DashOSCServerDelegate {
             case .recorded:
                 recordedOSC(data: msg)
             case .blackTrax:
-                break;
+                break
         }
     }
     
@@ -97,7 +97,7 @@ extension NetworkManager: DashOSCServerDelegate {
 
 
 
-//MARK: - Connecting
+// MARK: - Connecting
 
 extension NetworkManager {
     
@@ -117,11 +117,11 @@ extension NetworkManager {
         var badClients = [DashNetworkType.Client]()
         var badServers = [DashNetworkType.Server]()
         
-        if !isBlackTraxConnect      {badServers.append(.blackTrax)}
-        if !isControlServerConnect  {badServers.append(.control)}
+        if !isBlackTraxConnect {badServers.append(.blackTrax)}
+        if !isControlServerConnect {badServers.append(.control)}
         if !isRecordedServerConnect {badServers.append(.recorded)}
         if !isRecordedClientConnect {badClients.append(.recorded)}
-        if !isLiveClientConnect     {badClients.append(.ds100)}
+        if !isLiveClientConnect {badClients.append(.ds100)}
         
         return (badClients, badServers)
     }
@@ -227,7 +227,7 @@ extension NetworkManager {
 
 
 
-//MARK: - Sending Messages
+// MARK: - Sending Messages
 
 extension NetworkManager {
     
@@ -257,7 +257,7 @@ extension NetworkManager {
 
 
 
-//MARK: - Utility
+// MARK: - Utility
 
 fileprivate extension NetworkManager {
     
