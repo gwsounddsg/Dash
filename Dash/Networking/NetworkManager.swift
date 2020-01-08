@@ -59,12 +59,14 @@ extension NetworkManager: ReceiveUDPDelegate {
 
 extension NetworkManager: DashOSCServerDelegate {
     
-    func oscDataReceived(_ msg: Message, _ from: DashOSCType.Server) {
+    func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Server) {
         switch from {
-        case .control:
-            controlOSC(data: msg)
-        case .recorded:
-            recordedOSC(data: msg)
+            case .control:
+                controlOSC(data: msg)
+            case .recorded:
+                recordedOSC(data: msg)
+            case .blackTrax:
+                break;
         }
     }
     
@@ -87,12 +89,29 @@ extension NetworkManager: DashOSCServerDelegate {
 
 extension NetworkManager {
     
-    func connectAll() {
+    /// Returns array of types not connected
+    func connectAll() -> ([DashNetworkType.Client], [DashNetworkType.Server]) {
         connectBlackTraxPortWithPref()
         connectControlServer()
         connectRecordedServer()
         connectRecordedClient()
         connectLiveClient()
+        
+        return checkConnections()
+    }
+    
+    
+    private func checkConnections() -> ([DashNetworkType.Client], [DashNetworkType.Server]) {
+        var badClients = [DashNetworkType.Client]()
+        var badServers = [DashNetworkType.Server]()
+        
+        if !isBlackTraxConnect      {badServers.append(.blackTrax)}
+        if !isControlServerConnect  {badServers.append(.control)}
+        if !isRecordedServerConnect {badServers.append(.recorded)}
+        if !isRecordedClientConnect {badClients.append(.recorded)}
+        if !isLiveClientConnect     {badClients.append(.ds100)}
+        
+        return (badClients, badServers)
     }
     
     
@@ -199,7 +218,7 @@ extension NetworkManager {
 //MARK: - Sending Messages
 extension NetworkManager {
     
-    func sendOSC(message: Message, to client: DashOSCType.Client) -> Bool {
+    func sendOSC(message: Message, to client: DashNetworkType.Client) -> Bool {
         switch client {
         case .recorded:
             if !isRecordedClientConnect {return false}

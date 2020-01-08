@@ -13,7 +13,7 @@ import SwiftOSC
 
 
 protocol DashOSCServerDelegate {
-    func oscDataReceived(_ msg: Message, _ from: DashOSCType.Server)
+    func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Server)
 }
 
 
@@ -22,12 +22,12 @@ protocol DashOSCServerDelegate {
 
 class DashOSCServer {
     
-    let type: DashOSCType.Server
+    let type: DashNetworkType.Server
     let server: OSCServer
     var delegate: DashOSCServerDelegate?
     
     
-    init(_ type: DashOSCType.Server, _ address: String, _ port: Int) {
+    init(_ type: DashNetworkType.Server, _ address: String, _ port: Int) {
         self.type = type
         server = OSCServer(address: address, port: port)
     }

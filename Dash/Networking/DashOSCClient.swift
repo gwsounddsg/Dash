@@ -14,13 +14,13 @@ import SwiftOSC
 
 class DashOSCClient {
     
-    let type: DashOSCType.Client
+    let type: DashNetworkType.Client
     let client: OSCClient
     
     fileprivate let _address = "/dbaudio1/coordinatemapping/source_position_xy/"
     
     
-    init(_ type: DashOSCType.Client, _ address: String, _ port: Int) {
+    init(_ type: DashNetworkType.Client, _ address: String, _ port: Int) {
         self.type = type
         client = OSCClient(address: address, port: port)
     }

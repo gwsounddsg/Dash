@@ -40,13 +40,13 @@ enum DashID {
 
 //MARK: - Types
 
-enum DashOSCType {
+enum DashNetworkType {
     enum Client {
         case recorded, ds100
     }
     
     enum Server {
-        case recorded, control
+        case recorded, control, blackTrax
     }
 }
 
