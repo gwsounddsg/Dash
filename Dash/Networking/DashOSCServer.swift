@@ -13,7 +13,7 @@ import SwiftOSC
 
 
 protocol DashOSCServerDelegate {
-    func oscDataReceived(_ msg: Message)
+    func oscDataReceived(_ msg: Message, _ from: DashOSCType.Server)
 }
 
 
@@ -69,7 +69,7 @@ extension DashOSCServer: OSCServerDelegate {
     
     func didReceive(_ message: OSCMessage) {
         if let msg = getFloatsFrom(message) {
-            delegate?.oscDataReceived(msg)
+            delegate?.oscDataReceived(msg, type)
         }
         else {
             print(message.description)
