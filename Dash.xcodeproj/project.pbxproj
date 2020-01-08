@@ -157,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				578C7FFC23B299A30014EFDD /* AppDelegate.swift */,
-				578C800223B299A40014EFDD /* Main.storyboard */,
 				5707DEDB23B2AB3600A76810 /* Controllers */,
 				9AEA615223C5080100B27003 /* Model */,
 				9AEA615523C5088200B27003 /* Networking */,
@@ -200,6 +199,7 @@
 		9AC6902823C3AD3C0047320A /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				578C800223B299A40014EFDD /* Main.storyboard */,
 				9AC6902923C3AD570047320A /* RttTableView.xib */,
 				9AEA614C23C4DE6700B27003 /* Preferences.storyboard */,
 			);
