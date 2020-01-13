@@ -57,12 +57,12 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         switch tableView.identifier {
-            case DashID.TableType.live:
-                return _liveData.count
-            case DashID.TableType.recorded:
-                return 10 //TODO
-            default:
-                return 0
+        case DashID.TableType.live:
+            return _liveData.count
+        case DashID.TableType.recorded:
+            return 10 //TODO
+        default:
+            return 0
         }
     }
 
@@ -71,14 +71,14 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
         if tableColumn == nil {return nil}
         
         switch tableView.identifier {
-            case DashID.TableType.live:
-                return createViewForBlackTrax(tableView, tableColumn!.identifier, row)
-            
-            case DashID.TableType.recorded:
-                return createViewForRecorded(tableView, tableColumn!.identifier, row)
-            
-            default:
-                return nil
+        case DashID.TableType.live:
+            return createViewForBlackTrax(tableView, tableColumn!.identifier, row)
+        
+        case DashID.TableType.recorded:
+            return createViewForRecorded(tableView, tableColumn!.identifier, row)
+        
+        default:
+            return nil
         }
     }
     

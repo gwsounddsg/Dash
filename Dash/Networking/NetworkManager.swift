@@ -73,12 +73,12 @@ extension NetworkManager: DashOSCServerDelegate {
     
     func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Server) {
         switch from {
-            case .control:
-                controlOSC(data: msg)
-            case .recorded:
-                recordedOSC(data: msg)
-            case .blackTrax:
-                break
+        case .control:
+            controlOSC(data: msg)
+        case .recorded:
+            recordedOSC(data: msg)
+        case .blackTrax:
+            break
         }
     }
     
