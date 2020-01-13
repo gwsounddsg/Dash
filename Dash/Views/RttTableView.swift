@@ -21,7 +21,6 @@ class RttTableView: NSView {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         Bundle.main.loadNibNamed("RttTableView", owner: self, topLevelObjects: nil)
-        //TODO: - add identifier to tableView
         self.addSubview(self.view)
     }
     
@@ -44,7 +43,6 @@ class RttTableView: NSView {
 extension RttTableView {
     
     func setupView(_ rect: NSRect) {
-        Swift.print(rect.debugDescription)
         view.frame = NSRect(x: 0, y: 0, width: rect.width, height: rect.height)
         scrollView.frame = NSRect(x: 0, y: 0, width: rect.width, height: rect.height)
         

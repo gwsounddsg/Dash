@@ -32,14 +32,19 @@ class ViewController: NSViewController {
         _liveTable = RttTableView(frame: liveTabViewItem.view!.frame)
         _liveTable.tableView.delegate = self
         _liveTable.tableView.dataSource = self
+        _liveTable.tableView.identifier = DashID.TableType.live
         liveTabViewItem.view = _liveTable
-        
+
         _recordedTable = RttTableView(frame: liveTabViewItem.view!.frame)
         _recordedTable.tableView.delegate = self
         _recordedTable.tableView.dataSource = self
+        _recordedTable.tableView.identifier = DashID.TableType.recorded
         recTabViewItem.view = _recordedTable
         
         networkManager.delegate = self
+
+        _liveTable.reload()
+        _recordedTable.reload()
     }
 }
 
@@ -51,8 +56,6 @@ class ViewController: NSViewController {
 extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        print(tableView.identifier.debugDescription)
-        
         switch tableView.identifier {
             case DashID.TableType.live:
                 return _liveData.count
