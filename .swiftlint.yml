@@ -1,0 +1,54 @@
+excluded:
+  - Pods
+
+disabled_rules:
+- discarded_notification_center_observer
+- file_length
+- file_header
+- function_body_length
+- legacy_cggeometry_functions
+- legacy_constant
+- legacy_constructor
+- legacy_nsgeometry_functions
+- private_unit_test
+- redundant_string_enum_value
+- statement_position
+- trailing_newline
+- trailing_whitespace
+- type_body_length
+- unused_closure_parameter
+- valid_ibinspectable
+- variable_name
+- vertical_whitespace
+
+
+opt_in_rules:
+- attributes
+- closure_end_indentation
+- empty_count
+- explicit_init
+- file_header
+- operator_usage_whitespace
+
+
+# configurations
+function_parameter_count:
+    warning: 5
+    error: 6
+
+large_tuple:
+    warning: 4
+    error: 6
+
+line_length:
+    warning: 148
+    error: 148
+
+
+custom_rules:
+  private_variables:
+    included: ".*.swift"
+    name: "Private Variables"
+    regex: "((file|)private (var|let) [a-z, A-Z])"
+    message: "private variables should start with an underscore."
+    severity: error
