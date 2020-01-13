@@ -11,12 +11,12 @@
 		578C7FFD23B299A30014EFDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578C7FFC23B299A30014EFDD /* AppDelegate.swift */; };
 		578C800123B299A40014EFDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 578C800023B299A40014EFDD /* Assets.xcassets */; };
 		578C800423B299A40014EFDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 578C800223B299A40014EFDD /* Main.storyboard */; };
-		578C801023B299A40014EFDD /* DashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578C800F23B299A40014EFDD /* DashTests.swift */; };
 		578C801B23B299A40014EFDD /* DashUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578C801A23B299A40014EFDD /* DashUITests.swift */; };
 		57AF9D7323B2AFD6001A27A6 /* ReceiveUDP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */; };
 		57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7623B2B54E001A27A6 /* Extensions.swift */; };
 		57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7A23B2B869001A27A6 /* DS100.swift */; };
 		6B21898E7B892105727D0E3C /* Pods_Dash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */; };
+		9A78687723CD06B300F056B0 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A78687623CD06B300F056B0 /* NetworkManagerTests.swift */; };
 		9AC6902523C3A8800047320A /* RttTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902423C3A8800047320A /* RttTableView.swift */; };
 		9AC6902723C3A9240047320A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902623C3A9240047320A /* Constants.swift */; };
 		9AC6902A23C3AD570047320A /* RttTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC6902923C3AD570047320A /* RttTableView.xib */; };
@@ -56,7 +56,6 @@
 		578C800523B299A40014EFDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		578C800623B299A40014EFDD /* Dash.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Dash.entitlements; sourceTree = "<group>"; };
 		578C800B23B299A40014EFDD /* DashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		578C800F23B299A40014EFDD /* DashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashTests.swift; sourceTree = "<group>"; };
 		578C801123B299A40014EFDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		578C801623B299A40014EFDD /* DashUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DashUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		578C801A23B299A40014EFDD /* DashUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashUITests.swift; sourceTree = "<group>"; };
@@ -65,6 +64,7 @@
 		57AF9D7623B2B54E001A27A6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		57AF9D7A23B2B869001A27A6 /* DS100.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DS100.swift; sourceTree = "<group>"; };
 		651BB45AE5E5B9541C7EA030 /* Pods-Dash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.release.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.release.xcconfig"; sourceTree = "<group>"; };
+		9A78687623CD06B300F056B0 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		9AC6902423C3A8800047320A /* RttTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RttTableView.swift; sourceTree = "<group>"; };
 		9AC6902623C3A9240047320A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9AC6902923C3AD570047320A /* RttTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RttTableView.xib; sourceTree = "<group>"; };
@@ -173,7 +173,10 @@
 		578C800E23B299A40014EFDD /* DashTests */ = {
 			isa = PBXGroup;
 			children = (
-				578C800F23B299A40014EFDD /* DashTests.swift */,
+				9A78686E23CD046900F056B0 /* Controllers */,
+				9A78686F23CD047200F056B0 /* Model */,
+				9A78687023CD048300F056B0 /* Networking */,
+				9A78687123CD049000F056B0 /* Views */,
 				578C801123B299A40014EFDD /* Info.plist */,
 			);
 			path = DashTests;
@@ -186,6 +189,35 @@
 				578C801C23B299A40014EFDD /* Info.plist */,
 			);
 			path = DashUITests;
+			sourceTree = "<group>";
+		};
+		9A78686E23CD046900F056B0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9A78686F23CD047200F056B0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9A78687023CD048300F056B0 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				9A78687623CD06B300F056B0 /* NetworkManagerTests.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		9A78687123CD049000F056B0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9AC6902323C3A8470047320A /* Views */ = {
@@ -309,6 +341,7 @@
 					};
 					578C800A23B299A40014EFDD = {
 						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1030;
 						TestTargetID = 578C7FF823B299A30014EFDD;
 					};
 					578C801523B299A40014EFDD = {
@@ -449,7 +482,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				578C801023B299A40014EFDD /* DashTests.swift in Sources */,
+				9A78687723CD06B300F056B0 /* NetworkManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +689,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ZJ734P7F3F;
@@ -668,6 +703,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gwrodriguez.DashTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dash.app/Contents/MacOS/Dash";
 			};
@@ -678,6 +714,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ZJ734P7F3F;
@@ -699,6 +737,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ZJ734P7F3F;
@@ -720,6 +759,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ZJ734P7F3F;
