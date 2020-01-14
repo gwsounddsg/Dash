@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		31BB33FA5487F2C5E4882471 /* Pods_DashTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B131C45285F2A5CD687A89CC /* Pods_DashTests.framework */; };
 		5707DEDF23B2AB6D00A76810 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5707DEDE23B2AB6D00A76810 /* ViewController.swift */; };
 		578C7FFD23B299A30014EFDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578C7FFC23B299A30014EFDD /* AppDelegate.swift */; };
 		578C800123B299A40014EFDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 578C800023B299A40014EFDD /* Assets.xcassets */; };
@@ -17,10 +16,7 @@
 		57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7623B2B54E001A27A6 /* Extensions.swift */; };
 		57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7A23B2B869001A27A6 /* DS100.swift */; };
 		6B21898E7B892105727D0E3C /* Pods_Dash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */; };
-		9A38591E23CD0F1400BF8FAD /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A38591D23CD0F1400BF8FAD /* NetworkManagerTests.swift */; };
-		9A38592023CD0F7400BF8FAD /* DashOSCClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A38591F23CD0F7400BF8FAD /* DashOSCClientTests.swift */; };
-		9A38592223CD0F7F00BF8FAD /* DashOSCServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A38592123CD0F7F00BF8FAD /* DashOSCServerTests.swift */; };
-		9A38592423CD0F8F00BF8FAD /* ReceiveUDPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A38592323CD0F8F00BF8FAD /* ReceiveUDPTests.swift */; };
+		9A78687723CD06B300F056B0 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A78687623CD06B300F056B0 /* NetworkManagerTests.swift */; };
 		9AC6902523C3A8800047320A /* RttTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902423C3A8800047320A /* RttTableView.swift */; };
 		9AC6902723C3A9240047320A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902623C3A9240047320A /* Constants.swift */; };
 		9AC6902A23C3AD570047320A /* RttTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC6902923C3AD570047320A /* RttTableView.xib */; };
@@ -67,13 +63,8 @@
 		57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveUDP.swift; sourceTree = "<group>"; };
 		57AF9D7623B2B54E001A27A6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		57AF9D7A23B2B869001A27A6 /* DS100.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DS100.swift; sourceTree = "<group>"; };
-		583CD06C40C9484CBF5C7AA2 /* Pods-DashTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashTests.debug.xcconfig"; path = "Target Support Files/Pods-DashTests/Pods-DashTests.debug.xcconfig"; sourceTree = "<group>"; };
 		651BB45AE5E5B9541C7EA030 /* Pods-Dash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.release.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.release.xcconfig"; sourceTree = "<group>"; };
-		9A38591C23CD0F1300BF8FAD /* DashTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DashTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		9A38591D23CD0F1400BF8FAD /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
-		9A38591F23CD0F7400BF8FAD /* DashOSCClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCClientTests.swift; sourceTree = "<group>"; };
-		9A38592123CD0F7F00BF8FAD /* DashOSCServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCServerTests.swift; sourceTree = "<group>"; };
-		9A38592323CD0F8F00BF8FAD /* ReceiveUDPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveUDPTests.swift; sourceTree = "<group>"; };
+		9A78687623CD06B300F056B0 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		9AC6902423C3A8800047320A /* RttTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RttTableView.swift; sourceTree = "<group>"; };
 		9AC6902623C3A9240047320A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9AC6902923C3AD570047320A /* RttTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RttTableView.xib; sourceTree = "<group>"; };
@@ -84,8 +75,6 @@
 		9AEA615623C50CBB00B27003 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9AEA615823C5126300B27003 /* DashOSCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCClient.swift; sourceTree = "<group>"; };
 		9AEA615A23C5126B00B27003 /* DashOSCServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCServer.swift; sourceTree = "<group>"; };
-		9B68DA54B00298DD0DB43135 /* Pods-DashTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashTests.release.xcconfig"; path = "Target Support Files/Pods-DashTests/Pods-DashTests.release.xcconfig"; sourceTree = "<group>"; };
-		B131C45285F2A5CD687A89CC /* Pods_DashTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DashTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F43F3A006F031062C7D58C58 /* Pods-Dash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.debug.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,7 +91,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31BB33FA5487F2C5E4882471 /* Pods_DashTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,7 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */,
-				B131C45285F2A5CD687A89CC /* Pods_DashTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -186,9 +173,11 @@
 		578C800E23B299A40014EFDD /* DashTests */ = {
 			isa = PBXGroup;
 			children = (
-				9A38591B23CD0F0200BF8FAD /* Networking */,
+				9A78686E23CD046900F056B0 /* Controllers */,
+				9A78686F23CD047200F056B0 /* Model */,
+				9A78687023CD048300F056B0 /* Networking */,
+				9A78687123CD049000F056B0 /* Views */,
 				578C801123B299A40014EFDD /* Info.plist */,
-				9A38591C23CD0F1300BF8FAD /* DashTests-Bridging-Header.h */,
 			);
 			path = DashTests;
 			sourceTree = "<group>";
@@ -202,15 +191,33 @@
 			path = DashUITests;
 			sourceTree = "<group>";
 		};
-		9A38591B23CD0F0200BF8FAD /* Networking */ = {
+		9A78686E23CD046900F056B0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				9A38591F23CD0F7400BF8FAD /* DashOSCClientTests.swift */,
-				9A38592123CD0F7F00BF8FAD /* DashOSCServerTests.swift */,
-				9A38591D23CD0F1400BF8FAD /* NetworkManagerTests.swift */,
-				9A38592323CD0F8F00BF8FAD /* ReceiveUDPTests.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9A78686F23CD047200F056B0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9A78687023CD048300F056B0 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				9A78687623CD06B300F056B0 /* NetworkManagerTests.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		9A78687123CD049000F056B0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9AC6902323C3A8470047320A /* Views */ = {
@@ -256,8 +263,6 @@
 			children = (
 				F43F3A006F031062C7D58C58 /* Pods-Dash.debug.xcconfig */,
 				651BB45AE5E5B9541C7EA030 /* Pods-Dash.release.xcconfig */,
-				583CD06C40C9484CBF5C7AA2 /* Pods-DashTests.debug.xcconfig */,
-				9B68DA54B00298DD0DB43135 /* Pods-DashTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -289,7 +294,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 578C802223B299A40014EFDD /* Build configuration list for PBXNativeTarget "DashTests" */;
 			buildPhases = (
-				E4AB62B909D6359A95B034E2 /* [CP] Check Pods Manifest.lock */,
 				578C800723B299A40014EFDD /* Sources */,
 				578C800823B299A40014EFDD /* Frameworks */,
 				578C800923B299A40014EFDD /* Resources */,
@@ -451,28 +455,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		E4AB62B909D6359A95B034E2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DashTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -500,10 +482,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A38592223CD0F7F00BF8FAD /* DashOSCServerTests.swift in Sources */,
-				9A38592023CD0F7400BF8FAD /* DashOSCClientTests.swift in Sources */,
-				9A38591E23CD0F1400BF8FAD /* NetworkManagerTests.swift in Sources */,
-				9A38592423CD0F8F00BF8FAD /* ReceiveUDPTests.swift in Sources */,
+				9A78687723CD06B300F056B0 /* NetworkManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,7 +686,6 @@
 		};
 		578C802323B299A40014EFDD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 583CD06C40C9484CBF5C7AA2 /* Pods-DashTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -725,7 +703,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gwrodriguez.DashTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "DashTests/DashTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dash.app/Contents/MacOS/Dash";
@@ -734,7 +711,6 @@
 		};
 		578C802423B299A40014EFDD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B68DA54B00298DD0DB43135 /* Pods-DashTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -752,7 +728,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gwrodriguez.DashTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "DashTests/DashTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dash.app/Contents/MacOS/Dash";
 			};
