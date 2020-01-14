@@ -11,15 +11,14 @@
 		578C7FFD23B299A30014EFDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578C7FFC23B299A30014EFDD /* AppDelegate.swift */; };
 		578C800123B299A40014EFDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 578C800023B299A40014EFDD /* Assets.xcassets */; };
 		578C800423B299A40014EFDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 578C800223B299A40014EFDD /* Main.storyboard */; };
-		578C801B23B299A40014EFDD /* DashUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578C801A23B299A40014EFDD /* DashUITests.swift */; };
 		57AF9D7323B2AFD6001A27A6 /* ReceiveUDP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */; };
 		57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7623B2B54E001A27A6 /* Extensions.swift */; };
 		57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7A23B2B869001A27A6 /* DS100.swift */; };
 		6B21898E7B892105727D0E3C /* Pods_Dash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */; };
-		9A78687723CD06B300F056B0 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A78687623CD06B300F056B0 /* NetworkManagerTests.swift */; };
 		9AC6902523C3A8800047320A /* RttTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902423C3A8800047320A /* RttTableView.swift */; };
 		9AC6902723C3A9240047320A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902623C3A9240047320A /* Constants.swift */; };
 		9AC6902A23C3AD570047320A /* RttTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC6902923C3AD570047320A /* RttTableView.xib */; };
+		9AD1100B23CE093200BBFE73 /* ReceiveUDPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1100A23CE093200BBFE73 /* ReceiveUDPTests.swift */; };
 		9AEA614D23C4DE6700B27003 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AEA614C23C4DE6700B27003 /* Preferences.storyboard */; };
 		9AEA614F23C4DFCB00B27003 /* PreferencesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA614E23C4DFCB00B27003 /* PreferencesVC.swift */; };
 		9AEA615123C4E0D400B27003 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615023C4E0D400B27003 /* PreferencesWindowController.swift */; };
@@ -27,17 +26,11 @@
 		9AEA615723C50CBB00B27003 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615623C50CBB00B27003 /* NetworkManager.swift */; };
 		9AEA615923C5126300B27003 /* DashOSCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615823C5126300B27003 /* DashOSCClient.swift */; };
 		9AEA615B23C5126B00B27003 /* DashOSCServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615A23C5126B00B27003 /* DashOSCServer.swift */; };
+		BAF3B7CD612409C1A962A83F /* Pods_DashTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E29DC86667E69AF0E9F488 /* Pods_DashTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		578C800C23B299A40014EFDD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 578C7FF123B299A30014EFDD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 578C7FF823B299A30014EFDD;
-			remoteInfo = Dash;
-		};
-		578C801723B299A40014EFDD /* PBXContainerItemProxy */ = {
+		9AD1100123CE08F900BBFE73 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 578C7FF123B299A30014EFDD /* Project object */;
 			proxyType = 1;
@@ -55,19 +48,18 @@
 		578C800323B299A40014EFDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		578C800523B299A40014EFDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		578C800623B299A40014EFDD /* Dash.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Dash.entitlements; sourceTree = "<group>"; };
-		578C800B23B299A40014EFDD /* DashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		578C801123B299A40014EFDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		578C801623B299A40014EFDD /* DashUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DashUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		578C801A23B299A40014EFDD /* DashUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashUITests.swift; sourceTree = "<group>"; };
-		578C801C23B299A40014EFDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveUDP.swift; sourceTree = "<group>"; };
 		57AF9D7623B2B54E001A27A6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		57AF9D7A23B2B869001A27A6 /* DS100.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DS100.swift; sourceTree = "<group>"; };
 		651BB45AE5E5B9541C7EA030 /* Pods-Dash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.release.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.release.xcconfig"; sourceTree = "<group>"; };
-		9A78687623CD06B300F056B0 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		9005CB6A86854E374AE5B036 /* Pods-DashTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashTests.debug.xcconfig"; path = "Target Support Files/Pods-DashTests/Pods-DashTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9AC6902423C3A8800047320A /* RttTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RttTableView.swift; sourceTree = "<group>"; };
 		9AC6902623C3A9240047320A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9AC6902923C3AD570047320A /* RttTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RttTableView.xib; sourceTree = "<group>"; };
+		9AD10FFC23CE08F900BBFE73 /* DashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AD1100023CE08F900BBFE73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9AD1100623CE091B00BBFE73 /* DashTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DashTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		9AD1100A23CE093200BBFE73 /* ReceiveUDPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveUDPTests.swift; sourceTree = "<group>"; };
 		9AEA614C23C4DE6700B27003 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		9AEA614E23C4DFCB00B27003 /* PreferencesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesVC.swift; sourceTree = "<group>"; };
 		9AEA615023C4E0D400B27003 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
@@ -75,6 +67,8 @@
 		9AEA615623C50CBB00B27003 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9AEA615823C5126300B27003 /* DashOSCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCClient.swift; sourceTree = "<group>"; };
 		9AEA615A23C5126B00B27003 /* DashOSCServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCServer.swift; sourceTree = "<group>"; };
+		C1E29DC86667E69AF0E9F488 /* Pods_DashTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DashTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C99DC24200B3F14295912028 /* Pods-DashTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashTests.release.xcconfig"; path = "Target Support Files/Pods-DashTests/Pods-DashTests.release.xcconfig"; sourceTree = "<group>"; };
 		F43F3A006F031062C7D58C58 /* Pods-Dash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.debug.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,17 +81,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		578C800823B299A40014EFDD /* Frameworks */ = {
+		9AD10FF923CE08F900BBFE73 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		578C801323B299A40014EFDD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				BAF3B7CD612409C1A962A83F /* Pods_DashTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */,
+				C1E29DC86667E69AF0E9F488 /* Pods_DashTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -135,8 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				578C7FFB23B299A30014EFDD /* Dash */,
-				578C800E23B299A40014EFDD /* DashTests */,
-				578C801923B299A40014EFDD /* DashUITests */,
+				9AD10FFD23CE08F900BBFE73 /* DashTests */,
 				578C7FFA23B299A30014EFDD /* Products */,
 				F2B6F2D02B923DC85F0CCEFC /* Pods */,
 				27155D42594F23411D674B5D /* Frameworks */,
@@ -147,8 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				578C7FF923B299A30014EFDD /* Dash.app */,
-				578C800B23B299A40014EFDD /* DashTests.xctest */,
-				578C801623B299A40014EFDD /* DashUITests.xctest */,
+				9AD10FFC23CE08F900BBFE73 /* DashTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,56 +157,6 @@
 			path = Dash;
 			sourceTree = "<group>";
 		};
-		578C800E23B299A40014EFDD /* DashTests */ = {
-			isa = PBXGroup;
-			children = (
-				9A78686E23CD046900F056B0 /* Controllers */,
-				9A78686F23CD047200F056B0 /* Model */,
-				9A78687023CD048300F056B0 /* Networking */,
-				9A78687123CD049000F056B0 /* Views */,
-				578C801123B299A40014EFDD /* Info.plist */,
-			);
-			path = DashTests;
-			sourceTree = "<group>";
-		};
-		578C801923B299A40014EFDD /* DashUITests */ = {
-			isa = PBXGroup;
-			children = (
-				578C801A23B299A40014EFDD /* DashUITests.swift */,
-				578C801C23B299A40014EFDD /* Info.plist */,
-			);
-			path = DashUITests;
-			sourceTree = "<group>";
-		};
-		9A78686E23CD046900F056B0 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		9A78686F23CD047200F056B0 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		9A78687023CD048300F056B0 /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				9A78687623CD06B300F056B0 /* NetworkManagerTests.swift */,
-			);
-			path = Networking;
-			sourceTree = "<group>";
-		};
-		9A78687123CD049000F056B0 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		9AC6902323C3A8470047320A /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +173,24 @@
 				9AEA614C23C4DE6700B27003 /* Preferences.storyboard */,
 			);
 			path = Xib;
+			sourceTree = "<group>";
+		};
+		9AD10FFD23CE08F900BBFE73 /* DashTests */ = {
+			isa = PBXGroup;
+			children = (
+				9AD1100923CE092500BBFE73 /* Networking */,
+				9AD1100023CE08F900BBFE73 /* Info.plist */,
+				9AD1100623CE091B00BBFE73 /* DashTests-Bridging-Header.h */,
+			);
+			path = DashTests;
+			sourceTree = "<group>";
+		};
+		9AD1100923CE092500BBFE73 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				9AD1100A23CE093200BBFE73 /* ReceiveUDPTests.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		9AEA615223C5080100B27003 /* Model */ = {
@@ -263,6 +218,8 @@
 			children = (
 				F43F3A006F031062C7D58C58 /* Pods-Dash.debug.xcconfig */,
 				651BB45AE5E5B9541C7EA030 /* Pods-Dash.release.xcconfig */,
+				9005CB6A86854E374AE5B036 /* Pods-DashTests.debug.xcconfig */,
+				C99DC24200B3F14295912028 /* Pods-DashTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -290,41 +247,24 @@
 			productReference = 578C7FF923B299A30014EFDD /* Dash.app */;
 			productType = "com.apple.product-type.application";
 		};
-		578C800A23B299A40014EFDD /* DashTests */ = {
+		9AD10FFB23CE08F900BBFE73 /* DashTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 578C802223B299A40014EFDD /* Build configuration list for PBXNativeTarget "DashTests" */;
+			buildConfigurationList = 9AD1100323CE08F900BBFE73 /* Build configuration list for PBXNativeTarget "DashTests" */;
 			buildPhases = (
-				578C800723B299A40014EFDD /* Sources */,
-				578C800823B299A40014EFDD /* Frameworks */,
-				578C800923B299A40014EFDD /* Resources */,
+				9EAF63FCFF35DA2671C4056B /* [CP] Check Pods Manifest.lock */,
+				9AD10FF823CE08F900BBFE73 /* Sources */,
+				9AD10FF923CE08F900BBFE73 /* Frameworks */,
+				9AD10FFA23CE08F900BBFE73 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				578C800D23B299A40014EFDD /* PBXTargetDependency */,
+				9AD1100223CE08F900BBFE73 /* PBXTargetDependency */,
 			);
 			name = DashTests;
 			productName = DashTests;
-			productReference = 578C800B23B299A40014EFDD /* DashTests.xctest */;
+			productReference = 9AD10FFC23CE08F900BBFE73 /* DashTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		578C801523B299A40014EFDD /* DashUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 578C802523B299A40014EFDD /* Build configuration list for PBXNativeTarget "DashUITests" */;
-			buildPhases = (
-				578C801223B299A40014EFDD /* Sources */,
-				578C801323B299A40014EFDD /* Frameworks */,
-				578C801423B299A40014EFDD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				578C801823B299A40014EFDD /* PBXTargetDependency */,
-			);
-			name = DashUITests;
-			productName = DashUITests;
-			productReference = 578C801623B299A40014EFDD /* DashUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -332,20 +272,16 @@
 		578C7FF123B299A30014EFDD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "GW Rodriguez";
 				TargetAttributes = {
 					578C7FF823B299A30014EFDD = {
 						CreatedOnToolsVersion = 11.3;
 					};
-					578C800A23B299A40014EFDD = {
-						CreatedOnToolsVersion = 11.3;
+					9AD10FFB23CE08F900BBFE73 = {
+						CreatedOnToolsVersion = 10.3;
 						LastSwiftMigration = 1030;
-						TestTargetID = 578C7FF823B299A30014EFDD;
-					};
-					578C801523B299A40014EFDD = {
-						CreatedOnToolsVersion = 11.3;
 						TestTargetID = 578C7FF823B299A30014EFDD;
 					};
 				};
@@ -364,8 +300,7 @@
 			projectRoot = "";
 			targets = (
 				578C7FF823B299A30014EFDD /* Dash */,
-				578C800A23B299A40014EFDD /* DashTests */,
-				578C801523B299A40014EFDD /* DashUITests */,
+				9AD10FFB23CE08F900BBFE73 /* DashTests */,
 			);
 		};
 /* End PBXProject section */
@@ -382,14 +317,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		578C800923B299A40014EFDD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		578C801423B299A40014EFDD /* Resources */ = {
+		9AD10FFA23CE08F900BBFE73 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -455,6 +383,28 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
+		9EAF63FCFF35DA2671C4056B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DashTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -478,34 +428,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		578C800723B299A40014EFDD /* Sources */ = {
+		9AD10FF823CE08F900BBFE73 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A78687723CD06B300F056B0 /* NetworkManagerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		578C801223B299A40014EFDD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				578C801B23B299A40014EFDD /* DashUITests.swift in Sources */,
+				9AD1100B23CE093200BBFE73 /* ReceiveUDPTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		578C800D23B299A40014EFDD /* PBXTargetDependency */ = {
+		9AD1100223CE08F900BBFE73 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 578C7FF823B299A30014EFDD /* Dash */;
-			targetProxy = 578C800C23B299A40014EFDD /* PBXContainerItemProxy */;
-		};
-		578C801823B299A40014EFDD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 578C7FF823B299A30014EFDD /* Dash */;
-			targetProxy = 578C801723B299A40014EFDD /* PBXContainerItemProxy */;
+			targetProxy = 9AD1100123CE08F900BBFE73 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -684,13 +621,13 @@
 			};
 			name = Release;
 		};
-		578C802323B299A40014EFDD /* Debug */ = {
+		9AD1100423CE08F900BBFE73 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9005CB6A86854E374AE5B036 /* Pods-DashTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ZJ734P7F3F;
@@ -701,21 +638,22 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gwrodriguez.DashTests;
+				PRODUCT_BUNDLE_IDENTIFIER = feld.DashTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DashTests/DashTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dash.app/Contents/MacOS/Dash";
 			};
 			name = Debug;
 		};
-		578C802423B299A40014EFDD /* Release */ = {
+		9AD1100523CE08F900BBFE73 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C99DC24200B3F14295912028 /* Pods-DashTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ZJ734P7F3F;
@@ -726,54 +664,11 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gwrodriguez.DashTests;
+				PRODUCT_BUNDLE_IDENTIFIER = feld.DashTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DashTests/DashTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dash.app/Contents/MacOS/Dash";
-			};
-			name = Release;
-		};
-		578C802623B299A40014EFDD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = ZJ734P7F3F;
-				INFOPLIST_FILE = DashUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gwrodriguez.DashUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = Dash;
-			};
-			name = Debug;
-		};
-		578C802723B299A40014EFDD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = ZJ734P7F3F;
-				INFOPLIST_FILE = DashUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gwrodriguez.DashUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = Dash;
 			};
 			name = Release;
 		};
@@ -798,20 +693,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		578C802223B299A40014EFDD /* Build configuration list for PBXNativeTarget "DashTests" */ = {
+		9AD1100323CE08F900BBFE73 /* Build configuration list for PBXNativeTarget "DashTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				578C802323B299A40014EFDD /* Debug */,
-				578C802423B299A40014EFDD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		578C802523B299A40014EFDD /* Build configuration list for PBXNativeTarget "DashUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				578C802623B299A40014EFDD /* Debug */,
-				578C802723B299A40014EFDD /* Release */,
+				9AD1100423CE08F900BBFE73 /* Debug */,
+				9AD1100523CE08F900BBFE73 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
