@@ -1,6 +1,6 @@
 PODS:
   - CocoaAsyncSocket (7.6.3)
-  - RTTrPSwift (0.2)
+  - RTTrPSwift (0.3)
   - SwiftOSC (1.3.0)
 
 DEPENDENCIES:
@@ -16,7 +16,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
-  RTTrPSwift: 543ab8702ebba1a1ed6d110dd594d8c59d1241aa
+  RTTrPSwift: aa58b31d603369bbae1122c3f183a36b3d2c95c8
   SwiftOSC: 18cd3dc7cb90210972f7883a4c56c4710fcb7af5
 
 PODFILE CHECKSUM: c454ee9942b311719ab3e1a5fb0104d23476b755

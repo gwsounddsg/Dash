@@ -27,8 +27,8 @@ class ReceiveUDP: NSObject {
         set {_delegate = newValue}
     }
     
-    fileprivate var _socket: GCDAsyncUdpSocket!
-    fileprivate weak var _delegate: ReceiveUDPDelegate?
+    internal var _socket: GCDAsyncUdpSocket!
+    internal weak var _delegate: ReceiveUDPDelegate?
     
     
     override init() {
@@ -58,7 +58,7 @@ extension ReceiveUDP: GCDAsyncUdpSocketDelegate {
             delegate?.newPacket(receivedData)
         }
         catch {
-            print(error.localizedDescription)
+            print(error)
         }
     }
 }
@@ -80,17 +80,7 @@ extension ReceiveUDP {
         return _socket.isIPv4Enabled()
     }
     
-    
-    func isConnected() -> Bool {
-        return _socket.isConnected()
-    }
-    
-    
-    func connectedAddress() -> String {
-        return _socket.connectedHost() ?? ""
-    }
-    
-    
+
     func connectedPort() -> Int {
         return Int(_socket.connectedPort())
     }
