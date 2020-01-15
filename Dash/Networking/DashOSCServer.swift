@@ -24,11 +24,23 @@ class DashOSCServer {
     
     let type: DashNetworkType.Server
     let server: OSCServer
+
     weak var delegate: DashOSCServerDelegate?
-    
+    var address: String {
+        didSet {
+            clientAddress(address)
+        }
+    }
+    var port: Int {
+        didSet {
+            clientPort(port)
+        }
+    }
     
     init(_ type: DashNetworkType.Server, _ address: String, _ port: Int) {
         self.type = type
+        self.address = address
+        self.port = port
         server = OSCServer(address: address, port: port)
     }
     
@@ -37,13 +49,19 @@ class DashOSCServer {
         disconnect()
         delegate = nil
     }
-}
 
 
+    /// Only internal for mocking
+    internal func clientAddress(_ newAddress: String) {
+        server.address = newAddress
+    }
 
 
+    /// Only internal for mocking
+    internal func clientPort(_ newPort: Int) {
+        server.port = newPort
+    }
 
-extension DashOSCServer {
     
     func start() {
         server.start()
