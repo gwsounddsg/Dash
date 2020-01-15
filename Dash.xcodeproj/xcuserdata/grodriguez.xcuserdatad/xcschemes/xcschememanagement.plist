@@ -9,40 +9,24 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>DashOSCClientTests.testDashOSCClient.xcscheme</key>
+		<key>DashTests.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<false />
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
-		<key>DashOSCClientTests.testDashOSCClient_sendMessage.xcscheme</key>
+		<key>DashOSCClientTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
-		<key>DashOSCClientTests.testDashOSCClient_sendData.xcscheme</key>
+		<key>DashOSCServerTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
 			<key>orderHint</key>
 			<integer>8</integer>
-		</dict>
-		<key>DashOSCServerTests.testDashOSCServer.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false />
-			<key>orderHint</key>
-			<integer>9</integer>
-		</dict>
-		<key>DashOSCServerTests.testDashOSCServer_didReceive.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false />
-			<key>orderHint</key>
-			<integer>10</integer>
 		</dict>
 	</dict>
 </dict>

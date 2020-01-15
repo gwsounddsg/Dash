@@ -16,17 +16,17 @@ import SwiftOSC
 
 class DashOSCClientTests: XCTestCase {
 
-    var client: MockDashOSCClient!
+    fileprivate var _client: MockDashOSCClient!
     let address = "/test/message/"
     let port: Int = 1234
 
 
     override func setUp() {
-        client = MockDashOSCClient(.recorded, address, port)
+        _client = MockDashOSCClient(.recorded, address, port)
     }
 
     override func tearDown() {
-        client = nil
+        _client = nil
     }
 }
 
@@ -37,26 +37,26 @@ class DashOSCClientTests: XCTestCase {
 extension DashOSCClientTests {
 
     func testDashOSCClient() {
-        XCTAssertEqual(client.type, .recorded)
-        XCTAssertEqual(client.address, address)
-        XCTAssertEqual(client.port, port)
+        XCTAssertEqual(_client.type, .recorded)
+        XCTAssertEqual(_client.address, address)
+        XCTAssertEqual(_client.port, port)
 
-        XCTAssertEqual(client.invokedClientAddressList.count, 0)
-        XCTAssertEqual(client.invokedClientPortList.count, 0)
+        XCTAssertEqual(_client.invokedClientAddressList.count, 0)
+        XCTAssertEqual(_client.invokedClientPortList.count, 0)
     }
 
 
     func testDashOSCClient_address() {
         let newAddy = "/something/different"
-        client.address = newAddy
-        XCTAssertEqual(client.invokedClientAddressParameter, newAddy)
+        _client.address = newAddy
+        XCTAssertEqual(_client.invokedClientAddressParameter, newAddy)
     }
 
 
     func testDashOSCClient_port() {
         let newPort = 4444
-        client.port = newPort
-        XCTAssertEqual(client.invokedClientPortParameter, newPort)
+        _client.port = newPort
+        XCTAssertEqual(_client.invokedClientPortParameter, newPort)
     }
 }
 
@@ -71,14 +71,14 @@ extension DashOSCClientTests {
         let vals: [Float] = [1.0, 2.0]
         let msg = Message(addy, vals)
 
-        client.send(message: msg)
+        _client.send(message: msg)
 
-        if !client.invokedClientSend {
-            XCTAssertTrue(client.invokedClientSend)
+        if !_client.invokedClientSend {
+            XCTAssertTrue(_client.invokedClientSend)
             return
         }
 
-        let oscMsg = client.invokedClientSendParameter as! OSCMessage
+        let oscMsg = _client.invokedClientSendParameter as! OSCMessage
 
         XCTAssertEqual(oscMsg.address.string, addy)
         XCTAssertEqual(oscMsg.arguments.count, vals.count)
@@ -94,12 +94,12 @@ extension DashOSCClientTests {
         let y: Double = 6.0
         let data = DS100(mapping, input: input, x: x, y: y)
 
-        client.send(data: [data])
+        _client.send(data: [data])
 
-        XCTAssertTrue(client.invokedClientSend)
-        if !client.invokedClientSend {return}
+        XCTAssertTrue(_client.invokedClientSend)
+        if !_client.invokedClientSend {return}
 
-        let oscBundle = client.invokedClientSendParameter as! OSCBundle
+        let oscBundle = _client.invokedClientSendParameter as! OSCBundle
         XCTAssertEqual(oscBundle.elements.count, 1)
         if oscBundle.elements.count != 1 {return}
 
@@ -108,7 +108,7 @@ extension DashOSCClientTests {
             return
         }
 
-        XCTAssertEqual(oscMsg.address.string, client.address + data.addy())
+        XCTAssertEqual(oscMsg.address.string, _client.address + data.addy())
         XCTAssertEqual(oscMsg.arguments.count, 2)
         XCTAssertEqual(oscMsg.arguments[0]?.data, x.data)
         XCTAssertEqual(oscMsg.arguments[1]?.data, y.data)
@@ -121,7 +121,7 @@ extension DashOSCClientTests {
 
 // MARK: - Mocks
 
-class MockDashOSCClient: DashOSCClient {
+private class MockDashOSCClient: DashOSCClient {
 
     var invokedClientSend = false
     var invokedClientSendParameter: OSCElement?

@@ -15,16 +15,16 @@ import SwiftOSC
 
 class DashOSCServerTests: XCTestCase {
 
-    var server: MockDashOSCServer!
+    fileprivate var _server: MockDashOSCServer!
     let address = "/test/message/"
     let port: Int = 1234
 
     override func setUp() {
-        server = MockDashOSCServer(.control, address, port)
+        _server = MockDashOSCServer(.control, address, port)
     }
 
     override func tearDown() {
-        server = nil
+        _server = nil
     }
 }
 
@@ -35,12 +35,12 @@ class DashOSCServerTests: XCTestCase {
 extension DashOSCServerTests {
 
     func testDashOSCServer() {
-        XCTAssertEqual(server.type, .control)
-        XCTAssertEqual(server.address, address)
-        XCTAssertEqual(server.port, port)
+        XCTAssertEqual(_server.type, .control)
+        XCTAssertEqual(_server.address, address)
+        XCTAssertEqual(_server.port, port)
 
-        XCTAssertEqual(server.invokedClientAddressList.count, 0)
-        XCTAssertEqual(server.invokedClientPortList.count, 0)
+        XCTAssertEqual(_server.invokedClientAddressList.count, 0)
+        XCTAssertEqual(_server.invokedClientPortList.count, 0)
     }
 
 
@@ -48,9 +48,9 @@ extension DashOSCServerTests {
         let val: Float = 4.0
         let msg = OSCMessage(OSCAddressPattern("/something"), val)
         let delegate = MockDashOSCServerDelegate()
-        server.delegate = delegate
+        _server.delegate = delegate
 
-        server.didReceive(msg)
+        _server.didReceive(msg)
 
         XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.address, msg.address.string)
         XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values[0].data, msg.arguments[0]?.data)
@@ -64,7 +64,7 @@ extension DashOSCServerTests {
 
 // MARK: - Mocks
 
-class MockDashOSCServer: DashOSCServer {
+private class MockDashOSCServer: DashOSCServer {
 
     var invokedClientAddress = false
     var invokedClientAddressParameter: String?
