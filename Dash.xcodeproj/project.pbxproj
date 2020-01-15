@@ -15,6 +15,9 @@
 		57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7623B2B54E001A27A6 /* Extensions.swift */; };
 		57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7A23B2B869001A27A6 /* DS100.swift */; };
 		6B21898E7B892105727D0E3C /* Pods_Dash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */; };
+		9A66296423CF4EE50025125D /* DashOSCClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296323CF4EE50025125D /* DashOSCClientTests.swift */; };
+		9A66296623CF4EF10025125D /* DashOSCServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296523CF4EF10025125D /* DashOSCServerTests.swift */; };
+		9A66296823CF4EFC0025125D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */; };
 		9ABDE08B23CE2621004189B3 /* TestingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABDE08A23CE2621004189B3 /* TestingConstants.swift */; };
 		9AC1E5A523CE50EA00757262 /* TestingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1E5A423CE50EA00757262 /* TestingExtensions.swift */; };
 		9AC6902523C3A8800047320A /* RttTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902423C3A8800047320A /* RttTableView.swift */; };
@@ -55,6 +58,9 @@
 		57AF9D7A23B2B869001A27A6 /* DS100.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DS100.swift; sourceTree = "<group>"; };
 		651BB45AE5E5B9541C7EA030 /* Pods-Dash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.release.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.release.xcconfig"; sourceTree = "<group>"; };
 		9005CB6A86854E374AE5B036 /* Pods-DashTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashTests.debug.xcconfig"; path = "Target Support Files/Pods-DashTests/Pods-DashTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A66296323CF4EE50025125D /* DashOSCClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCClientTests.swift; sourceTree = "<group>"; };
+		9A66296523CF4EF10025125D /* DashOSCServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCServerTests.swift; sourceTree = "<group>"; };
+		9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		9ABDE08A23CE2621004189B3 /* TestingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingConstants.swift; sourceTree = "<group>"; };
 		9AC1E5A423CE50EA00757262 /* TestingExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingExtensions.swift; sourceTree = "<group>"; };
 		9AC6902423C3A8800047320A /* RttTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RttTableView.swift; sourceTree = "<group>"; };
@@ -194,6 +200,9 @@
 		9AD1100923CE092500BBFE73 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				9A66296323CF4EE50025125D /* DashOSCClientTests.swift */,
+				9A66296523CF4EF10025125D /* DashOSCServerTests.swift */,
+				9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */,
 				9AD1100A23CE093200BBFE73 /* ReceiveUDPTests.swift */,
 			);
 			path = Networking;
@@ -438,8 +447,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A66296823CF4EFC0025125D /* NetworkManagerTests.swift in Sources */,
+				9A66296623CF4EF10025125D /* DashOSCServerTests.swift in Sources */,
 				9AC1E5A523CE50EA00757262 /* TestingExtensions.swift in Sources */,
 				9ABDE08B23CE2621004189B3 /* TestingConstants.swift in Sources */,
+				9A66296423CF4EE50025125D /* DashOSCClientTests.swift in Sources */,
 				9AD1100B23CE093200BBFE73 /* ReceiveUDPTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,33 +16,67 @@ class DashOSCClient {
     
     let type: DashNetworkType.Client
     let client: OSCClient
-    
-    fileprivate let _address = "/dbaudio1/coordinatemapping/source_position_xy/"
-    
+
+    var address: String { //"/dbaudio1/coordinatemapping/source_position_xy/"
+        didSet {
+            clientAddress(address)
+        }
+    }
+    var port: Int {
+        didSet {
+            clientPort(port)
+        }
+    }
+
     
     init(_ type: DashNetworkType.Client, _ address: String, _ port: Int) {
         self.type = type
+        self.address = address
+        self.port = port
         client = OSCClient(address: address, port: port)
     }
-    
-    
+
+
+    /// Only internal for mocking
+    internal func clientSend(_ message: OSCElement) {
+        client.send(message)
+    }
+
+
+    /// Only internal for mocking
+    internal func clientAddress(_ newAddress: String) {
+        client.address = newAddress
+    }
+
+
+    /// Only internal for mocking
+    internal func clientPort(_ newPort: Int) {
+        client.port = newPort
+    }
+ }
+
+
+
+
+
+extension DashOSCClient {
     /// Regular OSC message
     func send(message: Message) {
         let msg = makeMessage(message.address, message.values)
         clientSend(msg)
     }
-    
-    
+
+
     /// Sends data to DS100
     func send(data: [DS100]) {
         let bundle = OSCBundle()
-        
+
         for each in data {
-            let dest = _address + each.addy()
+            let dest = address + each.addy()
             let msg = makeMessage(dest, each.x, each.y)
             bundle.add(msg)
         }
-        
+
         clientSend(bundle)
     }
 }
@@ -60,10 +94,5 @@ fileprivate extension DashOSCClient {
     
     func makeMessage(_ address: String, _ data: [OSCType?]) -> OSCMessage {
         return OSCMessage(OSCAddressPattern(address), data)
-    }
-    
-    
-    func clientSend(_ message: OSCElement) {
-        client.send(message)
     }
 }
