@@ -20,7 +20,7 @@ protocol ReceiveUDPDelegate: class {
 
 
 
-class ReceiveUDP: NSObject {
+class ReceiveUDP: NSObject, GCDAsyncUdpSocketDelegate {
     
     var delegate: ReceiveUDPDelegate? {
         get {return _delegate}
@@ -37,20 +37,22 @@ class ReceiveUDP: NSObject {
     }
     
     
+    
+    
+    // MARK: - Basic
+    
     class func startWith(port: Int, and aDelegate: ReceiveUDPDelegate) throws -> ReceiveUDP {
         let receive = ReceiveUDP()
         receive._delegate = aDelegate
         try receive.connect(port: port)
         return receive
     }
-}
 
 
 
 
 
-// MARK: - Socket Delegate
-extension ReceiveUDP: GCDAsyncUdpSocketDelegate {
+    // MARK: - Socket Delegate
     
     func udpSocket(_ sock: GCDAsyncUdpSocket, didReceive data: Data, fromAddress address: Data, withFilterContext filterContext: Any?) {
         do {
@@ -61,14 +63,12 @@ extension ReceiveUDP: GCDAsyncUdpSocketDelegate {
             print(error)
         }
     }
-}
 
 
 
 
 
-// MARK: - Utility
-extension ReceiveUDP {
+    // MARK: - Utility
     
     func connect(port: Int) throws {
         try _socket.bind(toPort: UInt16(port))

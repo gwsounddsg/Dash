@@ -61,8 +61,7 @@ extension PreferencesVC {
     }
     
     
-    func get(userDefault: String) -> String {
-        guard let str = UserDefaults.standard.string(forKey: userDefault) else {return ""}
-        return str
+    func get(userDefault: String, from defaults: UserDefaultsProtocol = UserDefaults.standard) -> String {
+        return defaults.getString(forKey: userDefault) ?? ""
     }
 }
