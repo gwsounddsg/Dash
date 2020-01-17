@@ -126,17 +126,17 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
             
         case DashID.Column.x:
             guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-            text = "\(packet[0].position.x)"
+            text = String(format: "%.3f", packet[0].position.x)
             id = DashID.Cell.x
             
         case DashID.Column.y:
             guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-            text = "\(packet[0].position.y)"
+            text = String(format: "%.3f", packet[0].position.y)
             id = DashID.Cell.y
             
         case DashID.Column.z:
             guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-            text = "\(packet[0].position.z)"
+            text = String(format: "%.3f", packet[0].position.z)
             id = DashID.Cell.z
             
         default:
