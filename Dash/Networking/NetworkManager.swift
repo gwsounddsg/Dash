@@ -72,6 +72,8 @@ extension NetworkManager: ReceiveUDPDelegate {
 extension NetworkManager: DashOSCServerDelegate {
     
     func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Server) {
+        print(msg)
+        
         switch from {
         case .control:
             controlOSC(data: msg)
@@ -158,7 +160,7 @@ extension NetworkManager {
         isServerControlConnected = false
         
         if oscServerControl == nil {
-            oscServerControl = DashOSCServer(.control, "", port)
+            oscServerControl = DashOSCServer(.control, "127.0.0.1", port)
             oscServerControl!.delegate = self
         }
         else {
@@ -181,7 +183,7 @@ extension NetworkManager {
         isServerRecordedConnected = false
         
         if oscServerRecorded == nil {
-            oscServerRecorded = DashOSCServer(.recorded, "", port)
+            oscServerRecorded = DashOSCServer(.recorded, "127.0.0.1", port)
             oscServerRecorded!.delegate = self
         }
         else {

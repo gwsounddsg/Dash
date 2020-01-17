@@ -89,6 +89,7 @@ class DashOSCServer: OSCServerDelegate {
 extension DashOSCServer {
 
     func didReceive(_ message: OSCMessage) {
+        print("OSCServer: \(message)")
         if let msg = getFloatsFrom(message) {
             delegate?.oscDataReceived(msg, type)
         }
