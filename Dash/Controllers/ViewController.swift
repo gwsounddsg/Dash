@@ -23,6 +23,11 @@ class ViewController: NSViewController {
     fileprivate var _liveData = [RTTrPM]()
     
     
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        setupDefaults()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,6 +50,30 @@ class ViewController: NSViewController {
 
         _liveTable.reload()
         _recordedTable.reload()
+        
+        testingMethod()
+    }
+    
+    
+    func testingMethod() {
+        networkManager.connectBlackTraxPortWithPref()
+        print("Port connected: \(networkManager.blackTrax.localPort())")
+    }
+    
+    
+    func setupDefaults() {
+        let idNetIn = DashDefaultIDs.Network.Incoming.self
+        let idNetOut = DashDefaultIDs.Network.Outgoing.self
+        let defaultNetIn = DashDefaultValues.Network.Incoming.self
+        let defaultNetOut = DashDefaultValues.Network.Outgoing.self
+    
+        UserDefaults.standard.set(defaultNetIn.blacktraxPort, forKey: idNetIn.blacktraxPort)
+        UserDefaults.standard.set(defaultNetIn.controlPort, forKey: idNetIn.controlPort)
+        UserDefaults.standard.set(defaultNetIn.recordedPort, forKey: idNetIn.recordedPort)
+        UserDefaults.standard.set(defaultNetOut.liveIP, forKey: idNetOut.liveIP)
+        UserDefaults.standard.set(defaultNetOut.livePort, forKey: idNetOut.livePort)
+        UserDefaults.standard.set(defaultNetOut.recordedIP, forKey: idNetOut.recordedIP)
+        UserDefaults.standard.set(defaultNetOut.recordedPort, forKey: idNetOut.recordedPort)
     }
 }
 
