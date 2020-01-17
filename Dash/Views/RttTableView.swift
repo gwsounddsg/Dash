@@ -47,7 +47,7 @@ extension RttTableView {
         scrollView.frame = NSRect(x: 0, y: 0, width: rect.width, height: rect.height)
         
         // set column sizes
-        let paramWidth: CGFloat = 52
+        let paramWidth: CGFloat = 60
         tableView.tableColumns[1].width = paramWidth
         tableView.tableColumns[2].width = paramWidth
         tableView.tableColumns[3].width = paramWidth

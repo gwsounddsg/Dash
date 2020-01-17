@@ -23,6 +23,11 @@ class ViewController: NSViewController {
     fileprivate var _liveData = [RTTrPM]()
     
     
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        setupDefaults()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,6 +50,30 @@ class ViewController: NSViewController {
 
         _liveTable.reload()
         _recordedTable.reload()
+        
+        testingMethod()
+    }
+    
+    
+    func testingMethod() {
+        networkManager.connectBlackTraxPortWithPref()
+        print("Port connected: \(networkManager.blackTrax.localPort())")
+    }
+    
+    
+    func setupDefaults() {
+        let idNetIn = DashDefaultIDs.Network.Incoming.self
+        let idNetOut = DashDefaultIDs.Network.Outgoing.self
+        let defaultNetIn = DashDefaultValues.Network.Incoming.self
+        let defaultNetOut = DashDefaultValues.Network.Outgoing.self
+    
+        UserDefaults.standard.set(defaultNetIn.blacktraxPort, forKey: idNetIn.blacktraxPort)
+        UserDefaults.standard.set(defaultNetIn.controlPort, forKey: idNetIn.controlPort)
+        UserDefaults.standard.set(defaultNetIn.recordedPort, forKey: idNetIn.recordedPort)
+        UserDefaults.standard.set(defaultNetOut.liveIP, forKey: idNetOut.liveIP)
+        UserDefaults.standard.set(defaultNetOut.livePort, forKey: idNetOut.livePort)
+        UserDefaults.standard.set(defaultNetOut.recordedIP, forKey: idNetOut.recordedIP)
+        UserDefaults.standard.set(defaultNetOut.recordedPort, forKey: idNetOut.recordedPort)
     }
 }
 
@@ -97,17 +126,17 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
             
         case DashID.Column.x:
             guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-            text = "\(packet[0].position.x)"
+            text = String(format: "%.3f", packet[0].position.x)
             id = DashID.Cell.x
             
         case DashID.Column.y:
             guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-            text = "\(packet[0].position.y)"
+            text = String(format: "%.3f", packet[0].position.y)
             id = DashID.Cell.y
             
         case DashID.Column.z:
             guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-            text = "\(packet[0].position.z)"
+            text = String(format: "%.3f", packet[0].position.z)
             id = DashID.Cell.z
             
         default:

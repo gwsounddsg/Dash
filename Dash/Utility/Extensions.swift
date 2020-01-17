@@ -24,7 +24,6 @@ protocol UserDefaultsProtocol: class {
     func getString(forKey: String) -> String?
     func getInt(forKey: String) -> Int?
     func removeTheObject(forKey key: String)
-    func synchronizeAll()
 }
 
 
@@ -45,7 +44,8 @@ extension UserDefaults: UserDefaultsProtocol {
         self.removeObject(forKey: key)
     }
     
-    func synchronizeAll() {
-        self.synchronize()
+    func resetDefaults() {
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        UserDefaults.standard.synchronize()
     }
 }

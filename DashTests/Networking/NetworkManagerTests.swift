@@ -113,20 +113,14 @@ extension NetworkManagerTests {
         mockDefaults.stubbedGetIntResult = port
         mockAll()
         
-        _ = manager.connectAll(from: mockDefaults)
+        let result = manager.connectAll(from: mockDefaults)
     
         XCTAssertTrue(manager.isBlackTraxConnected)
         XCTAssertTrue(manager.isServerControlConnected)
         XCTAssertTrue(manager.isServerRecordedConnected)
         XCTAssertTrue(manager.isClientRecordedConnected)
         XCTAssertTrue(manager.isClientLiveConnected)
-    }
     
-    
-    func testNetworkManager_checkConnections() {
-        let localManager = NetworkManager()
-        let result = localManager.connectAll()
-        
         XCTAssertTrue(result.clients.isEmpty)
         XCTAssertTrue(result.servers.isEmpty)
     }
