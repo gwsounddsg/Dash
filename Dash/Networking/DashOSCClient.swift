@@ -72,8 +72,7 @@ extension DashOSCClient {
         let bundle = OSCBundle()
 
         for each in data {
-            let dest = address + each.addy()
-            let msg = makeMessage(dest, each.x, each.y)
+            let msg = makeMessage(each.addy(), each.x, each.y)
             bundle.add(msg)
         }
 
