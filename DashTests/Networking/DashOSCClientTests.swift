@@ -108,7 +108,7 @@ extension DashOSCClientTests {
             return
         }
 
-        XCTAssertEqual(oscMsg.address.string, _client.address + data.addy())
+        XCTAssertEqual(oscMsg.address.string, data.addy())
         XCTAssertEqual(oscMsg.arguments.count, 2)
         XCTAssertEqual(oscMsg.arguments[0]?.data, x.data)
         XCTAssertEqual(oscMsg.arguments[1]?.data, y.data)
