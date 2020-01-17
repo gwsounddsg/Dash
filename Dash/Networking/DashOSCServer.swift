@@ -20,7 +20,7 @@ protocol DashOSCServerDelegate: class {
 
 
 
-class DashOSCServer {
+class DashOSCServer: OSCServerDelegate {
     
     let type: DashNetworkType.Server
     let server: OSCServer
@@ -41,7 +41,10 @@ class DashOSCServer {
         self.type = type
         self.address = address
         self.port = port
+        
         server = OSCServer(address: address, port: port)
+        server.delegate = self
+        start()
     }
     
     
@@ -83,8 +86,8 @@ class DashOSCServer {
 
 
 
-extension DashOSCServer: OSCServerDelegate {
-    
+extension DashOSCServer {
+
     func didReceive(_ message: OSCMessage) {
         if let msg = getFloatsFrom(message) {
             delegate?.oscDataReceived(msg, type)

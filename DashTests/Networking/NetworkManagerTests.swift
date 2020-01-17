@@ -132,7 +132,7 @@ extension NetworkManagerTests {
         mockDefaults.stubbedGetIntResult = port
         mockAll()
         
-        manager.connectBlackTraxPortWithPref(from: mockDefaults)
+        manager.connectBlackTrax(from: mockDefaults)
         
         XCTAssertEqual(mBlackTrax.invokedConnectParameters?.port, port)
         XCTAssertTrue(manager.isBlackTraxConnected)
