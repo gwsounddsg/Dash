@@ -56,12 +56,21 @@ class ViewController: NSViewController {
     
     
     func testingMethod() {
-        networkManager.connectBlackTraxPortWithPref()
-        print("Port connected: \(networkManager.blackTrax.localPort())")
+//        networkManager.connectBlackTraxPortWithPref()
+//        print("Port connected: \(networkManager.blackTrax.localPort())")
+    
+        networkManager.connectControlServer()
+        print("""
+         Control server connected: \(networkManager.isServerControlConnected.description)
+         To port: \(networkManager.oscServerControl!.port)
+         Running: \(networkManager.oscServerControl!.server.running)
+         """)
     }
     
     
     func setupDefaults() {
+        UserDefaults.resetStandardUserDefaults()
+        
         let idNetIn = DashDefaultIDs.Network.Incoming.self
         let idNetOut = DashDefaultIDs.Network.Outgoing.self
         let defaultNetIn = DashDefaultValues.Network.Incoming.self

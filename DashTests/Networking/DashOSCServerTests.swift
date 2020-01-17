@@ -38,7 +38,10 @@ extension DashOSCServerTests {
         XCTAssertEqual(_server.type, .control)
         XCTAssertEqual(_server.address, address)
         XCTAssertEqual(_server.port, port)
-
+        
+        // pod needs an update before doing this test
+//        XCTAssertTrue(_server.server.delegate === _server)
+    
         XCTAssertEqual(_server.invokedClientAddressList.count, 0)
         XCTAssertEqual(_server.invokedClientPortList.count, 0)
     }

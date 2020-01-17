@@ -72,6 +72,8 @@ extension NetworkManager: ReceiveUDPDelegate {
 extension NetworkManager: DashOSCServerDelegate {
     
     func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Server) {
+        print(msg)
+        
         switch from {
         case .control:
             controlOSC(data: msg)
@@ -84,7 +86,7 @@ extension NetworkManager: DashOSCServerDelegate {
     
     
     fileprivate func controlOSC(data: Message) {
-        //TODO: add control logic
+        print(data)
     }
     
     
@@ -106,7 +108,7 @@ extension NetworkManager {
     func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> (clients: [DashNetworkType
     .Client], servers: [DashNetworkType.Server])
     {
-        connectBlackTraxPortWithPref(from: defaults)
+        connectBlackTrax(from: defaults)
         connectControlServer(from: defaults)
         connectRecordedServer(from: defaults)
         connectRecordedClient(from: defaults)
@@ -131,7 +133,7 @@ extension NetworkManager {
     }
     
     
-    func connectBlackTraxPortWithPref(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
+    func connectBlackTrax(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
         guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Incoming.blacktraxPort, from: defaults) else {
             print("Error: couldn't get default port number for BlackTrax")
             return
@@ -159,6 +161,7 @@ extension NetworkManager {
         
         if oscServerControl == nil {
             oscServerControl = DashOSCServer(.control, "127.0.0.1", port)
+            oscServerControl!.delegate = self
         }
         else {
             oscServerControl!.port = port
@@ -181,6 +184,7 @@ extension NetworkManager {
         
         if oscServerRecorded == nil {
             oscServerRecorded = DashOSCServer(.recorded, "127.0.0.1", port)
+            oscServerRecorded!.delegate = self
         }
         else {
             oscServerRecorded!.port = port
