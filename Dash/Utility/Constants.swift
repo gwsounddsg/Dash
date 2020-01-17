@@ -85,7 +85,7 @@ enum DashDefaultValues {
         
         enum Outgoing {
             static let recordedIP = "127.0.0.1"
-            static let recordedPort = "184"
+            static let recordedPort = "1234"
             static let liveIP = "192.168.50.99" // DS100 (do I need two?)
             static let livePort = "4444" // check number
         }

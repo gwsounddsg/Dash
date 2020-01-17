@@ -26,6 +26,6 @@ struct DS100 {
     
     
     func addy() -> String {
-        return "\(mapping)/\(input)"
+        return "/dbaudio1/coordinatemapping/source_position_xy/\(mapping)/\(input)"
     }
 }
