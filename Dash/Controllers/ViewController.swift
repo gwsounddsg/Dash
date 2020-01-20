@@ -47,6 +47,7 @@ class ViewController: NSViewController {
         recTabViewItem.view = _recordedTable
         
         networkManager.delegate = self
+        connectAll()
 
         _liveTable.reload()
         _recordedTable.reload()
@@ -70,6 +71,11 @@ class ViewController: NSViewController {
     
     
     @IBAction func refreshClicked(_ sender: Any) {
+        connectAll()
+    }
+    
+    
+    func connectAll() {
         let result = networkManager.connectAll()
         print("Not connected: \(result)")
     }
