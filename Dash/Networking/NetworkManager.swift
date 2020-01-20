@@ -125,7 +125,8 @@ extension NetworkManager {
         if !isServerControlConnected {badServers.append(.control)}
         if !isServerRecordedConnected {badServers.append(.recorded)}
         if !isClientRecordedConnected {badClients.append(.recorded)}
-        if !isClientLiveConnected {badClients.append(.ds100)}
+        if !isClientLiveConnected {badClients.append(.ds100Main)}
+        badClients.append(.ds100Backup)
         
         return (badClients, badServers)
     }
@@ -278,7 +279,7 @@ extension NetworkManager {
         }
     
         if oscClientLive == nil {
-            oscClientLive = DashOSCClient(.ds100, addy, port)
+            oscClientLive = DashOSCClient(.ds100Main, addy, port)
         }
         else {
             oscClientLive!.address = addy
@@ -301,9 +302,12 @@ extension NetworkManager {
             if !isClientRecordedConnected {return false}
             oscClientRecorded!.send(message: message)
             
-        case .ds100:
+        case .ds100Main:
             if !isClientLiveConnected {return false}
             oscClientLive!.send(message: message)
+        
+        case .ds100Backup:
+            return false
         }
         
         return true

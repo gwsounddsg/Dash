@@ -44,7 +44,7 @@ enum DashID {
 
 enum DashNetworkType {
     enum Client {
-        case recorded, ds100
+        case recorded, ds100Main, ds100Backup
     }
     
     enum Server {
@@ -55,6 +55,12 @@ enum DashNetworkType {
 
 enum DashError: Error {
     case CantGetDefaultValueFor(String)
+}
+
+
+enum DashImage {
+    static let indicatorConnected = "NSStatusAvailable"
+    static let indicatorNotConnected = "NSStatusUnavailable"
 }
 
 
