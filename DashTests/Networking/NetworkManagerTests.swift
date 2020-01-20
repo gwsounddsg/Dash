@@ -121,7 +121,8 @@ extension NetworkManagerTests {
         XCTAssertTrue(manager.isClientRecordedConnected)
         XCTAssertTrue(manager.isClientLiveConnected)
     
-        XCTAssertTrue(result.clients.isEmpty)
+        XCTAssertTrue(result.clients.count == 1)
+        XCTAssertTrue(result.clients.contains(.ds100Backup))
         XCTAssertTrue(result.servers.isEmpty)
     }
     
@@ -210,7 +211,7 @@ extension NetworkManagerTests {
         mOscServerControl = MDashOSCServer(.control, "/server/control", 1111)
         mOscServerRecorded = MDashOSCServer(.recorded, "/server/recorded", 2222)
         mOscClientRecorded = MDashOSCClient(.recorded, "/client/recorded", 3333)
-        mOscClientLive = MDashOSCClient(.ds100, "/client/live", 4444)
+        mOscClientLive = MDashOSCClient(.ds100Main, "/client/live", 4444)
         
         manager.blackTrax = mBlackTrax
         manager.oscServerControl = mOscServerControl
