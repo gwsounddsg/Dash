@@ -56,8 +56,8 @@ class ViewController: NSViewController {
     
     
     func testingMethod() {
-        networkManager.connectBlackTrax()
-        print("Port connected: \(networkManager.blackTrax.localPort())")
+        networkManager.connectRecordedServer()
+        print("Port connected: \(networkManager.oscServerRecorded?.port)")
     }
     
     

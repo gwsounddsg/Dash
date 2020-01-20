@@ -80,7 +80,7 @@ enum DashDefaultValues {
         enum Incoming {
             static let blacktraxPort = "24002"
             static let controlPort = "53000"
-            static let recordedPort = "414"
+            static let recordedPort = "8000"
         }
         
         enum Outgoing {
