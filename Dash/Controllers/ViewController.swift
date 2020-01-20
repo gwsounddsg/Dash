@@ -50,20 +50,10 @@ class ViewController: NSViewController {
 
         _liveTable.reload()
         _recordedTable.reload()
-        
-        testingMethod()
-    }
-    
-    
-    func testingMethod() {
-        networkManager.connectRecordedServer()
-        print("Port connected: \(networkManager.oscServerRecorded?.port)")
     }
     
     
     func setupDefaults() {
-        UserDefaults.resetStandardUserDefaults()
-        
         let idNetIn = DashDefaultIDs.Network.Incoming.self
         let idNetOut = DashDefaultIDs.Network.Outgoing.self
         let defaultNetIn = DashDefaultValues.Network.Incoming.self
@@ -76,6 +66,12 @@ class ViewController: NSViewController {
         UserDefaults.standard.set(defaultNetOut.livePort, forKey: idNetOut.livePort)
         UserDefaults.standard.set(defaultNetOut.recordedIP, forKey: idNetOut.recordedIP)
         UserDefaults.standard.set(defaultNetOut.recordedPort, forKey: idNetOut.recordedPort)
+    }
+    
+    
+    @IBAction func refreshClicked(_ sender: Any) {
+        let result = networkManager.connectAll()
+        print("Not connected: \(result)")
     }
 }
 

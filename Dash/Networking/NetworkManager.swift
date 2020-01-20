@@ -147,7 +147,9 @@ extension NetworkManager {
         guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Incoming.blacktraxPort, from: defaults) else {
             throw DashError.CantGetDefaultValueFor(DashDefaultIDs.Network.Incoming.blacktraxPort)
         }
-    
+        
+        if blackTrax.localPort() == port {return} // already connected
+        
         do {try blackTrax.connect(port: port)}
         catch {throw error}
     }
