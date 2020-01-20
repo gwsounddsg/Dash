@@ -53,6 +53,11 @@ enum DashNetworkType {
 }
 
 
+enum DashError: Error {
+    case CantGetDefaultValueFor(String)
+}
+
+
 
 
 
