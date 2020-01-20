@@ -13,11 +13,22 @@ import RTTrPSwift
 
 class ViewController: NSViewController {
     
+    // TableViews
     @IBOutlet weak var liveTabView: NSTabView!
     @IBOutlet weak var recordedTabView: NSTabView!
     
+    // Indicators
+    @IBOutlet weak var indicatorBlackTrax: NSImageView!
+    @IBOutlet weak var indicatorControlIn: NSImageView!
+    @IBOutlet weak var indicatorDS100Main: NSImageView!
+    @IBOutlet weak var indicatorDS100Backup: NSImageView!
+    @IBOutlet weak var indicatorVezerIn: NSImageView!
+    @IBOutlet weak var indicatorVezerOut: NSImageView!
+    
+    // Network
     let networkManager = NetworkManager.instance
     
+    // Private
     fileprivate var _liveTable: RttTableView!
     fileprivate var _recordedTable: RttTableView!
     fileprivate var _liveData = [RTTrPM]()
@@ -78,6 +89,18 @@ class ViewController: NSViewController {
     func connectAll() {
         let result = networkManager.connectAll()
         print("Not connected: \(result)")
+        
+        indicatorBlackTrax.image = connectedImage(result.servers.contains(.blackTrax))
+        indicatorControlIn.image = connectedImage(result.servers.contains(.control))
+        indicatorDS100Main.image = connectedImage(result.clients.contains(.ds100Main))
+        indicatorDS100Backup.image = connectedImage(result.clients.contains(.ds100Backup))
+        indicatorVezerIn.image = connectedImage(result.servers.contains(.recorded))
+        indicatorVezerOut.image = connectedImage(result.clients.contains(.recorded))
+    }
+    
+    private func connectedImage(_ check: Bool) -> NSImage? {
+        let str = check ? DashImage.indicatorNotConnected : DashImage.indicatorConnected
+        return NSImage(named: str)
     }
 }
 
