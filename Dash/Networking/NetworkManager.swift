@@ -89,7 +89,7 @@ extension NetworkManager: DashOSCServerDelegate {
     
     
     fileprivate func recordedOSC(data: Message) {
-        //TODO: add recorded logic
+        print("Vezer: \(data)")
     }
 }
 
