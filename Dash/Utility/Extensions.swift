@@ -49,3 +49,13 @@ extension UserDefaults: UserDefaultsProtocol {
         UserDefaults.standard.synchronize()
     }
 }
+
+
+func getDefault(withKey key: String, from: UserDefaultsProtocol) -> Int? {
+    return from.getInt(forKey: key)
+}
+
+
+func getDefault(withKey key: String, from: UserDefaultsProtocol) -> String? {
+    return from.getString(forKey: key)
+}

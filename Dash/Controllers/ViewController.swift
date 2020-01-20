@@ -26,7 +26,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var indicatorVezerOut: NSImageView!
     
     // Network
-    let networkManager = NetworkManager.instance
+    let networkManager = NetworkManager()
     
     // Private
     fileprivate var _liveTable: RttTableView!
@@ -38,6 +38,7 @@ class ViewController: NSViewController {
         super.viewWillAppear()
         setupDefaults()
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +58,7 @@ class ViewController: NSViewController {
         _recordedTable.tableView.identifier = DashID.TableType.recorded
         recTabViewItem.view = _recordedTable
         
-        networkManager.delegate = self
+        networkManager.servers.delegate = self
         connectAll()
 
         _liveTable.reload()
@@ -214,7 +215,7 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
 
 
 // MARK: - NetworkManagerDelegate
-extension ViewController: NetworkManagerDelegate {
+extension ViewController: ServersProtocol {
     
     func liveBlackTrax(_ data: RTTrP) {
         _liveData = data.pmPackets
