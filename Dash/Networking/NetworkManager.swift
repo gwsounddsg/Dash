@@ -84,7 +84,7 @@ extension NetworkManager: DashOSCServerDelegate {
     
     
     fileprivate func controlOSC(data: Message) {
-        print(data)
+        print("Control \(data)")
     }
     
     
@@ -132,13 +132,10 @@ extension NetworkManager {
     
     
     func connectBlackTrax(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
-        guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Incoming.blacktraxPort, from: defaults) else {
-            print("Error: couldn't get default port number for BlackTrax")
-            return
-        }
+        isBlackTraxConnected = false
         
         do {
-            try blackTrax.connect(port: port)
+            try doConnectBlackTrax(defaults)
             isBlackTraxConnected = true
         }
         catch {
@@ -146,17 +143,37 @@ extension NetworkManager {
         }
     }
     
+    private func doConnectBlackTrax(_ defaults: UserDefaultsProtocol = UserDefaults.standard) throws {
+        guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Incoming.blacktraxPort, from: defaults) else {
+            throw DashError.CantGetDefaultValueFor(DashDefaultIDs.Network.Incoming.blacktraxPort)
+        }
     
-    func connectControlServer(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
+        do {try blackTrax.connect(port: port)}
+        catch {throw error}
+    }
+    
+    
+    func connectControlServer(from defaults: UserDefaultsProtocol) {
+        isServerControlConnected = false
+        
+        do {
+            try doConnectControlServer(defaults)
+            oscServerControl!.start()
+            isServerControlConnected = true
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func doConnectControlServer(_ defaults: UserDefaultsProtocol) throws {
         let keys = DashDefaultIDs.Network.Incoming.self
         
         guard let port: Int = getDefault(withKey: keys.controlPort, from: defaults) else {
-            print("Error couldn't get default port number for Control Server")
-            return
+            oscServerControl = nil
+            throw DashError.CantGetDefaultValueFor(keys.controlPort)
         }
-        
-        isServerControlConnected = false
-        
+    
         if oscServerControl == nil {
             oscServerControl = DashOSCServer(.control, "", port)
             oscServerControl!.delegate = self
@@ -164,22 +181,30 @@ extension NetworkManager {
         else {
             oscServerControl!.port = port
         }
-        
-        oscServerControl!.start()
-        isServerControlConnected = true
     }
     
     
     func connectRecordedServer(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
-        let keys = DashDefaultIDs.Network.Incoming.self
-        
-        guard let port: Int = getDefault(withKey: keys.recordedPort, from: defaults) else {
-            print("Error couldn't get default port number for Recorded Server")
-            return
-        }
-    
         isServerRecordedConnected = false
         
+        do {
+            try doConnectRecordedServer(defaults)
+            oscServerRecorded!.start()
+            isServerRecordedConnected = true
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func doConnectRecordedServer(_ defaults: UserDefaultsProtocol) throws {
+        let keys = DashDefaultIDs.Network.Incoming.self
+    
+        guard let port: Int = getDefault(withKey: keys.recordedPort, from: defaults) else {
+            oscServerRecorded = nil
+            throw DashError.CantGetDefaultValueFor(keys.recordedPort)
+        }
+    
         if oscServerRecorded == nil {
             oscServerRecorded = DashOSCServer(.recorded, "", port)
             oscServerRecorded!.delegate = self
@@ -187,27 +212,34 @@ extension NetworkManager {
         else {
             oscServerRecorded!.port = port
         }
-        
-        oscServerRecorded!.start()
-        isServerRecordedConnected = true
     }
     
     
     func connectRecordedClient(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
-        let keys = DashDefaultIDs.Network.Outgoing.self
-        
-        guard let addy: String = getDefault(withKey: keys.recordedIP, from: defaults) else {
-            print("Error couldn't get default IP Address for Recorded Client")
-            return
-        }
-        
-        guard let port: Int = getDefault(withKey: keys.recordedPort, from: defaults) else {
-            print("Error couldn't get default port number for Recorded Client")
-            return
-        }
-    
         isClientRecordedConnected = false
         
+        do {
+            try doConnectRecordedClient(defaults)
+            isClientRecordedConnected = true
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func doConnectRecordedClient(_ defaults: UserDefaultsProtocol) throws {
+        let keys = DashDefaultIDs.Network.Outgoing.self
+    
+        guard let addy: String = getDefault(withKey: keys.recordedIP, from: defaults) else {
+            oscClientRecorded = nil
+            throw DashError.CantGetDefaultValueFor(keys.recordedIP)
+        }
+    
+        guard let port: Int = getDefault(withKey: keys.recordedPort, from: defaults) else {
+            oscClientRecorded = nil
+            throw DashError.CantGetDefaultValueFor(keys.recordedPort)
+        }
+    
         if oscClientRecorded == nil {
             oscClientRecorded = DashOSCClient(.recorded, addy, port)
         }
@@ -215,26 +247,34 @@ extension NetworkManager {
             oscClientRecorded!.address = addy
             oscClientRecorded!.port = port
         }
-        
-        isClientRecordedConnected = true
     }
     
     
     func connectLiveClient(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
-        let keys = DashDefaultIDs.Network.Outgoing.self
-        
-        guard let addy: String = getDefault(withKey: keys.liveIP, from: defaults) else {
-            print("Error couldn't get default IP Address for Live Client")
-            return
-        }
-        
-        guard let port: Int = getDefault(withKey: keys.livePort, from: defaults) else {
-            print("Error couldn't get default port number for Live Client")
-            return
-        }
-    
         isClientLiveConnected = false
         
+        do {
+            try doConnectLiveClient(defaults)
+            isClientLiveConnected = true
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func doConnectLiveClient(_ defaults: UserDefaultsProtocol) throws {
+        let keys = DashDefaultIDs.Network.Outgoing.self
+    
+        guard let addy: String = getDefault(withKey: keys.liveIP, from: defaults) else {
+            oscClientLive = nil
+            throw DashError.CantGetDefaultValueFor(keys.liveIP)
+        }
+    
+        guard let port: Int = getDefault(withKey: keys.livePort, from: defaults) else {
+            oscClientLive = nil
+            throw DashError.CantGetDefaultValueFor(keys.livePort)
+        }
+    
         if oscClientLive == nil {
             oscClientLive = DashOSCClient(.ds100, addy, port)
         }
@@ -242,8 +282,6 @@ extension NetworkManager {
             oscClientLive!.address = addy
             oscClientLive!.port = port
         }
-        
-        isClientLiveConnected = true
     }
 }
 
