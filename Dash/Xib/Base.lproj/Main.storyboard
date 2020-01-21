@@ -691,8 +691,9 @@
                     <window key="window" title="Dash" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="543" height="313"/>
+                        <rect key="contentRect" x="196" y="240" width="900" height="313"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="900" height="313"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -713,50 +714,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="930" height="512"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <tabView fixedFrame="YES" initialItem="X8d-y6-UHu" translatesAutoresizingMaskIntoConstraints="NO" id="O14-S2-hIg">
-                                <rect key="frame" x="13" y="155" width="357" height="272"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <font key="font" metaFont="system"/>
-                                <tabViewItems>
-                                    <tabViewItem label="Table" identifier="" id="X8d-y6-UHu">
-                                        <view key="view" identifier="rttTableLive" ambiguous="YES" id="0L7-Ep-SF9" customClass="RttTableView" customModule="Dash" customModuleProvider="target">
-                                            <rect key="frame" x="10" y="33" width="337" height="226"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </view>
-                                    </tabViewItem>
-                                    <tabViewItem label="Graph" identifier="" id="nQ2-SP-GgI">
-                                        <view key="view" id="SgS-fl-XjZ">
-                                            <rect key="frame" x="10" y="33" width="337" height="226"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </view>
-                                    </tabViewItem>
-                                </tabViewItems>
-                            </tabView>
-                            <tabView fixedFrame="YES" initialItem="eU6-7G-3Ls" translatesAutoresizingMaskIntoConstraints="NO" id="Mux-Bv-p4z">
-                                <rect key="frame" x="560" y="155" width="357" height="272"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <font key="font" metaFont="system"/>
-                                <tabViewItems>
-                                    <tabViewItem label="Table" identifier="" id="eU6-7G-3Ls">
-                                        <view key="view" identifier="rttTableRec" ambiguous="YES" id="qpv-gC-x2W" customClass="RttTableView" customModule="Dash" customModuleProvider="target">
-                                            <rect key="frame" x="10" y="33" width="337" height="226"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </view>
-                                    </tabViewItem>
-                                    <tabViewItem label="Graph" identifier="" id="vWg-fh-Qvh">
-                                        <view key="view" id="KOC-xo-CkH">
-                                            <rect key="frame" x="10" y="33" width="337" height="226"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </view>
-                                    </tabViewItem>
-                                </tabViewItems>
-                            </tabView>
-                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="166" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TGc-A3-2bC" userLabel="Indicators">
-                                <rect key="frame" x="20" y="20" width="890" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="166" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TGc-A3-2bC" userLabel="Indicators">
+                                <rect key="frame" x="20" y="20" width="890" height="129"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSz-vT-frW" userLabel="BlackTrax and Control">
-                                        <rect key="frame" x="0.0" y="0.0" width="174" height="17"/>
+                                        <rect key="frame" x="0.0" y="112" width="174" height="17"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cEE-PV-hpO" userLabel="BlackTrax">
                                                 <rect key="frame" x="0.0" y="0.0" width="83" height="17"/>
@@ -809,6 +771,9 @@
                                                 </customSpacing>
                                             </stackView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="174" id="4y4-lt-boK"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -819,7 +784,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wxC-D2-gJq" userLabel="DS100">
-                                        <rect key="frame" x="340" y="0.0" width="218" height="17"/>
+                                        <rect key="frame" x="340" y="112" width="218" height="17"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qp8-ph-ApR" userLabel="Main">
                                                 <rect key="frame" x="0.0" y="0.0" width="97" height="17"/>
@@ -872,6 +837,9 @@
                                                 </customSpacing>
                                             </stackView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="218" id="HZs-El-JQZ"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -882,7 +850,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5FA-eu-0pf" userLabel="Vezer">
-                                        <rect key="frame" x="724" y="0.0" width="166" height="17"/>
+                                        <rect key="frame" x="724" y="112" width="166" height="17"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="29Y-vY-RY9" userLabel="In">
                                                 <rect key="frame" x="0.0" y="0.0" width="73" height="17"/>
@@ -935,6 +903,9 @@
                                                 </customSpacing>
                                             </stackView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="166" id="zK2-hh-rAq"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -956,9 +927,12 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DE1-YW-QoT">
-                                <rect key="frame" x="878" y="45" width="32" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="DE1-YW-QoT">
+                                <rect key="frame" x="878" y="157" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="b9Z-tr-rzf"/>
+                                    <constraint firstAttribute="height" constant="32" id="i5P-at-G6y"/>
+                                </constraints>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRefreshTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="AxC-pc-oRt">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -967,7 +941,121 @@
                                     <action selector="refreshClicked:" target="XfG-lQ-9wD" id="UKx-gB-xrr"/>
                                 </connections>
                             </button>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ztt-4a-Qvc">
+                                <rect key="frame" x="567" y="199" width="343" height="293"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dgI-pG-0Kf">
+                                        <rect key="frame" x="141" y="264" width="61" height="29"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Vezer" id="JJq-sK-RrO">
+                                            <font key="font" metaFont="system" size="24"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <tabView initialItem="eU6-7G-3Ls" translatesAutoresizingMaskIntoConstraints="NO" id="Mux-Bv-p4z">
+                                        <rect key="frame" x="-7" y="-10" width="357" height="272"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="AYz-aT-hXb"/>
+                                            <constraint firstAttribute="width" constant="343" id="mLH-9D-IGh"/>
+                                        </constraints>
+                                        <font key="font" metaFont="system"/>
+                                        <tabViewItems>
+                                            <tabViewItem label="Table" identifier="" id="eU6-7G-3Ls">
+                                                <view key="view" identifier="rttTableRec" id="qpv-gC-x2W" customClass="RttTableView" customModule="Dash" customModuleProvider="target">
+                                                    <rect key="frame" x="10" y="33" width="337" height="226"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </tabViewItem>
+                                            <tabViewItem label="Graph" identifier="" id="vWg-fh-Qvh">
+                                                <view key="view" id="KOC-xo-CkH">
+                                                    <rect key="frame" x="10" y="33" width="337" height="226"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </tabViewItem>
+                                        </tabViewItems>
+                                    </tabView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9cu-pV-RHT">
+                                <rect key="frame" x="20" y="199" width="343" height="293"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nst-2a-ztn">
+                                        <rect key="frame" x="121" y="264" width="101" height="29"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="BlackTrax" id="7dE-Rf-d1d">
+                                            <font key="font" metaFont="system" size="24"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <tabView initialItem="X8d-y6-UHu" translatesAutoresizingMaskIntoConstraints="NO" id="O14-S2-hIg">
+                                        <rect key="frame" x="-7" y="-10" width="357" height="272"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="boh-Zn-OPY"/>
+                                            <constraint firstAttribute="width" constant="343" id="wgp-2l-RBs"/>
+                                        </constraints>
+                                        <font key="font" metaFont="system"/>
+                                        <tabViewItems>
+                                            <tabViewItem label="Table" identifier="" id="X8d-y6-UHu">
+                                                <view key="view" identifier="rttTableLive" id="0L7-Ep-SF9" customClass="RttTableView" customModule="Dash" customModuleProvider="target">
+                                                    <rect key="frame" x="10" y="33" width="337" height="226"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </tabViewItem>
+                                            <tabViewItem label="Graph" identifier="" id="nQ2-SP-GgI">
+                                                <view key="view" id="SgS-fl-XjZ">
+                                                    <rect key="frame" x="10" y="33" width="337" height="226"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </tabViewItem>
+                                        </tabViewItems>
+                                    </tabView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="Dkq-9f-e21">
+                                <rect key="frame" x="444" y="206" width="42" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="RwA-7E-kHx"/>
+                                    <constraint firstAttribute="height" constant="100" id="YTF-X6-4VH"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" title="Active" bezelStyle="shadowlessSquare" image="NSGoBackTemplate" imagePosition="below" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vao-mS-2Pa">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="TGc-A3-2bC" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="40b-NB-US2"/>
+                            <constraint firstItem="ztt-4a-Qvc" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="G1O-Fc-Gea"/>
+                            <constraint firstItem="TGc-A3-2bC" firstAttribute="top" secondItem="9cu-pV-RHT" secondAttribute="bottom" constant="50" id="Idv-mJ-6YZ"/>
+                            <constraint firstItem="TGc-A3-2bC" firstAttribute="top" secondItem="DE1-YW-QoT" secondAttribute="bottom" constant="8" id="Kej-47-p1y"/>
+                            <constraint firstItem="TGc-A3-2bC" firstAttribute="top" secondItem="ztt-4a-Qvc" secondAttribute="bottom" constant="50" id="LUd-nw-MF9"/>
+                            <constraint firstAttribute="trailing" secondItem="TGc-A3-2bC" secondAttribute="trailing" constant="20" id="RsB-Im-C2Z"/>
+                            <constraint firstItem="9cu-pV-RHT" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="Sgg-7w-lxc"/>
+                            <constraint firstItem="9cu-pV-RHT" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="Tgh-FA-teg"/>
+                            <constraint firstAttribute="bottom" secondItem="TGc-A3-2bC" secondAttribute="bottom" constant="20" id="cJt-4z-QWX"/>
+                            <constraint firstItem="TGc-A3-2bC" firstAttribute="top" secondItem="DE1-YW-QoT" secondAttribute="bottom" constant="8" id="cuc-x1-KbR"/>
+                            <constraint firstAttribute="trailing" secondItem="ztt-4a-Qvc" secondAttribute="trailing" constant="20" id="dMw-TE-iiz"/>
+                            <constraint firstItem="Dkq-9f-e21" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="hpR-kb-pCp"/>
+                            <constraint firstAttribute="trailing" secondItem="DE1-YW-QoT" secondAttribute="trailing" constant="20" id="oPk-Kv-e1D"/>
+                            <constraint firstItem="Dkq-9f-e21" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="qbQ-9i-AYa"/>
+                            <constraint firstAttribute="trailing" secondItem="DE1-YW-QoT" secondAttribute="trailing" constant="20" id="xad-GB-V6S"/>
+                        </constraints>
                         <connections>
                             <outlet property="indicatorControlIn" destination="bjG-ht-Z9w" id="KoG-9R-opI"/>
                             <outlet property="indicatorDS100Backup" destination="nVm-il-4Og" id="nsA-dI-kCQ"/>
@@ -993,6 +1081,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="NSGoBackTemplate" width="9" height="12"/>
         <image name="NSRefreshTemplate" width="11" height="15"/>
         <image name="NSStatusUnavailable" width="16" height="16"/>
     </resources>
