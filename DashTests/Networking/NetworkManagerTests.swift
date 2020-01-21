@@ -209,8 +209,8 @@ extension NetworkManagerTests {
     func mockAll() {
         mBlackTrax = MockReceiveUDP()
         mOscServerControl = MDashOSCServer(.control, "/server/control", 1111)
-        mOscServerRecorded = MDashOSCServer(.recorded, "/server/recorded", 2222)
-        mOscClientRecorded = MDashOSCClient(.recorded, "/client/recorded", 3333)
+        mOscServerRecorded = MDashOSCServer(.vezer, "/server/recorded", 2222)
+        mOscClientRecorded = MDashOSCClient(.vezer, "/client/recorded", 3333)
         mOscClientLive = MDashOSCClient(.ds100Main, "/client/live", 4444)
         
         manager.blackTrax = mBlackTrax

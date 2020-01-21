@@ -23,7 +23,7 @@ class Clients {
     // MARK: - Sending Messages
     func sendOSC(message: Message, to client: DashNetworkType.Client) -> Bool {
         switch client {
-        case .recorded:
+        case .vezer:
             if !isVezerConnected {return false}
             vezer!.send(message: message)
         
@@ -54,7 +54,7 @@ class Clients {
         connectDS100Main(from: defaults)
         
         var badClients = [DashNetworkType.Client]()
-        if !isVezerConnected {badClients.append(.recorded)}
+        if !isVezerConnected {badClients.append(.vezer)}
         if !isDS100MainConnected {badClients.append(.ds100Main)}
         badClients.append(.ds100Backup)
         return badClients
@@ -109,7 +109,7 @@ private extension Clients {
         }
         
         if vezer == nil {
-            vezer = DashOSCClient(.recorded, addy, port)
+            vezer = DashOSCClient(.vezer, addy, port)
         }
         else {
             vezer!.address = addy

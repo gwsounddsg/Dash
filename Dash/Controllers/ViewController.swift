@@ -95,8 +95,8 @@ class ViewController: NSViewController {
         indicatorControlIn.image = connectedImage(result.servers.contains(.control))
         indicatorDS100Main.image = connectedImage(result.clients.contains(.ds100Main))
         indicatorDS100Backup.image = connectedImage(result.clients.contains(.ds100Backup))
-        indicatorVezerIn.image = connectedImage(result.servers.contains(.recorded))
-        indicatorVezerOut.image = connectedImage(result.clients.contains(.recorded))
+        indicatorVezerIn.image = connectedImage(result.servers.contains(.vezer))
+        indicatorVezerOut.image = connectedImage(result.clients.contains(.vezer))
     }
     
     private func connectedImage(_ check: Bool) -> NSImage? {

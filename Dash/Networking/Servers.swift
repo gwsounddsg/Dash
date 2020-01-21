@@ -45,7 +45,7 @@ class Servers: ReceiveUDPDelegate, DashOSCServerDelegate {
         var badClients = [DashNetworkType.Server]()
         if !isBlackTraxConnected {badClients.append(.blackTrax)}
         if !isControlConnected {badClients.append(.control)}
-        if !isVezerConnected {badClients.append(.recorded)}
+        if !isVezerConnected {badClients.append(.vezer)}
         return badClients
     }
     
@@ -116,7 +116,7 @@ extension Servers {
         switch from {
         case .control:
             controlOSC(data: msg)
-        case .recorded:
+        case .vezer:
             recordedOSC(data: msg)
         case .blackTrax:
             break
@@ -181,7 +181,7 @@ private extension Servers {
         }
         
         if vezer == nil {
-            vezer = DashOSCServer(.recorded, "", port)
+            vezer = DashOSCServer(.vezer, "", port)
             vezer!.delegate = self
         }
         else {

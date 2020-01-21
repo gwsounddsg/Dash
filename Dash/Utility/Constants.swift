@@ -44,11 +44,11 @@ enum DashID {
 
 enum DashNetworkType {
     enum Client {
-        case recorded, ds100Main, ds100Backup
+        case vezer, ds100Main, ds100Backup
     }
     
     enum Server {
-        case recorded, control, blackTrax
+        case vezer, control, blackTrax
     }
 }
 
