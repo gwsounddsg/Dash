@@ -84,6 +84,15 @@ enum DashColor {
 }
 
 
+enum ControlMessage {
+    case switchActive
+}
+
+
+enum ControlOSC {
+    static let switchTo = "/dash/control/switch"
+}
+
 
 
 
@@ -110,7 +119,7 @@ enum DashDefaultValues {
     enum Network {
         enum Incoming {
             static let blacktraxPort = "24002"
-            static let controlPort = "53000"
+            static let controlPort = "4202"
             static let recordedPort = "8000"
         }
         

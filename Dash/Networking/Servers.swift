@@ -11,6 +11,7 @@ import RTTrPSwift
 
 protocol ServersProtocol: class {
     func liveBlackTrax(_ data: RTTrP)
+    func command(control: ControlMessage, data: Any?)
 }
 
 
@@ -124,13 +125,23 @@ extension Servers {
     }
     
     
-    fileprivate func controlOSC(data: Message) {
-        print("Control \(data)")
+    func controlOSC(data: Message) {
+        switch data.address {
+        case ControlOSC.switchTo:
+            if data.values.isEmpty {
+                print(data.address + " message is empty")
+                return
+            }
+            delegate?.command(control: .switchActive, data: data.values[0])
+    
+        default:
+            print("Invalid control message: \(data.address)")
+        }
     }
     
     
-    fileprivate func recordedOSC(data: Message) {
-        print("Vezer: \(data)")
+    func recordedOSC(data: Message) {
+        print("Vezer message: \(data)")
     }
 }
 

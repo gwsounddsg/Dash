@@ -34,6 +34,11 @@ class NetworkManager {
     }
     
     fileprivate lazy var outputFunc: (RTTrP) -> Void = redirectDS100
+    
+    
+    init() {
+        servers.delegate = self
+    }
 }
 
 
@@ -133,5 +138,31 @@ extension NetworkManager: ServersProtocol {
         
         let dictInfo: [String: RTTrP] = [DashNotifData.rttrp: data]
         NotificationCenter.default.post(name: DashNotif.blacktrax, object: nil, userInfo: dictInfo)
+    }
+    
+    
+    func command(control: ControlMessage, data: Any?) {
+        print("Good command for \(control) with data: \(data)")
+        
+        switch control {
+        case .switchActive:
+            guard let str = data as? String else {
+                print("Bad data for control message switchActive")
+                return
+            }
+            
+            let lowercase = str.lowercased()
+            switch lowercase {
+            case "blacktrax":
+                output = .blacktrax
+            case "vezer":
+                output = .vezer
+            default:
+                print("Invalid value for control message switchActive. Use 'blacktrax' or 'vezer'")
+                return
+            }
+            
+            print(output)
+        }
     }
 }
