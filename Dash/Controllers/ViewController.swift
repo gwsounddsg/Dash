@@ -17,13 +17,14 @@ class ViewController: NSViewController {
     @IBOutlet weak var liveTabView: NSTabView!
     @IBOutlet weak var recordedTabView: NSTabView!
     
-    // Indicators
+    // Images
     @IBOutlet weak var indicatorBlackTrax: NSImageView!
     @IBOutlet weak var indicatorControlIn: NSImageView!
     @IBOutlet weak var indicatorDS100Main: NSImageView!
     @IBOutlet weak var indicatorDS100Backup: NSImageView!
     @IBOutlet weak var indicatorVezerIn: NSImageView!
     @IBOutlet weak var indicatorVezerOut: NSImageView!
+    @IBOutlet weak var switchButton: NSButton!
     
     // Network
     let networkManager = NetworkManager()
@@ -68,6 +69,27 @@ class ViewController: NSViewController {
     
     @IBAction func refreshClicked(_ sender: Any) {
         connectAll()
+    }
+    
+    
+    @IBAction func switchClicked(_ sender: Any) {
+        toggleSwitch()
+    }
+    
+    
+    func toggleSwitch() {
+        if networkManager.output == .blacktrax {
+            networkManager.output = .vezer
+            switchButton.image = NSImage(named: DashImage.activeVezer)
+            switchButton.contentTintColor = DashColor.activeVezer
+        }
+        else {
+            networkManager.output = .blacktrax
+            switchButton.image = NSImage(named: DashImage.activeBlackTrax)
+            switchButton.contentTintColor = DashColor.activeBlackTrax
+        }
+        
+        print("Active input is now: \(networkManager.output)")
     }
     
     

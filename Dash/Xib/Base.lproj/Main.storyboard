@@ -715,10 +715,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="166" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TGc-A3-2bC" userLabel="Indicators">
-                                <rect key="frame" x="20" y="20" width="890" height="129"/>
+                                <rect key="frame" x="20" y="20" width="890" height="126"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSz-vT-frW" userLabel="BlackTrax and Control">
-                                        <rect key="frame" x="0.0" y="112" width="174" height="17"/>
+                                        <rect key="frame" x="0.0" y="109" width="174" height="17"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cEE-PV-hpO" userLabel="BlackTrax">
                                                 <rect key="frame" x="0.0" y="0.0" width="83" height="17"/>
@@ -784,7 +784,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wxC-D2-gJq" userLabel="DS100">
-                                        <rect key="frame" x="340" y="112" width="218" height="17"/>
+                                        <rect key="frame" x="340" y="109" width="218" height="17"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qp8-ph-ApR" userLabel="Main">
                                                 <rect key="frame" x="0.0" y="0.0" width="97" height="17"/>
@@ -850,7 +850,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5FA-eu-0pf" userLabel="Vezer">
-                                        <rect key="frame" x="724" y="112" width="166" height="17"/>
+                                        <rect key="frame" x="724" y="109" width="166" height="17"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="29Y-vY-RY9" userLabel="In">
                                                 <rect key="frame" x="0.0" y="0.0" width="73" height="17"/>
@@ -928,7 +928,7 @@
                                 </customSpacing>
                             </stackView>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="DE1-YW-QoT">
-                                <rect key="frame" x="878" y="157" width="32" height="32"/>
+                                <rect key="frame" x="878" y="154" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="b9Z-tr-rzf"/>
                                     <constraint firstAttribute="height" constant="32" id="i5P-at-G6y"/>
@@ -942,18 +942,18 @@
                                 </connections>
                             </button>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ztt-4a-Qvc">
-                                <rect key="frame" x="567" y="199" width="343" height="293"/>
+                                <rect key="frame" x="567" y="196" width="343" height="296"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dgI-pG-0Kf">
-                                        <rect key="frame" x="141" y="264" width="61" height="29"/>
+                                        <rect key="frame" x="141" y="267" width="62" height="29"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Vezer" id="JJq-sK-RrO">
                                             <font key="font" metaFont="system" size="24"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <tabView initialItem="eU6-7G-3Ls" translatesAutoresizingMaskIntoConstraints="NO" id="Mux-Bv-p4z">
-                                        <rect key="frame" x="-7" y="-10" width="357" height="272"/>
+                                        <rect key="frame" x="-7" y="-10" width="357" height="275"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="AYz-aT-hXb"/>
                                             <constraint firstAttribute="width" constant="343" id="mLH-9D-IGh"/>
@@ -962,7 +962,7 @@
                                         <tabViewItems>
                                             <tabViewItem label="Table" identifier="" id="eU6-7G-3Ls">
                                                 <view key="view" identifier="rttTableRec" id="qpv-gC-x2W" customClass="RttTableView" customModule="Dash" customModuleProvider="target">
-                                                    <rect key="frame" x="10" y="33" width="337" height="226"/>
+                                                    <rect key="frame" x="10" y="33" width="337" height="229"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </view>
                                             </tabViewItem>
@@ -985,18 +985,18 @@
                                 </customSpacing>
                             </stackView>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9cu-pV-RHT">
-                                <rect key="frame" x="20" y="199" width="343" height="293"/>
+                                <rect key="frame" x="20" y="196" width="343" height="296"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nst-2a-ztn">
-                                        <rect key="frame" x="121" y="264" width="101" height="29"/>
+                                        <rect key="frame" x="120" y="267" width="104" height="29"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="BlackTrax" id="7dE-Rf-d1d">
                                             <font key="font" metaFont="system" size="24"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="textColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <tabView initialItem="X8d-y6-UHu" translatesAutoresizingMaskIntoConstraints="NO" id="O14-S2-hIg">
-                                        <rect key="frame" x="-7" y="-10" width="357" height="272"/>
+                                        <rect key="frame" x="-7" y="-10" width="357" height="275"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="boh-Zn-OPY"/>
                                             <constraint firstAttribute="width" constant="343" id="wgp-2l-RBs"/>
@@ -1005,7 +1005,7 @@
                                         <tabViewItems>
                                             <tabViewItem label="Table" identifier="" id="X8d-y6-UHu">
                                                 <view key="view" identifier="rttTableLive" id="0L7-Ep-SF9" customClass="RttTableView" customModule="Dash" customModuleProvider="target">
-                                                    <rect key="frame" x="10" y="33" width="337" height="226"/>
+                                                    <rect key="frame" x="10" y="33" width="337" height="229"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </view>
                                             </tabViewItem>
@@ -1037,6 +1037,10 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <color key="contentTintColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <action selector="switchClicked:" target="XfG-lQ-9wD" id="65j-zE-rQf"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -1073,6 +1077,7 @@
                         <outlet property="indicatorVezerOut" destination="oDU-Zm-1sH" id="3GJ-g6-fBy"/>
                         <outlet property="liveTabView" destination="O14-S2-hIg" id="JZX-nU-T6K"/>
                         <outlet property="recordedTabView" destination="Mux-Bv-p4z" id="n3v-yY-5Zv"/>
+                        <outlet property="switchButton" destination="Dkq-9f-e21" id="Zvv-EB-0AO"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

@@ -73,6 +73,14 @@ enum DashError: Error {
 enum DashImage {
     static let indicatorConnected = "NSStatusAvailable"
     static let indicatorNotConnected = "NSStatusUnavailable"
+    static let activeBlackTrax = "NSGoBackTemplate"
+    static let activeVezer = "NSGoForwardTemplate"
+}
+
+
+enum DashColor {
+    static let activeBlackTrax = NSColor.systemBlue
+    static let activeVezer = NSColor.systemRed
 }
 
 
