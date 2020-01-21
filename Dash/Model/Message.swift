@@ -6,6 +6,10 @@
 // ==================================================================
 
 import Foundation
+import SwiftOSC
+
+
+typealias DashData = OSCType
 
 
 
@@ -13,9 +17,9 @@ import Foundation
 
 struct Message {
     let address: String
-    let values: [Float]
+    let values: [DashData]
     
-    init(_ address: String, _ values: [Float]) {
+    init(_ address: String, _ values: [DashData]) {
         self.address = address
         self.values = values
     }

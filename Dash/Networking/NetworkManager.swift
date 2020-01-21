@@ -126,7 +126,7 @@ extension NetworkManager {
 
 // MARK: - ServersProtocol
 
-extension NetworkManager {
+extension NetworkManager: ServersProtocol {
     
     func liveBlackTrax(_ data: RTTrP) {
         outputFunc(data)
