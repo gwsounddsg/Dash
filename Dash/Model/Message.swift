@@ -19,8 +19,15 @@ struct Message {
     let address: String
     let values: [DashData]
     
-    init(_ address: String, _ values: [DashData]) {
+    init(_ address: String, _ values: [DashData?]) {
         self.address = address
-        self.values = values
+        
+        var temp = [DashData]()
+        for each in values {
+            if each == nil {continue}
+            temp.append(each!)
+        }
+        
+        self.values = temp
     }
 }
