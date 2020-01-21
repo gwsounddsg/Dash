@@ -56,6 +56,7 @@ class Clients {
         var badClients = [DashNetworkType.Client]()
         if !isVezerConnected {badClients.append(.recorded)}
         if !isDS100MainConnected {badClients.append(.ds100Main)}
+        badClients.append(.ds100Backup)
         return badClients
     }
     
