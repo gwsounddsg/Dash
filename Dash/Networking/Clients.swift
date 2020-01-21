@@ -47,6 +47,13 @@ class Clients {
     }
     
     
+    func send(vezer data: [Vezer]) -> Bool {
+        if !isVezerConnected {return false}
+        vezer?.send(data: data)
+        return true
+    }
+    
+    
     // MARK: - Connecting
     
     func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> [DashNetworkType.Client] {

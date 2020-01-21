@@ -78,6 +78,19 @@ extension DashOSCClient {
 
         clientSend(bundle)
     }
+    
+    
+    /// Sends data to Vezer
+    func send(data: [Vezer]) {
+        let bundle = OSCBundle()
+        
+        for each in data {
+            let msg = makeMessage(each.addy(), each.x, each.y)
+            bundle.add(msg)
+        }
+        
+        clientSend(bundle)
+    }
 }
 
 

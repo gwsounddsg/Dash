@@ -58,27 +58,11 @@ class ViewController: NSViewController {
         _recordedTable.tableView.identifier = DashID.TableType.recorded
         recTabViewItem.view = _recordedTable
         
-        networkManager.servers.delegate = self
+        createObservers()
         connectAll()
 
         _liveTable.reload()
         _recordedTable.reload()
-    }
-    
-    
-    func setupDefaults() {
-        let idNetIn = DashDefaultIDs.Network.Incoming.self
-        let idNetOut = DashDefaultIDs.Network.Outgoing.self
-        let defaultNetIn = DashDefaultValues.Network.Incoming.self
-        let defaultNetOut = DashDefaultValues.Network.Outgoing.self
-    
-        UserDefaults.standard.set(defaultNetIn.blacktraxPort, forKey: idNetIn.blacktraxPort)
-        UserDefaults.standard.set(defaultNetIn.controlPort, forKey: idNetIn.controlPort)
-        UserDefaults.standard.set(defaultNetIn.recordedPort, forKey: idNetIn.recordedPort)
-        UserDefaults.standard.set(defaultNetOut.liveIP, forKey: idNetOut.liveIP)
-        UserDefaults.standard.set(defaultNetOut.livePort, forKey: idNetOut.livePort)
-        UserDefaults.standard.set(defaultNetOut.recordedIP, forKey: idNetOut.recordedIP)
-        UserDefaults.standard.set(defaultNetOut.recordedPort, forKey: idNetOut.recordedPort)
     }
     
     
@@ -102,6 +86,28 @@ class ViewController: NSViewController {
     private func connectedImage(_ check: Bool) -> NSImage? {
         let str = check ? DashImage.indicatorNotConnected : DashImage.indicatorConnected
         return NSImage(named: str)
+    }
+    
+    
+    func setupDefaults() {
+        let idNetIn = DashDefaultIDs.Network.Incoming.self
+        let idNetOut = DashDefaultIDs.Network.Outgoing.self
+        let defaultNetIn = DashDefaultValues.Network.Incoming.self
+        let defaultNetOut = DashDefaultValues.Network.Outgoing.self
+        
+        UserDefaults.standard.set(defaultNetIn.blacktraxPort, forKey: idNetIn.blacktraxPort)
+        UserDefaults.standard.set(defaultNetIn.controlPort, forKey: idNetIn.controlPort)
+        UserDefaults.standard.set(defaultNetIn.recordedPort, forKey: idNetIn.recordedPort)
+        UserDefaults.standard.set(defaultNetOut.liveIP, forKey: idNetOut.liveIP)
+        UserDefaults.standard.set(defaultNetOut.livePort, forKey: idNetOut.livePort)
+        UserDefaults.standard.set(defaultNetOut.recordedIP, forKey: idNetOut.recordedIP)
+        UserDefaults.standard.set(defaultNetOut.recordedPort, forKey: idNetOut.recordedPort)
+    }
+    
+    
+    func createObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(liveBlackTrax), name: DashNotif.blacktrax,
+                object: nil)
     }
 }
 
@@ -214,10 +220,14 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
 
 
 
-// MARK: - NetworkManagerDelegate
-extension ViewController: ServersProtocol {
-    
-    func liveBlackTrax(_ data: RTTrP) {
+// MARK: - Receive Data
+extension ViewController {
+
+    @objc func liveBlackTrax(_ notif: Notification) {
+        guard let data = notif.userInfo?[DashNotifData.rttrp] as? RTTrP else {
+            return
+        }
+        
         _liveData = data.pmPackets
         _liveTable.reload()
     }

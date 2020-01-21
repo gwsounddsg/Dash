@@ -37,10 +37,22 @@ enum DashID {
 }
 
 
+enum DashNotif {
+    static let blacktrax = NSNotification.Name("blacktraxDataIn")
+}
+
+
+enum DashNotifData {
+    static let rttrp = "rttrp"
+}
+
+
 
 
 
 // MARK: - Types
+
+typealias ClientsServers = (clients: [DashNetworkType.Client], servers: [DashNetworkType.Server])
 
 enum DashNetworkType {
     enum Client {
