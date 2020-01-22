@@ -14,8 +14,8 @@ import RTTrPSwift
 
 class NetworkManager {
     
-    let servers = Servers()
-    let clients = Clients()
+    let servers: Servers
+    let clients: Clients
     
     var ds100Mapping = "1"
     
@@ -32,7 +32,9 @@ class NetworkManager {
     fileprivate lazy var outputFunc: (RTTrP) -> Void = redirectDS100
     
     
-    init() {
+    init(_ setClient: Clients = Clients(), _ setServers: Servers = Servers()) {
+        clients = setClient
+        servers = setServers
         servers.delegate = self
     }
 }
@@ -41,6 +43,13 @@ class NetworkManager {
 
 
 extension NetworkManager {
+    
+    func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> ClientsServers {
+        let badClients = clients.connectAll(from: defaults)
+        let badServers = servers.connectAll(from: defaults)
+        return (clients: badClients, servers: badServers)
+    }
+    
     
     func sendOSC(message: Message, to client: DashNetworkType.Client) -> Bool {
         return clients.sendOSC(message: message, to: client)
@@ -52,16 +61,9 @@ extension NetworkManager {
     }
     
     
-    func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> ClientsServers {
-        let badClients = clients.connectAll(from: defaults)
-        let badServers = servers.connectAll(from: defaults)
-        return (clients: badClients, servers: badServers)
-    }
-    
-    
     func redirectDS100(data: RTTrP) {
         let ds100Data = prepareDS100Data(data)
-        _ = clients.send(ds100: ds100Data)
+        _ = send(ds100: ds100Data)
     }
     
     

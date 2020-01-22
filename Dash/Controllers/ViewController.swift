@@ -254,7 +254,8 @@ extension ViewController {
     }
     
     
-    @objc func liveBlackTrax(_ notif: Notification) {
+    @objc
+    func liveBlackTrax(_ notif: Notification) {
         guard let data = notif.userInfo?[DashNotifData.rttrp] as? RTTrP else {
             return
         }
@@ -264,7 +265,8 @@ extension ViewController {
     }
     
     
-    @objc func changingActive(_ notif: Notification) {
+    @objc
+    func changingActive(_ notif: Notification) {
         guard let output = notif.userInfo?[DashNotifData.switchOutputTo] as? ActiveOutput else {
             return
         }

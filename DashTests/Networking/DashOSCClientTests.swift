@@ -37,7 +37,7 @@ class DashOSCClientTests: XCTestCase {
 extension DashOSCClientTests {
 
     func testDashOSCClient() {
-        XCTAssertEqual(_client.type, .recorded)
+        XCTAssertEqual(_client.type, .vezer)
         XCTAssertEqual(_client.address, address)
         XCTAssertEqual(_client.port, port)
 

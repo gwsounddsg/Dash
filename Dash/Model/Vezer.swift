@@ -9,7 +9,7 @@ import Foundation
 
 
 
-struct Vezer {
+struct Vezer: Equatable {
     
     let name: String
     let x: Double

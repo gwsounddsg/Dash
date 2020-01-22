@@ -38,6 +38,7 @@ class Servers: ReceiveUDPDelegate, DashOSCServerDelegate {
     
     
     // MARK: - Connecting
+    
     func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> [DashNetworkType.Server] {
         connectBlackTrax(from: defaults)
         connectControl(from: defaults)
@@ -64,20 +65,6 @@ class Servers: ReceiveUDPDelegate, DashOSCServerDelegate {
     }
     
     
-    func connectControl(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
-        isControlConnected = false
-        
-        do {
-            try doConnectControl(defaults)
-            control!.start()
-            isControlConnected = true
-        }
-        catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    
     func connectVezer(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
         isVezerConnected = false
         
@@ -85,6 +72,20 @@ class Servers: ReceiveUDPDelegate, DashOSCServerDelegate {
             try doConnectVezer(defaults)
             vezer!.start()
             isVezerConnected = true
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
+    func connectControl(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
+        isControlConnected = false
+        
+        do {
+            try doConnectControl(defaults)
+            control!.start()
+            isControlConnected = true
         }
         catch {
             print(error.localizedDescription)
@@ -109,7 +110,7 @@ extension Servers {
 
 
 
-// MARK: - OSC Server Delegate
+// MARK: - DashOSCServerDelegate
 
 extension Servers {
     
@@ -118,14 +119,14 @@ extension Servers {
         case .control:
             controlOSC(data: msg)
         case .vezer:
-            recordedOSC(data: msg)
+            vezerOSC(data: msg)
         case .blackTrax:
             break
         }
     }
     
     
-    func controlOSC(data: Message) {
+    private func controlOSC(data: Message) {
         switch data.address {
         case ControlOSC.switchTo:
             if data.values.isEmpty {
@@ -140,7 +141,7 @@ extension Servers {
     }
     
     
-    func recordedOSC(data: Message) {
+    private func vezerOSC(data: Message) {
         print("Vezer message: \(data)")
     }
 }
@@ -165,6 +166,24 @@ private extension Servers {
     }
     
     
+    func doConnectVezer(_ defaults: UserDefaultsProtocol) throws {
+        let keys = DashDefaultIDs.Network.Incoming.self
+        
+        guard let port: Int = getDefault(withKey: keys.recordedPort, from: defaults) else {
+            vezer = nil
+            throw DashError.CantGetDefaultValueFor(keys.recordedPort)
+        }
+        
+        if vezer == nil {
+            vezer = DashOSCServer(.vezer, "", port)
+            vezer!.delegate = self
+        }
+        else {
+            vezer!.port = port
+        }
+    }
+    
+    
     func doConnectControl(_ defaults: UserDefaultsProtocol) throws {
         let keys = DashDefaultIDs.Network.Incoming.self
         
@@ -179,24 +198,6 @@ private extension Servers {
         }
         else {
             control!.port = port
-        }
-    }
-    
-    
-    private func doConnectVezer(_ defaults: UserDefaultsProtocol) throws {
-        let keys = DashDefaultIDs.Network.Incoming.self
-        
-        guard let port: Int = getDefault(withKey: keys.recordedPort, from: defaults) else {
-            vezer = nil
-            throw DashError.CantGetDefaultValueFor(keys.recordedPort)
-        }
-        
-        if vezer == nil {
-            vezer = DashOSCServer(.vezer, "", port)
-            vezer!.delegate = self
-        }
-        else {
-            vezer!.port = port
         }
     }
 }
