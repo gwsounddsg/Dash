@@ -20,40 +20,6 @@ class Clients {
     fileprivate(set) var isDS100MainConnected = false
     
     
-    // MARK: - Sending Messages
-    func sendOSC(message: Message, to client: DashNetworkType.Client) -> Bool {
-        switch client {
-        case .vezer:
-            if !isVezerConnected {return false}
-            vezer!.send(message: message)
-        
-        case .ds100Main:
-            if !isDS100MainConnected {return false}
-            ds100Main!.send(message: message)
-        
-        case .ds100Backup:
-            return false
-        }
-        
-        return true
-    }
-    
-    
-    //TODO: when i add second ds100, change this so both are called even if both are not connected
-    func send(ds100 data: [DS100]) -> Bool {
-        if !isDS100MainConnected {return false}
-        ds100Main!.send(data: data)
-        return true
-    }
-    
-    
-    func send(vezer data: [Vezer]) -> Bool {
-        if !isVezerConnected {return false}
-        vezer?.send(data: data)
-        return true
-    }
-    
-    
     // MARK: - Connecting
     
     func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> [DashNetworkType.Client] {
@@ -92,6 +58,41 @@ class Clients {
             print(error.localizedDescription)
         }
     }
+    
+    
+    // MARK: - Sending Messages
+    
+    func sendOSC(message: Message, to client: DashNetworkType.Client) -> Bool {
+        switch client {
+        case .vezer:
+            if !isVezerConnected {return false}
+            vezer!.send(message: message)
+        
+        case .ds100Main:
+            if !isDS100MainConnected {return false}
+            ds100Main!.send(message: message)
+        
+        case .ds100Backup:
+            return false
+        }
+        
+        return true
+    }
+    
+    
+    //TODO: when i add second ds100, change this so both are called even if both are not connected
+    func send(ds100 data: [DS100]) -> Bool {
+        if !isDS100MainConnected {return false}
+        ds100Main!.send(data: data)
+        return true
+    }
+    
+    
+    func send(vezer data: [Vezer]) -> Bool {
+        if !isVezerConnected {return false}
+        vezer?.send(data: data)
+        return true
+    }
 }
 
 
@@ -102,7 +103,7 @@ class Clients {
 
 private extension Clients {
     
-    private func doConnectVezer(_ defaults: UserDefaultsProtocol) throws {
+    func doConnectVezer(_ defaults: UserDefaultsProtocol) throws {
         let keys = DashDefaultIDs.Network.Outgoing.self
         
         guard let addy: String = getDefault(withKey: keys.recordedIP, from: defaults) else {
@@ -125,7 +126,7 @@ private extension Clients {
     }
     
     
-    private func doConnectDS100Main(_ defaults: UserDefaultsProtocol) throws {
+    func doConnectDS100Main(_ defaults: UserDefaultsProtocol) throws {
         let keys = DashDefaultIDs.Network.Outgoing.self
         
         guard let addy: String = getDefault(withKey: keys.liveIP, from: defaults) else {
