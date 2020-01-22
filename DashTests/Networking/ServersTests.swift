@@ -49,6 +49,7 @@ extension ServersTests {
         let mockDefaults = MockUserDefaults()
         mockDefaults.stubbedGetStringResult = addy
         mockDefaults.stubbedGetIntResult = port
+        mockAll()
         
         XCTAssertFalse(servers.isBlackTraxConnected)
         XCTAssertFalse(servers.isVezerConnected)
@@ -56,7 +57,7 @@ extension ServersTests {
         
         let result = servers.connectAll()
         
-        XCTAssertTrue(result.isEmpty)
+        XCTAssertTrue(result.isEmpty, result.description)
     }
     
     
@@ -141,7 +142,7 @@ extension ServersTests {
 
     func testServers_oscDataReceived_control() {
         let val: Double = 4.65
-        let msg = Message("/testing/oscDataReceived/control", [val])
+        let msg = Message(ControlOSC.switchTo, [val])
         mockAll()
         
         servers.oscDataReceived(msg, .control)
@@ -151,13 +152,13 @@ extension ServersTests {
             return
         }
         
-        guard let values = delegate.invokedCommandParameters?.data as? [DashData?] else {
-            XCTAssertTrue(false, "\(delegate.invokedCommandParameters!)")
+        guard let values = delegate.invokedCommandParameters?.data as? DashData? else {
+            XCTAssertTrue(false)
             return
         }
         
         XCTAssertEqual(delegate.invokedCommandParameters?.control, .switchActive)
-        XCTAssertEqual(values[0] as? Double, val)
+        XCTAssertEqual(values as? Double, val)
     }
     
     

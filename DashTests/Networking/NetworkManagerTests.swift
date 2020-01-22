@@ -84,7 +84,7 @@ extension NetworkManagerTests {
         
         manager.redirectDS100(data: data)
         
-        XCTAssertEqual(mClients.invokedSendDs100Parameters?.data[0], DS100("1", input: "1", x: 3.1, y: 5.3))
+        XCTAssertEqual(mClients.invokedSendDs100Parameters?.data[0].mapping, "1")
     }
     
     
@@ -98,7 +98,7 @@ extension NetworkManagerTests {
         
         manager.redirectVezer(data: data)
         
-        XCTAssertEqual(mClients.invokedSendVezerParameters?.data[0], Vezer("name", 3.1, 5.3))
+        XCTAssertEqual(mClients.invokedSendVezerParameters?.data[0].name, "0")
     }
 }
 
@@ -118,7 +118,7 @@ extension NetworkManagerTests {
             return
         }
 
-        expectation(forNotification: DashNotif.blacktrax, object: manager, handler: { (notif) -> Bool in
+        expectation(forNotification: DashNotif.blacktrax, object: nil, handler: { (notif) -> Bool in
             let info = notif.userInfo as? [String: RTTrP]
             XCTAssertNotNil(info)
             return info != nil
@@ -127,7 +127,7 @@ extension NetworkManagerTests {
         manager.liveBlackTrax(data)
 
         // checks outputFunc is called
-        XCTAssertEqual(mClients.invokedSendDs100Parameters?.data[0], DS100("1", input: "1", x: 3.1, y: 5.3))
+        XCTAssertEqual(mClients.invokedSendDs100Parameters?.data[0].mapping, "1")
         waitForExpectations(timeout: 1)
     }
     
@@ -137,9 +137,9 @@ extension NetworkManagerTests {
         let osc = "blAckTRax" // odd spelling intentional
         manager.output = .vezer
         
-        expectation(forNotification: DashNotif.updateSwitchTo, object: manager, handler: { (notif) -> Bool in
-            let info = notif.userInfo as? [String: ControlMessage]
-            XCTAssertNotNil(info)
+        expectation(forNotification: DashNotif.updateSwitchTo, object: nil, handler: { (notif) -> Bool in
+            let info = notif.userInfo as? [String: ActiveOutput]
+            XCTAssertNotNil(info, "\(String(describing: notif.userInfo))")
             return info != nil
         })
         
@@ -155,8 +155,8 @@ extension NetworkManagerTests {
         let osc = "VEZer" // odd spelling intentional
         manager.output = .blacktrax
         
-        expectation(forNotification: DashNotif.updateSwitchTo, object: manager, handler: { (notif) -> Bool in
-            let info = notif.userInfo as? [String: ControlMessage]
+        expectation(forNotification: DashNotif.updateSwitchTo, object: nil, handler: { (notif) -> Bool in
+            let info = notif.userInfo as? [String: ActiveOutput]
             XCTAssertNotNil(info)
             return info != nil
         })
@@ -164,7 +164,7 @@ extension NetworkManagerTests {
         manager.command(control: .switchActive, data: osc)
         
         XCTAssertEqual(manager.output, .vezer)
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: 2)
     }
 }
 
