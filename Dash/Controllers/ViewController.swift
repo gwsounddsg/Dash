@@ -78,18 +78,27 @@ class ViewController: NSViewController {
     
     
     func toggleSwitch() {
-        if networkManager.output == .blacktrax {
-            networkManager.output = .vezer
-            switchButton.image = NSImage(named: DashImage.activeVezer)
-            switchButton.contentTintColor = DashColor.activeVezer
-        }
-        else {
-            networkManager.output = .blacktrax
-            switchButton.image = NSImage(named: DashImage.activeBlackTrax)
-            switchButton.contentTintColor = DashColor.activeBlackTrax
+        networkManager.output = networkManager.output == .blacktrax ? .vezer : .blacktrax
+        setSwitch(networkManager.output)
+        print("Active input is now: \(networkManager.output)")
+    }
+    
+    
+    func setSwitch(_ output: ActiveOutput) {
+        var image: NSImage?
+        var color: NSColor?
+        
+        switch output {
+        case .blacktrax:
+            image = NSImage(named: DashImage.activeBlackTrax)
+            color = DashColor.activeBlackTrax
+        case .vezer:
+            image = NSImage(named: DashImage.activeVezer)
+            color = DashColor.activeVezer
         }
         
-        print("Active input is now: \(networkManager.output)")
+        switchButton.image = image!
+        switchButton.contentTintColor = color!
     }
     
     
@@ -124,12 +133,6 @@ class ViewController: NSViewController {
         UserDefaults.standard.set(defaultNetOut.livePort, forKey: idNetOut.livePort)
         UserDefaults.standard.set(defaultNetOut.recordedIP, forKey: idNetOut.recordedIP)
         UserDefaults.standard.set(defaultNetOut.recordedPort, forKey: idNetOut.recordedPort)
-    }
-    
-    
-    func createObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(liveBlackTrax), name: DashNotif.blacktrax,
-                object: nil)
     }
 }
 
@@ -242,9 +245,15 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
 
 
 
-// MARK: - Receive Data
+// MARK: - Notifications
 extension ViewController {
-
+    
+    func createObservers() {
+        addObserver(#selector(liveBlackTrax), DashNotif.blacktrax)
+        addObserver(#selector(changingActive), DashNotif.updateSwitchTo)
+    }
+    
+    
     @objc func liveBlackTrax(_ notif: Notification) {
         guard let data = notif.userInfo?[DashNotifData.rttrp] as? RTTrP else {
             return
@@ -252,5 +261,19 @@ extension ViewController {
         
         _liveData = data.pmPackets
         _liveTable.reload()
+    }
+    
+    
+    @objc func changingActive(_ notif: Notification) {
+        guard let output = notif.userInfo?[DashNotifData.switchOutputTo] as? ActiveOutput else {
+            return
+        }
+        
+        setSwitch(output)
+    }
+    
+    
+    private func addObserver(_ selector: Selector, _ name: NSNotification.Name?) {
+        NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
     }
 }

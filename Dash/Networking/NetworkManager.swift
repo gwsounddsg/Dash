@@ -14,16 +14,12 @@ import RTTrPSwift
 
 class NetworkManager {
     
-    enum Output {
-        case vezer, blacktrax
-    }
-    
     let servers = Servers()
     let clients = Clients()
     
     var ds100Mapping = "1"
     
-    var output: Output = .blacktrax {
+    var output: ActiveOutput = .blacktrax {
         didSet {
             if output == .blacktrax {
                 outputFunc = redirectDS100
@@ -137,13 +133,11 @@ extension NetworkManager: ServersProtocol {
         outputFunc(data)
         
         let dictInfo: [String: RTTrP] = [DashNotifData.rttrp: data]
-        NotificationCenter.default.post(name: DashNotif.blacktrax, object: nil, userInfo: dictInfo)
+        post(DashNotif.blacktrax, dictInfo)
     }
     
     
     func command(control: ControlMessage, data: Any?) {
-        print("Good command for \(control) with data: \(data)")
-        
         switch control {
         case .switchActive:
             guard let str = data as? String else {
@@ -162,7 +156,20 @@ extension NetworkManager: ServersProtocol {
                 return
             }
             
-            print(output)
+            post(DashNotif.updateSwitchTo, [DashNotifData.switchOutputTo: output])
         }
+    }
+}
+
+
+
+
+
+// MARK: - Utility
+
+fileprivate extension NetworkManager {
+    
+    func post(_ name: Notification.Name, _ userInfo: [String: Any]? = nil) {
+        NotificationCenter.default.post(name: name, object: nil, userInfo: userInfo)
     }
 }
