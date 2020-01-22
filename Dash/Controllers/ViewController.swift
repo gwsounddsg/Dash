@@ -17,16 +17,17 @@ class ViewController: NSViewController {
     @IBOutlet weak var liveTabView: NSTabView!
     @IBOutlet weak var recordedTabView: NSTabView!
     
-    // Indicators
+    // Images
     @IBOutlet weak var indicatorBlackTrax: NSImageView!
     @IBOutlet weak var indicatorControlIn: NSImageView!
     @IBOutlet weak var indicatorDS100Main: NSImageView!
     @IBOutlet weak var indicatorDS100Backup: NSImageView!
     @IBOutlet weak var indicatorVezerIn: NSImageView!
     @IBOutlet weak var indicatorVezerOut: NSImageView!
+    @IBOutlet weak var switchButton: NSButton!
     
     // Network
-    let networkManager = NetworkManager.instance
+    let networkManager = NetworkManager()
     
     // Private
     fileprivate var _liveTable: RttTableView!
@@ -38,6 +39,7 @@ class ViewController: NSViewController {
         super.viewWillAppear()
         setupDefaults()
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +59,7 @@ class ViewController: NSViewController {
         _recordedTable.tableView.identifier = DashID.TableType.recorded
         recTabViewItem.view = _recordedTable
         
-        networkManager.delegate = self
+        createObservers()
         connectAll()
 
         _liveTable.reload()
@@ -65,24 +67,38 @@ class ViewController: NSViewController {
     }
     
     
-    func setupDefaults() {
-        let idNetIn = DashDefaultIDs.Network.Incoming.self
-        let idNetOut = DashDefaultIDs.Network.Outgoing.self
-        let defaultNetIn = DashDefaultValues.Network.Incoming.self
-        let defaultNetOut = DashDefaultValues.Network.Outgoing.self
-    
-        UserDefaults.standard.set(defaultNetIn.blacktraxPort, forKey: idNetIn.blacktraxPort)
-        UserDefaults.standard.set(defaultNetIn.controlPort, forKey: idNetIn.controlPort)
-        UserDefaults.standard.set(defaultNetIn.recordedPort, forKey: idNetIn.recordedPort)
-        UserDefaults.standard.set(defaultNetOut.liveIP, forKey: idNetOut.liveIP)
-        UserDefaults.standard.set(defaultNetOut.livePort, forKey: idNetOut.livePort)
-        UserDefaults.standard.set(defaultNetOut.recordedIP, forKey: idNetOut.recordedIP)
-        UserDefaults.standard.set(defaultNetOut.recordedPort, forKey: idNetOut.recordedPort)
+    @IBAction func refreshClicked(_ sender: Any) {
+        connectAll()
     }
     
     
-    @IBAction func refreshClicked(_ sender: Any) {
-        connectAll()
+    @IBAction func switchClicked(_ sender: Any) {
+        toggleSwitch()
+    }
+    
+    
+    func toggleSwitch() {
+        networkManager.output = networkManager.output == .blacktrax ? .vezer : .blacktrax
+        setSwitch(networkManager.output)
+        print("Active input is now: \(networkManager.output)")
+    }
+    
+    
+    func setSwitch(_ output: ActiveOutput) {
+        var image: NSImage?
+        var color: NSColor?
+        
+        switch output {
+        case .blacktrax:
+            image = NSImage(named: DashImage.activeBlackTrax)
+            color = DashColor.activeBlackTrax
+        case .vezer:
+            image = NSImage(named: DashImage.activeVezer)
+            color = DashColor.activeVezer
+        }
+        
+        switchButton.image = image!
+        switchButton.contentTintColor = color!
     }
     
     
@@ -94,13 +110,29 @@ class ViewController: NSViewController {
         indicatorControlIn.image = connectedImage(result.servers.contains(.control))
         indicatorDS100Main.image = connectedImage(result.clients.contains(.ds100Main))
         indicatorDS100Backup.image = connectedImage(result.clients.contains(.ds100Backup))
-        indicatorVezerIn.image = connectedImage(result.servers.contains(.recorded))
-        indicatorVezerOut.image = connectedImage(result.clients.contains(.recorded))
+        indicatorVezerIn.image = connectedImage(result.servers.contains(.vezer))
+        indicatorVezerOut.image = connectedImage(result.clients.contains(.vezer))
     }
     
     private func connectedImage(_ check: Bool) -> NSImage? {
         let str = check ? DashImage.indicatorNotConnected : DashImage.indicatorConnected
         return NSImage(named: str)
+    }
+    
+    
+    func setupDefaults() {
+        let idNetIn = DashDefaultIDs.Network.Incoming.self
+        let idNetOut = DashDefaultIDs.Network.Outgoing.self
+        let defaultNetIn = DashDefaultValues.Network.Incoming.self
+        let defaultNetOut = DashDefaultValues.Network.Outgoing.self
+        
+        UserDefaults.standard.set(defaultNetIn.blacktraxPort, forKey: idNetIn.blacktraxPort)
+        UserDefaults.standard.set(defaultNetIn.controlPort, forKey: idNetIn.controlPort)
+        UserDefaults.standard.set(defaultNetIn.recordedPort, forKey: idNetIn.recordedPort)
+        UserDefaults.standard.set(defaultNetOut.liveIP, forKey: idNetOut.liveIP)
+        UserDefaults.standard.set(defaultNetOut.livePort, forKey: idNetOut.livePort)
+        UserDefaults.standard.set(defaultNetOut.recordedIP, forKey: idNetOut.recordedIP)
+        UserDefaults.standard.set(defaultNetOut.recordedPort, forKey: idNetOut.recordedPort)
     }
 }
 
@@ -213,11 +245,37 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
 
 
 
-// MARK: - NetworkManagerDelegate
-extension ViewController: NetworkManagerDelegate {
+// MARK: - Notifications
+extension ViewController {
     
-    func liveBlackTrax(_ data: RTTrP) {
+    func createObservers() {
+        addObserver(#selector(liveBlackTrax), DashNotif.blacktrax)
+        addObserver(#selector(changingActive), DashNotif.updateSwitchTo)
+    }
+    
+    
+    @objc
+    func liveBlackTrax(_ notif: Notification) {
+        guard let data = notif.userInfo?[DashNotifData.rttrp] as? RTTrP else {
+            return
+        }
+        
         _liveData = data.pmPackets
         _liveTable.reload()
+    }
+    
+    
+    @objc
+    func changingActive(_ notif: Notification) {
+        guard let output = notif.userInfo?[DashNotifData.switchOutputTo] as? ActiveOutput else {
+            return
+        }
+        
+        setSwitch(output)
+    }
+    
+    
+    private func addObserver(_ selector: Selector, _ name: NSNotification.Name?) {
+        NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
     }
 }

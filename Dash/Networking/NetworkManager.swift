@@ -12,312 +12,154 @@ import RTTrPSwift
 
 
 
-protocol NetworkManagerDelegate: class {
-    func liveBlackTrax(_ data: RTTrP)
-}
-
-
-
-
-
 class NetworkManager {
     
-    // Singleton
-    static let instance = NetworkManager()
+    let servers: Servers
+    let clients: Clients
     
-    // iVars
-    weak var delegate: NetworkManagerDelegate?
+    var ds100Mapping = "1"
     
-    // States
-    fileprivate (set) var isBlackTraxConnected: Bool = false
-    fileprivate (set) var isServerControlConnected: Bool = false
-    fileprivate (set) var isServerRecordedConnected: Bool = false
-    fileprivate (set) var isClientRecordedConnected: Bool = false
-    fileprivate (set) var isClientLiveConnected: Bool = false
-    
-    // Incoming
-    var blackTrax = ReceiveUDP()
-    var oscServerControl: DashOSCServer?
-    var oscServerRecorded: DashOSCServer?
-    
-    // Outgoing
-    var oscClientRecorded: DashOSCClient?
-    var oscClientLive: DashOSCClient?
-    
-    
-    init() {
-        blackTrax.delegate = self
-    }
-}
-
-
-
-
-
-// MARK: - Receive BlackTrax
-
-extension NetworkManager: ReceiveUDPDelegate {
-    
-    func newPacket(_ data: RTTrP) {
-        delegate?.liveBlackTrax(data)
-    }
-}
-
-
-
-
-
-// MARK: - OSC Server Delegate
-
-extension NetworkManager: DashOSCServerDelegate {
-    
-    func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Server) {
-        switch from {
-        case .control:
-            controlOSC(data: msg)
-        case .recorded:
-            recordedOSC(data: msg)
-        case .blackTrax:
-            break
+    var output: ActiveOutput = .blacktrax {
+        didSet {
+            if output == .blacktrax {
+                outputFunc = redirectDS100
+            } else {
+                outputFunc = redirectVezer
+            }
         }
     }
     
-    
-    fileprivate func controlOSC(data: Message) {
-        print("Control \(data)")
-    }
+    fileprivate lazy var outputFunc: (RTTrP) -> Void = redirectDS100
     
     
-    fileprivate func recordedOSC(data: Message) {
-        print("Vezer: \(data)")
+    init(_ setClient: Clients = Clients(), _ setServers: Servers = Servers()) {
+        clients = setClient
+        servers = setServers
+        servers.delegate = self
     }
 }
 
 
 
-
-
-// MARK: - Connecting
 
 extension NetworkManager {
-    // swiftlint:disable opening_brace
     
-    /// Returns array of types not connected
-    func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> (clients: [DashNetworkType
-    .Client], servers: [DashNetworkType.Server])
-    {
-        connectBlackTrax(from: defaults)
-        connectControlServer(from: defaults)
-        connectRecordedServer(from: defaults)
-        connectRecordedClient(from: defaults)
-        connectLiveClient(from: defaults)
-        
-        return checkConnections()
-    }
-    // swiftlint:enable opening_brace
-    
-    
-    private func checkConnections() -> ([DashNetworkType.Client], [DashNetworkType.Server]) {
-        var badClients = [DashNetworkType.Client]()
-        var badServers = [DashNetworkType.Server]()
-        
-        if !isBlackTraxConnected {badServers.append(.blackTrax)}
-        if !isServerControlConnected {badServers.append(.control)}
-        if !isServerRecordedConnected {badServers.append(.recorded)}
-        if !isClientRecordedConnected {badClients.append(.recorded)}
-        if !isClientLiveConnected {badClients.append(.ds100Main)}
-        badClients.append(.ds100Backup)
-        
-        return (badClients, badServers)
+    func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> ClientsServers {
+        let badClients = clients.connectAll(from: defaults)
+        let badServers = servers.connectAll(from: defaults)
+        return (clients: badClients, servers: badServers)
     }
     
-    
-    func connectBlackTrax(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
-        isBlackTraxConnected = false
-        
-        do {
-            try doConnectBlackTrax(defaults)
-            isBlackTraxConnected = true
-        }
-        catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    private func doConnectBlackTrax(_ defaults: UserDefaultsProtocol = UserDefaults.standard) throws {
-        guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Incoming.blacktraxPort, from: defaults) else {
-            throw DashError.CantGetDefaultValueFor(DashDefaultIDs.Network.Incoming.blacktraxPort)
-        }
-        
-        if blackTrax.localPort() == port {return} // already connected
-        
-        do {try blackTrax.connect(port: port)}
-        catch {throw error}
-    }
-    
-    
-    func connectControlServer(from defaults: UserDefaultsProtocol) {
-        isServerControlConnected = false
-        
-        do {
-            try doConnectControlServer(defaults)
-            oscServerControl!.start()
-            isServerControlConnected = true
-        }
-        catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    private func doConnectControlServer(_ defaults: UserDefaultsProtocol) throws {
-        let keys = DashDefaultIDs.Network.Incoming.self
-        
-        guard let port: Int = getDefault(withKey: keys.controlPort, from: defaults) else {
-            oscServerControl = nil
-            throw DashError.CantGetDefaultValueFor(keys.controlPort)
-        }
-    
-        if oscServerControl == nil {
-            oscServerControl = DashOSCServer(.control, "", port)
-            oscServerControl!.delegate = self
-        }
-        else {
-            oscServerControl!.port = port
-        }
-    }
-    
-    
-    func connectRecordedServer(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
-        isServerRecordedConnected = false
-        
-        do {
-            try doConnectRecordedServer(defaults)
-            oscServerRecorded!.start()
-            isServerRecordedConnected = true
-        }
-        catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    private func doConnectRecordedServer(_ defaults: UserDefaultsProtocol) throws {
-        let keys = DashDefaultIDs.Network.Incoming.self
-    
-        guard let port: Int = getDefault(withKey: keys.recordedPort, from: defaults) else {
-            oscServerRecorded = nil
-            throw DashError.CantGetDefaultValueFor(keys.recordedPort)
-        }
-    
-        if oscServerRecorded == nil {
-            oscServerRecorded = DashOSCServer(.recorded, "", port)
-            oscServerRecorded!.delegate = self
-        }
-        else {
-            oscServerRecorded!.port = port
-        }
-    }
-    
-    
-    func connectRecordedClient(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
-        isClientRecordedConnected = false
-        
-        do {
-            try doConnectRecordedClient(defaults)
-            isClientRecordedConnected = true
-        }
-        catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    private func doConnectRecordedClient(_ defaults: UserDefaultsProtocol) throws {
-        let keys = DashDefaultIDs.Network.Outgoing.self
-    
-        guard let addy: String = getDefault(withKey: keys.recordedIP, from: defaults) else {
-            oscClientRecorded = nil
-            throw DashError.CantGetDefaultValueFor(keys.recordedIP)
-        }
-    
-        guard let port: Int = getDefault(withKey: keys.recordedPort, from: defaults) else {
-            oscClientRecorded = nil
-            throw DashError.CantGetDefaultValueFor(keys.recordedPort)
-        }
-    
-        if oscClientRecorded == nil {
-            oscClientRecorded = DashOSCClient(.recorded, addy, port)
-        }
-        else {
-            oscClientRecorded!.address = addy
-            oscClientRecorded!.port = port
-        }
-    }
-    
-    
-    func connectLiveClient(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
-        isClientLiveConnected = false
-        
-        do {
-            try doConnectLiveClient(defaults)
-            isClientLiveConnected = true
-        }
-        catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    private func doConnectLiveClient(_ defaults: UserDefaultsProtocol) throws {
-        let keys = DashDefaultIDs.Network.Outgoing.self
-    
-        guard let addy: String = getDefault(withKey: keys.liveIP, from: defaults) else {
-            oscClientLive = nil
-            throw DashError.CantGetDefaultValueFor(keys.liveIP)
-        }
-    
-        guard let port: Int = getDefault(withKey: keys.livePort, from: defaults) else {
-            oscClientLive = nil
-            throw DashError.CantGetDefaultValueFor(keys.livePort)
-        }
-    
-        if oscClientLive == nil {
-            oscClientLive = DashOSCClient(.ds100Main, addy, port)
-        }
-        else {
-            oscClientLive!.address = addy
-            oscClientLive!.port = port
-        }
-    }
-}
-
-
-
-
-
-// MARK: - Sending Messages
-
-extension NetworkManager {
     
     func sendOSC(message: Message, to client: DashNetworkType.Client) -> Bool {
-        switch client {
-        case .recorded:
-            if !isClientRecordedConnected {return false}
-            oscClientRecorded!.send(message: message)
-            
-        case .ds100Main:
-            if !isClientLiveConnected {return false}
-            oscClientLive!.send(message: message)
-        
-        case .ds100Backup:
-            return false
-        }
-        
-        return true
+        return clients.sendOSC(message: message, to: client)
     }
     
     
     func send(ds100 data: [DS100]) -> Bool {
-        if !isClientLiveConnected {return false}
-        oscClientLive!.send(data: data)
-        return true
+        return clients.send(ds100: data)
+    }
+    
+    
+    func redirectDS100(data: RTTrP) {
+        let ds100Data = prepareDS100Data(data)
+        _ = send(ds100: ds100Data)
+    }
+    
+    
+    func redirectVezer(data: RTTrP) {
+        let vezerData = prepareVezerData(data)
+        _ = clients.send(vezer: vezerData)
+    }
+    
+    
+    private func prepareDS100Data(_ data: RTTrP) -> [DS100] {
+        let pmPackets = data.pmPackets
+        var ds100Data = [DS100]()
+    
+        for packet in pmPackets {
+            guard let trackable = packet.trackable else {
+                continue
+            }
+        
+            guard let centroid = trackable.submodules[.centroidAccVel] as? [CentroidAccVel] else {
+                continue
+            }
+        
+            if centroid.isEmpty {continue}
+        
+            let x = centroid[0].position.x
+            let y = centroid[0].position.y
+        
+            ds100Data.append(DS100(ds100Mapping, input: trackable.name, x: x, y: y))
+        }
+        
+        return ds100Data
+    }
+    
+    
+    private func prepareVezerData(_ data: RTTrP) -> [Vezer] {
+        let pmPackets = data.pmPackets
+        var vezerData = [Vezer]()
+        
+        for packet in pmPackets {
+            guard let trackable = packet.trackable else {
+                continue
+            }
+            
+            guard let centroid = trackable.submodules[.centroidAccVel] as? [CentroidAccVel] else {
+                continue
+            }
+            
+            if centroid.isEmpty {continue}
+            
+            let x = centroid[0].position.x
+            let y = centroid[0].position.y
+            
+            vezerData.append(Vezer(trackable.name, x, y))
+        }
+        
+        return vezerData
+    }
+}
+
+
+
+
+
+// MARK: - ServersProtocol
+
+extension NetworkManager: ServersProtocol {
+    
+    func liveBlackTrax(_ data: RTTrP) {
+        outputFunc(data)
+        
+        let dictInfo: [String: RTTrP] = [DashNotifData.rttrp: data]
+        post(DashNotif.blacktrax, dictInfo)
+    }
+    
+    
+    func command(control: ControlMessage, data: Any?) {
+        switch control {
+        case .switchActive:
+            guard let str = data as? String else {
+                print("Bad data for control message switchActive")
+                return
+            }
+            
+            let lowercase = str.lowercased()
+            switch lowercase {
+            case "blacktrax":
+                output = .blacktrax
+            case "vezer":
+                output = .vezer
+            default:
+                print("Invalid value for control message switchActive. Use 'blacktrax' or 'vezer'")
+                return
+            }
+            
+            post(DashNotif.updateSwitchTo, [DashNotifData.switchOutputTo: output])
+        }
     }
 }
 
@@ -329,12 +171,7 @@ extension NetworkManager {
 
 fileprivate extension NetworkManager {
     
-    func getDefault(withKey key: String, from: UserDefaultsProtocol) -> Int? {
-        return from.getInt(forKey: key)
-    }
-    
-    
-    func getDefault(withKey key: String, from: UserDefaultsProtocol) -> String? {
-        return from.getString(forKey: key)
+    func post(_ name: Notification.Name, _ userInfo: [String: Any]? = nil) {
+        NotificationCenter.default.post(name: name, object: nil, userInfo: userInfo)
     }
 }

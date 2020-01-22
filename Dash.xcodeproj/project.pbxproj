@@ -15,6 +15,8 @@
 		57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7623B2B54E001A27A6 /* Extensions.swift */; };
 		57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7A23B2B869001A27A6 /* DS100.swift */; };
 		6B21898E7B892105727D0E3C /* Pods_Dash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */; };
+		9A2E843723D892FC00843EA9 /* ClientsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2E843623D892FC00843EA9 /* ClientsTests.swift */; };
+		9A2E843923D8930600843EA9 /* ServersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2E843823D8930600843EA9 /* ServersTests.swift */; };
 		9A66296423CF4EE50025125D /* DashOSCClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296323CF4EE50025125D /* DashOSCClientTests.swift */; };
 		9A66296623CF4EF10025125D /* DashOSCServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296523CF4EF10025125D /* DashOSCServerTests.swift */; };
 		9A66296823CF4EFC0025125D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */; };
@@ -32,6 +34,9 @@
 		9AEA615923C5126300B27003 /* DashOSCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615823C5126300B27003 /* DashOSCClient.swift */; };
 		9AEA615B23C5126B00B27003 /* DashOSCServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615A23C5126B00B27003 /* DashOSCServer.swift */; };
 		BAF3B7CD612409C1A962A83F /* Pods_DashTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E29DC86667E69AF0E9F488 /* Pods_DashTests.framework */; };
+		CD1832D32812F04C4F8C43A0 /* Clients.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18360097ABDE641A6C55C1 /* Clients.swift */; };
+		CD183705FD5C1B30AF9896B0 /* Servers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183FE03BD8D9093937E2B8 /* Servers.swift */; };
+		CD183A74FF36165CED59F896 /* Vezer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18356AF1367FDF484BF6FF /* Vezer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +63,8 @@
 		57AF9D7A23B2B869001A27A6 /* DS100.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DS100.swift; sourceTree = "<group>"; };
 		651BB45AE5E5B9541C7EA030 /* Pods-Dash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.release.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.release.xcconfig"; sourceTree = "<group>"; };
 		9005CB6A86854E374AE5B036 /* Pods-DashTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashTests.debug.xcconfig"; path = "Target Support Files/Pods-DashTests/Pods-DashTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A2E843623D892FC00843EA9 /* ClientsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTests.swift; sourceTree = "<group>"; };
+		9A2E843823D8930600843EA9 /* ServersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServersTests.swift; sourceTree = "<group>"; };
 		9A66296323CF4EE50025125D /* DashOSCClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCClientTests.swift; sourceTree = "<group>"; };
 		9A66296523CF4EF10025125D /* DashOSCServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCServerTests.swift; sourceTree = "<group>"; };
 		9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
@@ -79,6 +86,9 @@
 		9AEA615A23C5126B00B27003 /* DashOSCServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCServer.swift; sourceTree = "<group>"; };
 		C1E29DC86667E69AF0E9F488 /* Pods_DashTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DashTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99DC24200B3F14295912028 /* Pods-DashTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashTests.release.xcconfig"; path = "Target Support Files/Pods-DashTests/Pods-DashTests.release.xcconfig"; sourceTree = "<group>"; };
+		CD18356AF1367FDF484BF6FF /* Vezer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vezer.swift; sourceTree = "<group>"; };
+		CD18360097ABDE641A6C55C1 /* Clients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clients.swift; sourceTree = "<group>"; };
+		CD183FE03BD8D9093937E2B8 /* Servers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Servers.swift; sourceTree = "<group>"; };
 		F43F3A006F031062C7D58C58 /* Pods-Dash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.debug.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -200,10 +210,12 @@
 		9AD1100923CE092500BBFE73 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				9A2E843623D892FC00843EA9 /* ClientsTests.swift */,
 				9A66296323CF4EE50025125D /* DashOSCClientTests.swift */,
 				9A66296523CF4EF10025125D /* DashOSCServerTests.swift */,
 				9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */,
 				9AD1100A23CE093200BBFE73 /* ReceiveUDPTests.swift */,
+				9A2E843823D8930600843EA9 /* ServersTests.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -213,6 +225,7 @@
 			children = (
 				57AF9D7A23B2B869001A27A6 /* DS100.swift */,
 				9AEA615323C5083F00B27003 /* Message.swift */,
+				CD18356AF1367FDF484BF6FF /* Vezer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -220,10 +233,12 @@
 		9AEA615523C5088200B27003 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				CD18360097ABDE641A6C55C1 /* Clients.swift */,
 				9AEA615823C5126300B27003 /* DashOSCClient.swift */,
 				9AEA615A23C5126B00B27003 /* DashOSCServer.swift */,
 				9AEA615623C50CBB00B27003 /* NetworkManager.swift */,
 				57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */,
+				CD183FE03BD8D9093937E2B8 /* Servers.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -440,6 +455,9 @@
 				9AEA615923C5126300B27003 /* DashOSCClient.swift in Sources */,
 				57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */,
 				9AC6902723C3A9240047320A /* Constants.swift in Sources */,
+				CD183705FD5C1B30AF9896B0 /* Servers.swift in Sources */,
+				CD1832D32812F04C4F8C43A0 /* Clients.swift in Sources */,
+				CD183A74FF36165CED59F896 /* Vezer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +466,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A66296823CF4EFC0025125D /* NetworkManagerTests.swift in Sources */,
+				9A2E843723D892FC00843EA9 /* ClientsTests.swift in Sources */,
+				9A2E843923D8930600843EA9 /* ServersTests.swift in Sources */,
 				9A66296623CF4EF10025125D /* DashOSCServerTests.swift in Sources */,
 				9AC1E5A523CE50EA00757262 /* TestingExtensions.swift in Sources */,
 				9ABDE08B23CE2621004189B3 /* TestingConstants.swift in Sources */,

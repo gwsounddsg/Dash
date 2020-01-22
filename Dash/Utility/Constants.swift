@@ -37,18 +37,33 @@ enum DashID {
 }
 
 
+enum DashNotif {
+    static let blacktrax = NSNotification.Name("blacktraxDataIn")
+    static let updateSwitchTo = NSNotification.Name("updateSwitchTo")
+    static let toggleSwitch = NSNotification.Name("toggleSwitch")
+}
+
+
+enum DashNotifData {
+    static let rttrp = "rttrp"
+    static let switchOutputTo = "switchOutputTo"
+}
+
+
 
 
 
 // MARK: - Types
 
+typealias ClientsServers = (clients: [DashNetworkType.Client], servers: [DashNetworkType.Server])
+
 enum DashNetworkType {
     enum Client {
-        case recorded, ds100Main, ds100Backup
+        case vezer, ds100Main, ds100Backup
     }
     
     enum Server {
-        case recorded, control, blackTrax
+        case vezer, control, blackTrax
     }
 }
 
@@ -61,13 +76,36 @@ enum DashError: Error {
 enum DashImage {
     static let indicatorConnected = "NSStatusAvailable"
     static let indicatorNotConnected = "NSStatusUnavailable"
+    static let activeBlackTrax = "NSGoBackTemplate"
+    static let activeVezer = "NSGoForwardTemplate"
+}
+
+
+enum DashColor {
+    static let activeBlackTrax = NSColor.systemBlue
+    static let activeVezer = NSColor.systemRed
+}
+
+
+enum ControlMessage {
+    case switchActive
+}
+
+
+enum ControlOSC {
+    static let switchTo = "/dash/control/switch"
+}
+
+
+enum ActiveOutput {
+    case blacktrax, vezer
 }
 
 
 
 
-
 // MARK: - UserDefaults
+
 enum DashDefaultIDs {
     enum Network {
         enum Incoming {
@@ -90,7 +128,7 @@ enum DashDefaultValues {
     enum Network {
         enum Incoming {
             static let blacktraxPort = "24002"
-            static let controlPort = "53000"
+            static let controlPort = "4202"
             static let recordedPort = "8000"
         }
         

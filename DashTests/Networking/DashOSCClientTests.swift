@@ -22,7 +22,7 @@ class DashOSCClientTests: XCTestCase {
 
 
     override func setUp() {
-        _client = MockDashOSCClient(.recorded, address, port)
+        _client = MockDashOSCClient(.vezer, address, port)
     }
 
     override func tearDown() {
@@ -37,7 +37,7 @@ class DashOSCClientTests: XCTestCase {
 extension DashOSCClientTests {
 
     func testDashOSCClient() {
-        XCTAssertEqual(_client.type, .recorded)
+        XCTAssertEqual(_client.type, .vezer)
         XCTAssertEqual(_client.address, address)
         XCTAssertEqual(_client.port, port)
 

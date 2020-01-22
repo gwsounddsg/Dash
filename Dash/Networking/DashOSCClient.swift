@@ -53,32 +53,40 @@ class DashOSCClient {
     internal func clientPort(_ newPort: Int) {
         client.port = newPort
     }
- }
-
-
-
-
-
-extension DashOSCClient {
+    
+    
     /// Regular OSC message
     func send(message: Message) {
         let msg = makeMessage(message.address, message.values)
         clientSend(msg)
     }
-
-
+    
+    
     /// Sends data to DS100
     func send(data: [DS100]) {
         let bundle = OSCBundle()
-
+        
         for each in data {
             let msg = makeMessage(each.addy(), each.x, each.y)
             bundle.add(msg)
         }
-
+        
         clientSend(bundle)
     }
-}
+    
+    
+    /// Sends data to Vezer
+    func send(data: [Vezer]) {
+        let bundle = OSCBundle()
+        
+        for each in data {
+            let msg = makeMessage(each.addy(), each.x, each.y)
+            bundle.add(msg)
+        }
+        
+        clientSend(bundle)
+    }
+ }
 
 
 

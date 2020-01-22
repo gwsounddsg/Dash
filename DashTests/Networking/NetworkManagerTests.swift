@@ -7,30 +7,21 @@
 
 import XCTest
 import RTTrPSwift
-import CocoaAsyncSocket
-import SwiftOSC
 @testable import Dash
 
 
 
-// swiftlint:disable weak_delegate
+
 
 class NetworkManagerTests: XCTestCase {
 
     var manager: NetworkManager!
-    var delegate: MockNetworkManagerDelegate!
-
-    var mBlackTrax: MockReceiveUDP!
-    var mOscServerControl: MDashOSCServer!
-    var mOscServerRecorded: MDashOSCServer!
-    var mOscClientRecorded: MDashOSCClient!
-    var mOscClientLive: MDashOSCClient!
+    var mClients: MockClients!
+    var mServers: MockServers!
 
     
     override func setUp() {
         manager = NetworkManager()
-        delegate = MockNetworkManagerDelegate()
-        manager.delegate = delegate
     }
 }
 
@@ -41,160 +32,139 @@ class NetworkManagerTests: XCTestCase {
 extension NetworkManagerTests {
 
     func testNetworkManager() {
-        XCTAssertFalse(manager.isBlackTraxConnected)
-        XCTAssertFalse(manager.isServerControlConnected)
-        XCTAssertFalse(manager.isServerRecordedConnected)
-        XCTAssertFalse(manager.isClientRecordedConnected)
-        XCTAssertFalse(manager.isClientLiveConnected)
-
-        XCTAssertTrue(manager.blackTrax.delegate === manager)
+        XCTAssertTrue(manager.servers.delegate === manager)
     }
+    
+    
+    func testNetworkManager_connectAll() {
+        mockAll()
+        mClients.stubbedConnectAllResult = []
+        mServers.stubbedConnectAllResult = []
+        
+        let result = manager.connectAll()
+        
+        XCTAssertTrue(result.clients.isEmpty)
+        XCTAssertTrue(result.servers.isEmpty)
+        XCTAssertTrue(mClients.invokedConnectAll)
+        XCTAssertTrue(mServers.invokedConnectAll)
+    }
+    
+    
+    func testNetworkManager_sendOSC() {
+        mockAll()
+        mClients.stubbedSendOSCResult = true
+        let msg = Message("/sendosc", [nil])
+        
+        let result = manager.sendOSC(message: msg, to: .vezer)
+        
+        XCTAssertTrue(result)
+        XCTAssertTrue(mClients.invokedSendOSC)
+    }
+    
+    
+    func testNetworkManager_sendDS100() {
+        mockAll()
+        mClients.stubbedSendDs100Result = true
+        let data = DS100("4", input: "88", x: 3, y: 2)
+        
+        let result = manager.send(ds100: [data])
+        
+        XCTAssertTrue(result)
+        XCTAssertTrue(mClients.invokedSendDs100)
+    }
+    
+    
+    func testNetworkManager_redirectDS100() {
+        mockAll()
+        mClients.stubbedSendDs100Result = true
+        guard let data = try? RTTrP(data: rttData) else {
+            assertionFailure()
+            return
+        }
+        
+        manager.redirectDS100(data: data)
+        
+        XCTAssertEqual(mClients.invokedSendDs100Parameters?.data[0].mapping, "1")
+    }
+    
+    
+    func testNetworkManager_redirectVezer() {
+        mockAll()
+        mClients.stubbedSendVezerResult = true
+        guard let data = try? RTTrP(data: rttData) else {
+            assertionFailure()
+            return
+        }
+        
+        manager.redirectVezer(data: data)
+        
+        XCTAssertEqual(mClients.invokedSendVezerParameters?.data[0].name, "0")
+    }
+}
 
 
-    func testNetworkManager_newPacket() {
-        let rttrp = try? RTTrP(data: rttData)
-        if rttrp == nil {
+
+
+
+// MARK: - ServersProtocol
+
+extension NetworkManagerTests {
+    
+    func testNetworkManager_liveBlackTrax() {
+        mockAll()
+        mClients.stubbedSendDs100Result = true
+        guard let data = try? RTTrP(data: rttData) else {
             assertionFailure()
             return
         }
 
-        manager.newPacket(rttrp!)
-        XCTAssertTrue(delegate.invokedLiveBlackTrax)
-    }
-}
+        expectation(forNotification: DashNotif.blacktrax, object: nil, handler: { (notif) -> Bool in
+            let info = notif.userInfo as? [String: RTTrP]
+            XCTAssertNotNil(info)
+            return info != nil
+        })
+                    
+        manager.liveBlackTrax(data)
 
-
-
-
-
-// MARK: - OSC Server Delegate
-
-extension NetworkManagerTests {
-
-    func testNetworkManager_oscDataReceived_control() {
-        let msg = Message("/data/received/control", [3.14])
-        
-        manager.oscDataReceived(msg, .control)
-        
-        //TODO: fill out test
+        // checks outputFunc is called
+        XCTAssertEqual(mClients.invokedSendDs100Parameters?.data[0].mapping, "1")
+        waitForExpectations(timeout: 1)
     }
     
     
-    func testNetworkManager_oscDataReceived_recorded() {
-        let msg = Message("/data/received/recorded", [4.14])
-        
-        manager.oscDataReceived(msg, .recorded)
-        
-        //TODO: fill out test
-    }
-    
-    
-    func testNetworkManager_oscDataReceived_blackTrax() {
-        let msg = Message("/data/received/blacktrax", [1.12])
-        
-        manager.oscDataReceived(msg, .blackTrax)
-        // this server type does nothing
-    }
-}
-
-
-
-
-
-// MARK: - Connecting
-
-extension NetworkManagerTests {
-
-    func testNetworkManager_connectAll() {
-        let addy = "/connect/recorded/client"
-        let port = 9999
-        let mockDefaults = MockUserDefaults()
-        mockDefaults.stubbedGetStringResult = addy
-        mockDefaults.stubbedGetIntResult = port
+    func testNetworkManager_command_switchActive_blacktrax() {
         mockAll()
+        let osc = "blAckTRax" // odd spelling intentional
+        manager.output = .vezer
         
-        let result = manager.connectAll(from: mockDefaults)
-    
-        XCTAssertTrue(manager.isBlackTraxConnected)
-        XCTAssertTrue(manager.isServerControlConnected)
-        XCTAssertTrue(manager.isServerRecordedConnected)
-        XCTAssertTrue(manager.isClientRecordedConnected)
-        XCTAssertTrue(manager.isClientLiveConnected)
-    
-        XCTAssertTrue(result.clients.count == 1)
-        XCTAssertTrue(result.clients.contains(.ds100Backup))
-        XCTAssertTrue(result.servers.isEmpty)
+        expectation(forNotification: DashNotif.updateSwitchTo, object: nil, handler: { (notif) -> Bool in
+            let info = notif.userInfo as? [String: ActiveOutput]
+            XCTAssertNotNil(info, "\(String(describing: notif.userInfo))")
+            return info != nil
+        })
+        
+        manager.command(control: .switchActive, data: osc)
+        
+        XCTAssertEqual(manager.output, .blacktrax)
+        waitForExpectations(timeout: 1)
     }
     
     
-    func testNetworkManager_connectBlackTraxPortWithPref() {
-        let port = 8888
-        let mockDefaults = MockUserDefaults()
-        mockDefaults.stubbedGetIntResult = port
+    func testNetworkManager_command_switchActive_vezer() {
         mockAll()
+        let osc = "VEZer" // odd spelling intentional
+        manager.output = .blacktrax
         
-        manager.connectBlackTrax(from: mockDefaults)
+        expectation(forNotification: DashNotif.updateSwitchTo, object: nil, handler: { (notif) -> Bool in
+            let info = notif.userInfo as? [String: ActiveOutput]
+            XCTAssertNotNil(info)
+            return info != nil
+        })
         
-        XCTAssertEqual(mBlackTrax.invokedConnectParameters?.port, port)
-        XCTAssertTrue(manager.isBlackTraxConnected)
-    }
-    
-    
-    func testNetworkManager_connectControlServer() {
-        let port = 4321
-        let mockDefaults = MockUserDefaults()
-        mockDefaults.stubbedGetIntResult = port
-        mockAll()
-    
-        manager.connectControlServer(from: mockDefaults)
-    
-        XCTAssertEqual(mOscServerControl.invokedPort, port)
-        XCTAssertTrue(manager.isServerControlConnected)
-    }
-    
-    
-    func testNetworkManager_connectRecordedServer() {
-        let port = 3967
-        let mockDefaults = MockUserDefaults()
-        mockDefaults.stubbedGetIntResult = port
-        mockAll()
-    
-        manager.connectRecordedServer(from: mockDefaults)
-    
-        XCTAssertEqual(mOscServerRecorded.invokedPort, port)
-        XCTAssertTrue(manager.isServerRecordedConnected)
-    }
-    
-    
-    func testNetworkManager_connectRecordedClient() {
-        let addy = "/connect/recorded/client"
-        let port = 9999
-        let mockDefaults = MockUserDefaults()
-        mockDefaults.stubbedGetStringResult = addy
-        mockDefaults.stubbedGetIntResult = port
-        mockAll()
+        manager.command(control: .switchActive, data: osc)
         
-        manager.connectRecordedClient(from: mockDefaults)
-        
-        XCTAssertEqual(mOscClientRecorded.invokedAddress, addy)
-        XCTAssertEqual(mOscClientRecorded.invokedPort, port)
-        XCTAssertTrue(manager.isClientRecordedConnected)
-    }
-    
-    
-    func testNetworkManager_connectLiveClient() {
-        let addy = "/connect/live/client"
-        let port = 7890
-        let mockDefaults = MockUserDefaults()
-        mockDefaults.stubbedGetStringResult = addy
-        mockDefaults.stubbedGetIntResult = port
-        mockAll()
-        
-        manager.connectLiveClient(from: mockDefaults)
-        
-        XCTAssertEqual(mOscClientLive.invokedAddress, addy)
-        XCTAssertEqual(mOscClientLive.invokedPort, port)
-        XCTAssertTrue(manager.isClientLiveConnected)
+        XCTAssertEqual(manager.output, .vezer)
+        waitForExpectations(timeout: 2)
     }
 }
 
@@ -207,17 +177,9 @@ extension NetworkManagerTests {
 extension NetworkManagerTests {
 
     func mockAll() {
-        mBlackTrax = MockReceiveUDP()
-        mOscServerControl = MDashOSCServer(.control, "/server/control", 1111)
-        mOscServerRecorded = MDashOSCServer(.recorded, "/server/recorded", 2222)
-        mOscClientRecorded = MDashOSCClient(.recorded, "/client/recorded", 3333)
-        mOscClientLive = MDashOSCClient(.ds100Main, "/client/live", 4444)
-        
-        manager.blackTrax = mBlackTrax
-        manager.oscServerControl = mOscServerControl
-        manager.oscServerRecorded = mOscServerRecorded
-        manager.oscClientRecorded = mOscClientRecorded
-        manager.oscClientLive = mOscClientLive
+        mClients = MockClients()
+        mServers = MockServers()
+        manager = NetworkManager(mClients, mServers)
     }
 }
 
@@ -227,144 +189,78 @@ extension NetworkManagerTests {
 
 // MARK: - Mocks
 
-class MockNetworkManagerDelegate: NetworkManagerDelegate {
+// swiftlint:disable weak_delegate
 
-    var invokedLiveBlackTrax = false
-    var invokedLiveBlackTraxCount = 0
-    var invokedLiveBlackTraxParameters: (data: RTTrP, Void)?
-    var invokedLiveBlackTraxParametersList = [(data: RTTrP, Void)]()
-
-    func liveBlackTrax(_ data: RTTrP) {
-        invokedLiveBlackTrax = true
-        invokedLiveBlackTraxCount += 1
-        invokedLiveBlackTraxParameters = (data, ())
-        invokedLiveBlackTraxParametersList.append((data, ()))
-    }
-}
-
-
-class MockReceiveUDP: ReceiveUDP {
+class MockServers: Servers {
     
-    var invoked_socketSetter = false
-    var invoked_socketSetterCount = 0
-    var invoked_socket: GCDAsyncUdpSocket?
-    var invoked_socketList = [GCDAsyncUdpSocket?]()
-    var invoked_socketGetter = false
-    var invoked_socketGetterCount = 0
-    var stubbed_socket: GCDAsyncUdpSocket!
-    override var _socket: GCDAsyncUdpSocket! {
+    var invokedBlackTraxSetter = false
+    var invokedBlackTraxSetterCount = 0
+    var invokedBlackTrax: ReceiveUDP?
+    var invokedBlackTraxList = [ReceiveUDP]()
+    var invokedBlackTraxGetter = false
+    var invokedBlackTraxGetterCount = 0
+    var stubbedBlackTrax: ReceiveUDP!
+    override var blackTrax: ReceiveUDP {
         set {
-            invoked_socketSetter = true
-            invoked_socketSetterCount += 1
-            invoked_socket = newValue
-            invoked_socketList.append(newValue)
+            invokedBlackTraxSetter = true
+            invokedBlackTraxSetterCount += 1
+            invokedBlackTrax = newValue
+            invokedBlackTraxList.append(newValue)
         }
         get {
-            invoked_socketGetter = true
-            invoked_socketGetterCount += 1
-            return stubbed_socket
+            invokedBlackTraxGetter = true
+            invokedBlackTraxGetterCount += 1
+            return stubbedBlackTrax
         }
     }
-    var invoked_delegateSetter = false
-    var invoked_delegateSetterCount = 0
-    var invoked_delegate: ReceiveUDPDelegate?
-    var invoked_delegateList = [ReceiveUDPDelegate?]()
-    var invoked_delegateGetter = false
-    var invoked_delegateGetterCount = 0
-    var stubbed_delegate: ReceiveUDPDelegate!
-    override var _delegate: ReceiveUDPDelegate? {
+    var invokedVezerSetter = false
+    var invokedVezerSetterCount = 0
+    var invokedVezer: DashOSCServer?
+    var invokedVezerList = [DashOSCServer?]()
+    var invokedVezerGetter = false
+    var invokedVezerGetterCount = 0
+    var stubbedVezer: DashOSCServer!
+    override var vezer: DashOSCServer? {
         set {
-            invoked_delegateSetter = true
-            invoked_delegateSetterCount += 1
-            invoked_delegate = newValue
-            invoked_delegateList.append(newValue)
+            invokedVezerSetter = true
+            invokedVezerSetterCount += 1
+            invokedVezer = newValue
+            invokedVezerList.append(newValue)
         }
         get {
-            invoked_delegateGetter = true
-            invoked_delegateGetterCount += 1
-            return stubbed_delegate
+            invokedVezerGetter = true
+            invokedVezerGetterCount += 1
+            return stubbedVezer
         }
     }
-    var invokedUdpSocket = false
-    var invokedUdpSocketCount = 0
-    var invokedUdpSocketParameters: (sock: GCDAsyncUdpSocket, data: Data, address: Data, filterContext: Any?)?
-    var invokedUdpSocketParametersList = [(sock: GCDAsyncUdpSocket, data: Data, address: Data, filterContext: Any?)]()
-    
-    override func udpSocket(_ sock: GCDAsyncUdpSocket, didReceive data: Data, fromAddress address: Data, withFilterContext filterContext: Any?) {
-        invokedUdpSocket = true
-        invokedUdpSocketCount += 1
-        invokedUdpSocketParameters = (sock, data, address, filterContext)
-        invokedUdpSocketParametersList.append((sock, data, address, filterContext))
-    }
-    
-    var invokedConnect = false
-    var invokedConnectCount = 0
-    var invokedConnectParameters: (port: Int, Void)?
-    var invokedConnectParametersList = [(port: Int, Void)]()
-    var stubbedConnectError: Error?
-    
-    override func connect(port: Int) throws {
-        invokedConnect = true
-        invokedConnectCount += 1
-        invokedConnectParameters = (port, ())
-        invokedConnectParametersList.append((port, ()))
-        if let error = stubbedConnectError {
-            throw error
+    var invokedControlSetter = false
+    var invokedControlSetterCount = 0
+    var invokedControl: DashOSCServer?
+    var invokedControlList = [DashOSCServer?]()
+    var invokedControlGetter = false
+    var invokedControlGetterCount = 0
+    var stubbedControl: DashOSCServer!
+    override var control: DashOSCServer? {
+        set {
+            invokedControlSetter = true
+            invokedControlSetterCount += 1
+            invokedControl = newValue
+            invokedControlList.append(newValue)
+        }
+        get {
+            invokedControlGetter = true
+            invokedControlGetterCount += 1
+            return stubbedControl
         }
     }
-    
-    var invokedIsIPv4Enabled = false
-    var invokedIsIPv4EnabledCount = 0
-    var stubbedIsIPv4EnabledResult: Bool! = false
-    
-    override func isIPv4Enabled() -> Bool {
-        invokedIsIPv4Enabled = true
-        invokedIsIPv4EnabledCount += 1
-        return stubbedIsIPv4EnabledResult
-    }
-    
-    var invokedConnectedPort = false
-    var invokedConnectedPortCount = 0
-    var stubbedConnectedPortResult: Int! = 0
-    
-    override func connectedPort() -> Int {
-        invokedConnectedPort = true
-        invokedConnectedPortCount += 1
-        return stubbedConnectedPortResult
-    }
-    
-    var invokedLocalAddress = false
-    var invokedLocalAddressCount = 0
-    var stubbedLocalAddressResult: String! = ""
-    
-    override func localAddress() -> String {
-        invokedLocalAddress = true
-        invokedLocalAddressCount += 1
-        return stubbedLocalAddressResult
-    }
-    
-    var invokedLocalPort = false
-    var invokedLocalPortCount = 0
-    var stubbedLocalPortResult: Int! = 0
-    
-    override func localPort() -> Int {
-        invokedLocalPort = true
-        invokedLocalPortCount += 1
-        return stubbedLocalPortResult
-    }
-}
-
-
-class MDashOSCServer: DashOSCServer {
-
     var invokedDelegateSetter = false
     var invokedDelegateSetterCount = 0
-    var invokedDelegate: DashOSCServerDelegate?
-    var invokedDelegateList = [DashOSCServerDelegate?]()
+    var invokedDelegate: ServersProtocol?
+    var invokedDelegateList = [ServersProtocol?]()
     var invokedDelegateGetter = false
     var invokedDelegateGetterCount = 0
-    var stubbedDelegate: DashOSCServerDelegate!
-    override var delegate: DashOSCServerDelegate? {
+    var stubbedDelegate: ServersProtocol!
+    override var delegate: ServersProtocol? {
         set {
             invokedDelegateSetter = true
             invokedDelegateSetterCount += 1
@@ -377,171 +273,217 @@ class MDashOSCServer: DashOSCServer {
             return stubbedDelegate
         }
     }
-    var invokedAddressSetter = false
-    var invokedAddressSetterCount = 0
-    var invokedAddress: String?
-    var invokedAddressList = [String]()
-    var invokedAddressGetter = false
-    var invokedAddressGetterCount = 0
-    var stubbedAddress: String! = ""
-    override var address: String {
-        set {
-            invokedAddressSetter = true
-            invokedAddressSetterCount += 1
-            invokedAddress = newValue
-            invokedAddressList.append(newValue)
-        }
-        get {
-            invokedAddressGetter = true
-            invokedAddressGetterCount += 1
-            return stubbedAddress
-        }
+    var invokedIsBlackTraxConnectedGetter = false
+    var invokedIsBlackTraxConnectedGetterCount = 0
+    var stubbedIsBlackTraxConnected: Bool! = false
+    override var isBlackTraxConnected: Bool {
+        invokedIsBlackTraxConnectedGetter = true
+        invokedIsBlackTraxConnectedGetterCount += 1
+        return stubbedIsBlackTraxConnected
     }
-    var invokedPortSetter = false
-    var invokedPortSetterCount = 0
-    var invokedPort: Int?
-    var invokedPortList = [Int]()
-    var invokedPortGetter = false
-    var invokedPortGetterCount = 0
-    var stubbedPort: Int! = 0
-    override var port: Int {
-        set {
-            invokedPortSetter = true
-            invokedPortSetterCount += 1
-            invokedPort = newValue
-            invokedPortList.append(newValue)
-        }
-        get {
-            invokedPortGetter = true
-            invokedPortGetterCount += 1
-            return stubbedPort
-        }
+    var invokedIsVezerConnectedGetter = false
+    var invokedIsVezerConnectedGetterCount = 0
+    var stubbedIsVezerConnected: Bool! = false
+    override var isVezerConnected: Bool {
+        invokedIsVezerConnectedGetter = true
+        invokedIsVezerConnectedGetterCount += 1
+        return stubbedIsVezerConnected
     }
-    var invokedClientAddress = false
-    var invokedClientAddressCount = 0
-    var invokedClientAddressParameters: (newAddress: String, Void)?
-    var invokedClientAddressParametersList = [(newAddress: String, Void)]()
-
-    override func clientAddress(_ newAddress: String) {
-        invokedClientAddress = true
-        invokedClientAddressCount += 1
-        invokedClientAddressParameters = (newAddress, ())
-        invokedClientAddressParametersList.append((newAddress, ()))
+    var invokedIsControlConnectedGetter = false
+    var invokedIsControlConnectedGetterCount = 0
+    var stubbedIsControlConnected: Bool! = false
+    override var isControlConnected: Bool {
+        invokedIsControlConnectedGetter = true
+        invokedIsControlConnectedGetterCount += 1
+        return stubbedIsControlConnected
     }
-
-    var invokedClientPort = false
-    var invokedClientPortCount = 0
-    var invokedClientPortParameters: (newPort: Int, Void)?
-    var invokedClientPortParametersList = [(newPort: Int, Void)]()
-
-    override func clientPort(_ newPort: Int) {
-        invokedClientPort = true
-        invokedClientPortCount += 1
-        invokedClientPortParameters = (newPort, ())
-        invokedClientPortParametersList.append((newPort, ()))
+    var invokedConnectAll = false
+    var invokedConnectAllCount = 0
+    var invokedConnectAllParameters: (defaults: UserDefaultsProtocol, Void)?
+    var invokedConnectAllParametersList = [(defaults: UserDefaultsProtocol, Void)]()
+    var stubbedConnectAllResult: [DashNetworkType.Server]! = []
+    
+    override func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> [DashNetworkType.Server] {
+        invokedConnectAll = true
+        invokedConnectAllCount += 1
+        invokedConnectAllParameters = (defaults, ())
+        invokedConnectAllParametersList.append((defaults, ()))
+        return stubbedConnectAllResult
     }
-
-    var invokedStart = false
-    var invokedStartCount = 0
-
-    override func start() {
-        invokedStart = true
-        invokedStartCount += 1
+    
+    var invokedConnectBlackTrax = false
+    var invokedConnectBlackTraxCount = 0
+    var invokedConnectBlackTraxParameters: (defaults: UserDefaultsProtocol, Void)?
+    var invokedConnectBlackTraxParametersList = [(defaults: UserDefaultsProtocol, Void)]()
+    
+    override func connectBlackTrax(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
+        invokedConnectBlackTrax = true
+        invokedConnectBlackTraxCount += 1
+        invokedConnectBlackTraxParameters = (defaults, ())
+        invokedConnectBlackTraxParametersList.append((defaults, ()))
     }
-
-    var invokedStop = false
-    var invokedStopCount = 0
-
-    override func stop() {
-        invokedStop = true
-        invokedStopCount += 1
+    
+    var invokedConnectVezer = false
+    var invokedConnectVezerCount = 0
+    var invokedConnectVezerParameters: (defaults: UserDefaultsProtocol, Void)?
+    var invokedConnectVezerParametersList = [(defaults: UserDefaultsProtocol, Void)]()
+    
+    override func connectVezer(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
+        invokedConnectVezer = true
+        invokedConnectVezerCount += 1
+        invokedConnectVezerParameters = (defaults, ())
+        invokedConnectVezerParametersList.append((defaults, ()))
     }
-
-    var invokedDisconnect = false
-    var invokedDisconnectCount = 0
-
-    override func disconnect() {
-        invokedDisconnect = true
-        invokedDisconnectCount += 1
+    
+    var invokedConnectControl = false
+    var invokedConnectControlCount = 0
+    var invokedConnectControlParameters: (defaults: UserDefaultsProtocol, Void)?
+    var invokedConnectControlParametersList = [(defaults: UserDefaultsProtocol, Void)]()
+    
+    override func connectControl(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
+        invokedConnectControl = true
+        invokedConnectControlCount += 1
+        invokedConnectControlParameters = (defaults, ())
+        invokedConnectControlParametersList.append((defaults, ()))
     }
 }
 
 
-class MDashOSCClient: DashOSCClient {
-
-    var invokedAddressSetter = false
-    var invokedAddressSetterCount = 0
-    var invokedAddress: String?
-    var invokedAddressList = [String]()
-    var invokedAddressGetter = false
-    var invokedAddressGetterCount = 0
-    var stubbedAddress: String! = ""
-    override var address: String {
+class MockClients: Clients {
+    
+    var invokedVezerSetter = false
+    var invokedVezerSetterCount = 0
+    var invokedVezer: DashOSCClient?
+    var invokedVezerList = [DashOSCClient?]()
+    var invokedVezerGetter = false
+    var invokedVezerGetterCount = 0
+    var stubbedVezer: DashOSCClient!
+    override var vezer: DashOSCClient? {
         set {
-            invokedAddressSetter = true
-            invokedAddressSetterCount += 1
-            invokedAddress = newValue
-            invokedAddressList.append(newValue)
+            invokedVezerSetter = true
+            invokedVezerSetterCount += 1
+            invokedVezer = newValue
+            invokedVezerList.append(newValue)
         }
         get {
-            invokedAddressGetter = true
-            invokedAddressGetterCount += 1
-            return stubbedAddress
+            invokedVezerGetter = true
+            invokedVezerGetterCount += 1
+            return stubbedVezer
         }
     }
-    var invokedPortSetter = false
-    var invokedPortSetterCount = 0
-    var invokedPort: Int?
-    var invokedPortList = [Int]()
-    var invokedPortGetter = false
-    var invokedPortGetterCount = 0
-    var stubbedPort: Int! = 0
-    override var port: Int {
+    var invokedDs100MainSetter = false
+    var invokedDs100MainSetterCount = 0
+    var invokedDs100Main: DashOSCClient?
+    var invokedDs100MainList = [DashOSCClient?]()
+    var invokedDs100MainGetter = false
+    var invokedDs100MainGetterCount = 0
+    var stubbedDs100Main: DashOSCClient!
+    override var ds100Main: DashOSCClient? {
         set {
-            invokedPortSetter = true
-            invokedPortSetterCount += 1
-            invokedPort = newValue
-            invokedPortList.append(newValue)
+            invokedDs100MainSetter = true
+            invokedDs100MainSetterCount += 1
+            invokedDs100Main = newValue
+            invokedDs100MainList.append(newValue)
         }
         get {
-            invokedPortGetter = true
-            invokedPortGetterCount += 1
-            return stubbedPort
+            invokedDs100MainGetter = true
+            invokedDs100MainGetterCount += 1
+            return stubbedDs100Main
         }
     }
-    var invokedClientSend = false
-    var invokedClientSendCount = 0
-    var invokedClientSendParameters: (message: OSCElement, Void)?
-    var invokedClientSendParametersList = [(message: OSCElement, Void)]()
-
-    override func clientSend(_ message: OSCElement) {
-        invokedClientSend = true
-        invokedClientSendCount += 1
-        invokedClientSendParameters = (message, ())
-        invokedClientSendParametersList.append((message, ()))
+    var invokedIsVezerConnectedGetter = false
+    var invokedIsVezerConnectedGetterCount = 0
+    var stubbedIsVezerConnected: Bool! = false
+    override var isVezerConnected: Bool {
+        invokedIsVezerConnectedGetter = true
+        invokedIsVezerConnectedGetterCount += 1
+        return stubbedIsVezerConnected
     }
-
-    var invokedClientAddress = false
-    var invokedClientAddressCount = 0
-    var invokedClientAddressParameters: (newAddress: String, Void)?
-    var invokedClientAddressParametersList = [(newAddress: String, Void)]()
-
-    override func clientAddress(_ newAddress: String) {
-        invokedClientAddress = true
-        invokedClientAddressCount += 1
-        invokedClientAddressParameters = (newAddress, ())
-        invokedClientAddressParametersList.append((newAddress, ()))
+    var invokedIsDS100MainConnectedGetter = false
+    var invokedIsDS100MainConnectedGetterCount = 0
+    var stubbedIsDS100MainConnected: Bool! = false
+    override var isDS100MainConnected: Bool {
+        invokedIsDS100MainConnectedGetter = true
+        invokedIsDS100MainConnectedGetterCount += 1
+        return stubbedIsDS100MainConnected
     }
-
-    var invokedClientPort = false
-    var invokedClientPortCount = 0
-    var invokedClientPortParameters: (newPort: Int, Void)?
-    var invokedClientPortParametersList = [(newPort: Int, Void)]()
-
-    override func clientPort(_ newPort: Int) {
-        invokedClientPort = true
-        invokedClientPortCount += 1
-        invokedClientPortParameters = (newPort, ())
-        invokedClientPortParametersList.append((newPort, ()))
+    var invokedConnectAll = false
+    var invokedConnectAllCount = 0
+    var invokedConnectAllParameters: (defaults: UserDefaultsProtocol, Void)?
+    var invokedConnectAllParametersList = [(defaults: UserDefaultsProtocol, Void)]()
+    var stubbedConnectAllResult: [DashNetworkType.Client]! = []
+    
+    override func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> [DashNetworkType.Client] {
+        invokedConnectAll = true
+        invokedConnectAllCount += 1
+        invokedConnectAllParameters = (defaults, ())
+        invokedConnectAllParametersList.append((defaults, ()))
+        return stubbedConnectAllResult
+    }
+    
+    var invokedConnectVezer = false
+    var invokedConnectVezerCount = 0
+    var invokedConnectVezerParameters: (defaults: UserDefaultsProtocol, Void)?
+    var invokedConnectVezerParametersList = [(defaults: UserDefaultsProtocol, Void)]()
+    
+    override func connectVezer(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
+        invokedConnectVezer = true
+        invokedConnectVezerCount += 1
+        invokedConnectVezerParameters = (defaults, ())
+        invokedConnectVezerParametersList.append((defaults, ()))
+    }
+    
+    var invokedConnectDS100Main = false
+    var invokedConnectDS100MainCount = 0
+    var invokedConnectDS100MainParameters: (defaults: UserDefaultsProtocol, Void)?
+    var invokedConnectDS100MainParametersList = [(defaults: UserDefaultsProtocol, Void)]()
+    
+    override func connectDS100Main(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
+        invokedConnectDS100Main = true
+        invokedConnectDS100MainCount += 1
+        invokedConnectDS100MainParameters = (defaults, ())
+        invokedConnectDS100MainParametersList.append((defaults, ()))
+    }
+    
+    var invokedSendOSC = false
+    var invokedSendOSCCount = 0
+    var invokedSendOSCParameters: (message: Message, client: DashNetworkType.Client)?
+    var invokedSendOSCParametersList = [(message: Message, client: DashNetworkType.Client)]()
+    var stubbedSendOSCResult: Bool! = false
+    
+    override func sendOSC(message: Message, to client: DashNetworkType.Client) -> Bool {
+        invokedSendOSC = true
+        invokedSendOSCCount += 1
+        invokedSendOSCParameters = (message, client)
+        invokedSendOSCParametersList.append((message, client))
+        return stubbedSendOSCResult
+    }
+    
+    var invokedSendDs100 = false
+    var invokedSendDs100Count = 0
+    var invokedSendDs100Parameters: (data: [DS100], Void)?
+    var invokedSendDs100ParametersList = [(data: [DS100], Void)]()
+    var stubbedSendDs100Result: Bool! = false
+    
+    override func send(ds100 data: [DS100]) -> Bool {
+        invokedSendDs100 = true
+        invokedSendDs100Count += 1
+        invokedSendDs100Parameters = (data, ())
+        invokedSendDs100ParametersList.append((data, ()))
+        return stubbedSendDs100Result
+    }
+    
+    var invokedSendVezer = false
+    var invokedSendVezerCount = 0
+    var invokedSendVezerParameters: (data: [Vezer], Void)?
+    var invokedSendVezerParametersList = [(data: [Vezer], Void)]()
+    var stubbedSendVezerResult: Bool! = false
+    
+    override func send(vezer data: [Vezer]) -> Bool {
+        invokedSendVezer = true
+        invokedSendVezerCount += 1
+        invokedSendVezerParameters = (data, ())
+        invokedSendVezerParametersList.append((data, ()))
+        return stubbedSendVezerResult
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 
 
-struct DS100 {
+struct DS100: Equatable {
     let mapping: String
     let input: String
     let x: Double
