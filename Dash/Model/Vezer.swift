@@ -24,6 +24,6 @@ struct Vezer: Equatable {
     
     
     func addy() -> String {
-        return "/vezer/\(name)"
+        return "/trackable/\(name)"
     }
 }

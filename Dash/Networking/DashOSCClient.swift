@@ -94,9 +94,6 @@ class DashOSCClient {
         print("|\tAddress: \(address)")
         print("|\tPort: \(port)")
     }
-    
-    
-    
  }
 
 
