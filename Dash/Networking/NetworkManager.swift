@@ -18,18 +18,7 @@ class NetworkManager {
     let clients: Clients
     
     var ds100Mapping = "1"
-    
-    var output: ActiveOutput = .blacktrax {
-        didSet {
-            if output == .blacktrax {
-                outputFunc = redirectDS100
-            } else {
-                outputFunc = redirectVezer
-            }
-        }
-    }
-    
-    fileprivate lazy var outputFunc: (RTTrP) -> Void = redirectDS100
+    var output: ActiveOutput = .blacktrax
     
     
     init(_ setClient: Clients = Clients(), _ setServers: Servers = Servers()) {
@@ -61,65 +50,15 @@ extension NetworkManager {
     }
     
     
-    func redirectDS100(data: RTTrP) {
+    func redirectFromBlackTrax(data: RTTrP) {
         let ds100Data = prepareDS100Data(data)
         _ = send(ds100: ds100Data)
     }
     
     
-    func redirectVezer(data: RTTrP) {
+    func toBeRecorded(data: RTTrP) {
         let vezerData = prepareVezerData(data)
         _ = clients.send(vezer: vezerData)
-    }
-    
-    
-    private func prepareDS100Data(_ data: RTTrP) -> [DS100] {
-        let pmPackets = data.pmPackets
-        var ds100Data = [DS100]()
-    
-        for packet in pmPackets {
-            guard let trackable = packet.trackable else {
-                continue
-            }
-        
-            guard let centroid = trackable.submodules[.centroidAccVel] as? [CentroidAccVel] else {
-                continue
-            }
-        
-            if centroid.isEmpty {continue}
-        
-            let x = centroid[0].position.x
-            let y = centroid[0].position.y
-        
-            ds100Data.append(DS100(ds100Mapping, input: trackable.name, x: x, y: y))
-        }
-        
-        return ds100Data
-    }
-    
-    
-    private func prepareVezerData(_ data: RTTrP) -> [Vezer] {
-        let pmPackets = data.pmPackets
-        var vezerData = [Vezer]()
-        
-        for packet in pmPackets {
-            guard let trackable = packet.trackable else {
-                continue
-            }
-            
-            guard let centroid = trackable.submodules[.centroidAccVel] as? [CentroidAccVel] else {
-                continue
-            }
-            
-            if centroid.isEmpty {continue}
-            
-            let x = centroid[0].position.x
-            let y = centroid[0].position.y
-            
-            vezerData.append(Vezer(trackable.name, x, y))
-        }
-        
-        return vezerData
     }
 }
 
@@ -132,8 +71,15 @@ extension NetworkManager {
 extension NetworkManager: ServersProtocol {
     
     func liveBlackTrax(_ data: RTTrP) {
-        outputFunc(data)
+        // send to ds100?
+        if output == .blacktrax {
+            redirectFromBlackTrax(data: data)
+        }
         
+        // send to be recorded
+        toBeRecorded(data: data)
+        
+        // update GUI
         let dictInfo: [String: RTTrP] = [DashNotifData.rttrp: data]
         post(DashNotif.blacktrax, dictInfo)
     }
@@ -173,5 +119,55 @@ fileprivate extension NetworkManager {
     
     func post(_ name: Notification.Name, _ userInfo: [String: Any]? = nil) {
         NotificationCenter.default.post(name: name, object: nil, userInfo: userInfo)
+    }
+    
+    
+    func prepareVezerData(_ data: RTTrP) -> [Vezer] {
+        let pmPackets = data.pmPackets
+        var vezerData = [Vezer]()
+        
+        for packet in pmPackets {
+            guard let trackable = packet.trackable else {
+                continue
+            }
+            
+            guard let centroid = trackable.submodules[.centroidAccVel] as? [CentroidAccVel] else {
+                continue
+            }
+            
+            if centroid.isEmpty {continue}
+            
+            let x = centroid[0].position.x
+            let y = centroid[0].position.y
+            
+            vezerData.append(Vezer(trackable.name, x, y))
+        }
+        
+        return vezerData
+    }
+    
+    
+    func prepareDS100Data(_ data: RTTrP) -> [DS100] {
+        let pmPackets = data.pmPackets
+        var ds100Data = [DS100]()
+        
+        for packet in pmPackets {
+            guard let trackable = packet.trackable else {
+                continue
+            }
+            
+            guard let centroid = trackable.submodules[.centroidAccVel] as? [CentroidAccVel] else {
+                continue
+            }
+            
+            if centroid.isEmpty {continue}
+            
+            let x = centroid[0].position.x
+            let y = centroid[0].position.y
+            
+            ds100Data.append(DS100(ds100Mapping, input: trackable.name, x: x, y: y))
+        }
+        
+        return ds100Data
     }
 }

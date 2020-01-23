@@ -80,6 +80,14 @@ class DashOSCServer {
         if !server.running {return}
         stop()
     }
+    
+    
+    func printNetwork() {
+        print("Server")
+        print("|\tType: \(type)")
+        print("|\tAddress: \(address)")
+        print("|\tPort: \(port)")
+    }
 }
 
 

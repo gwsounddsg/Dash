@@ -82,7 +82,7 @@ extension NetworkManagerTests {
             return
         }
         
-        manager.redirectDS100(data: data)
+        manager.redirectFromBlackTrax(data: data)
         
         XCTAssertEqual(mClients.invokedSendDs100Parameters?.data[0].mapping, "1")
     }
@@ -96,7 +96,7 @@ extension NetworkManagerTests {
             return
         }
         
-        manager.redirectVezer(data: data)
+        manager.toBeRecorded(data: data)
         
         XCTAssertEqual(mClients.invokedSendVezerParameters?.data[0].name, "0")
     }

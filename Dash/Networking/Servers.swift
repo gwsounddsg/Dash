@@ -91,6 +91,13 @@ class Servers: ReceiveUDPDelegate, DashOSCServerDelegate {
             print(error.localizedDescription)
         }
     }
+    
+    
+    func printNetworks() {
+        blackTrax.printNetwork()
+        vezer?.printNetwork()
+        control?.printNetwork()
+    }
 }
 
 
@@ -142,7 +149,7 @@ extension Servers {
     
     
     private func vezerOSC(data: Message) {
-        print("Vezer message: \(data)")
+        print("From Vezer: \(data)")
     }
 }
 

@@ -80,11 +80,21 @@ class DashOSCClient {
         let bundle = OSCBundle()
         
         for each in data {
-            let msg = makeMessage(each.addy(), each.x, each.y)
-            bundle.add(msg)
+            let addy = each.addy()
+            let msgX = makeMessage(addy.x, each.x)
+            let msgY = makeMessage(addy.y, each.y)
+            bundle.add(msgX, msgY)
         }
         
         clientSend(bundle)
+    }
+    
+    
+    func printNetwork() {
+        print("Client")
+        print("|\tType: \(type)")
+        print("|\tAddress: \(address)")
+        print("|\tPort: \(port)")
     }
  }
 

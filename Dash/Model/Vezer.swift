@@ -23,7 +23,8 @@ struct Vezer: Equatable {
     }
     
     
-    func addy() -> String {
-        return "/vezer/\(name)"
+    func addy() -> (x: String, y: String) {
+        let prefix = "/trackable/"
+        return (x: prefix + "x", y: prefix + "y")
     }
 }
