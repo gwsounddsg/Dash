@@ -24,18 +24,21 @@ class DashOSCServer {
     
     let type: DashNetworkType.Server
     let server: OSCServer
-
     weak var delegate: DashOSCServerDelegate?
+    
     var address: String {
         didSet {
             clientAddress(address)
+            printNetwork()
         }
     }
     var port: Int {
         didSet {
             clientPort(port)
+            printNetwork()
         }
     }
+    
     
     init(_ type: DashNetworkType.Server, _ address: String, _ port: Int) {
         self.type = type

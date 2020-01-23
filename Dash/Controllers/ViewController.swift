@@ -124,18 +124,20 @@ class ViewController: NSViewController {
     
     
     func setupDefaults() {
-        let idNetIn = DashDefaultIDs.Network.Incoming.self
-        let idNetOut = DashDefaultIDs.Network.Outgoing.self
+//        UserDefaults.resetStandardUserDefaults() // to clear old data
+    
+        let idNetIn = DashDefaultIDs.Network.Server.self
+        let idNetOut = DashDefaultIDs.Network.Client.self
         let defaultNetIn = DashDefaultValues.Network.Incoming.self
         let defaultNetOut = DashDefaultValues.Network.Outgoing.self
         
-        UserDefaults.standard.set(defaultNetIn.blacktraxPort, forKey: idNetIn.blacktraxPort)
-        UserDefaults.standard.set(defaultNetIn.controlPort, forKey: idNetIn.controlPort)
-        UserDefaults.standard.set(defaultNetIn.vezerPort, forKey: idNetIn.recordedPort)
-        UserDefaults.standard.set(defaultNetOut.ds100MainIP, forKey: idNetOut.liveIP)
-        UserDefaults.standard.set(defaultNetOut.ds100MainPort, forKey: idNetOut.livePort)
-        UserDefaults.standard.set(defaultNetOut.vezerIP, forKey: idNetOut.recordedIP)
-        UserDefaults.standard.set(defaultNetOut.vezerPort, forKey: idNetOut.recordedPort)
+        UserDefaults.standard.register(defaults: [defaultNetIn.blacktraxPort: idNetIn.blacktraxPort])
+        UserDefaults.standard.register(defaults: [defaultNetIn.controlPort: idNetIn.controlPort])
+        UserDefaults.standard.register(defaults: [defaultNetIn.vezerPort: idNetIn.vezerPort])
+        UserDefaults.standard.register(defaults: [defaultNetOut.ds100MainIP: idNetOut.ds100MainIP])
+        UserDefaults.standard.register(defaults: [defaultNetOut.ds100MainPort: idNetOut.ds100MainPort])
+        UserDefaults.standard.register(defaults: [defaultNetOut.vezerIP: idNetOut.vezerIP])
+        UserDefaults.standard.register(defaults: [defaultNetOut.vezerPort: idNetOut.vezerPort])
     }
 }
 

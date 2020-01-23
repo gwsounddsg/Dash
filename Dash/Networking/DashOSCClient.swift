@@ -20,11 +20,13 @@ class DashOSCClient {
     var address: String { //"/dbaudio1/coordinatemapping/source_position_xy/"
         didSet {
             clientAddress(address)
+            printNetwork()
         }
     }
     var port: Int {
         didSet {
             clientPort(port)
+            printNetwork()
         }
     }
 
