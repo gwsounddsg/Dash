@@ -149,7 +149,7 @@ extension Servers {
     
     
     private func vezerOSC(data: Message) {
-        print("Vezer message: \(data)")
+        print("From Vezer: \(data)")
     }
 }
 
