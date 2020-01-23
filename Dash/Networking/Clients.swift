@@ -121,6 +121,11 @@ extension Clients {
     
     @objc
     func preferenceChange(_ notif: Notification) {
+        updateDefaults(notif)
+    }
+    
+    
+    func updateDefaults(_ notif: Notification, _ defaults: UserDefaultsProtocol = UserDefaults.standard) {
         guard let userInfo = notif.userInfo as? [String: String] else {
             return
         }
@@ -132,7 +137,7 @@ extension Clients {
         switch notif.name {
         case DashNotif.userPrefClientDS100MainIP:
             ds100Main?.address = data
-            updateDefault(data, DashDefaultIDs.Network.Client.ds100MainIP)
+            updateDefault(data, DashDefaultIDs.Network.Client.ds100MainIP, defaults)
             
         case DashNotif.userPrefClientDS100MainPort:
             let val = Int(data)
@@ -141,11 +146,11 @@ extension Clients {
                 return
             }
             ds100Main?.port = val!
-            updateDefault(val!, DashDefaultIDs.Network.Client.ds100MainPort)
+            updateDefault(val!, DashDefaultIDs.Network.Client.ds100MainPort, defaults)
             
         case DashNotif.userPrefClientVezerIP:
             vezer?.address = data
-            updateDefault(data, DashDefaultIDs.Network.Client.vezerIP)
+            updateDefault(data, DashDefaultIDs.Network.Client.vezerIP, defaults)
             
         case DashNotif.userPrefClientVezerPort:
             let val = Int(data)
@@ -154,7 +159,7 @@ extension Clients {
                 return
             }
             vezer?.port = val!
-            updateDefault(val!, DashDefaultIDs.Network.Client.vezerPort)
+            updateDefault(val!, DashDefaultIDs.Network.Client.vezerPort, defaults)
             
         default:
             return
@@ -164,11 +169,6 @@ extension Clients {
     
     fileprivate func addObserver(_ selector: Selector, _ name: NSNotification.Name?) {
         NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
-    }
-    
-    
-    private func updateDefault(_ value: Any, _ key: String) {
-        UserDefaults.standard.update(value: value, forKey: key)
     }
 }
 
@@ -223,5 +223,10 @@ private extension Clients {
             ds100Main!.address = addy
             ds100Main!.port = port
         }
+    }
+    
+    
+    func updateDefault(_ value: Any, _ key: String, _ withDefault: UserDefaultsProtocol) {
+       withDefault.update(value: value, forKey: key)
     }
 }

@@ -185,6 +185,74 @@ extension ClientsTests {
 
 
 
+// MARK: - Notifications
+
+extension ClientsTests {
+    
+    func testClients_updateDefaults_clientds100MainIP() {
+        mockAll()
+        let key = DashNotifData.userPref
+        let value = "192.168.99.99"
+        let notif = notification(DashNotif.userPrefClientDS100MainIP, [key: value])
+        let mDefaults = MockUserDefaults()
+        
+        clients.updateDefaults(notif, mDefaults)
+        
+        XCTAssertEqual(mDS100Main.invokedAddress, value)
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Client.ds100MainIP)
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? String, value)
+    }
+    
+    
+    func testClients_updateDefaults_clientds100MainPort() {
+        mockAll()
+        let key = DashNotifData.userPref
+        let value = "1111"
+        let notif = notification(DashNotif.userPrefClientDS100MainPort, [key: value])
+        let mDefaults = MockUserDefaults()
+        
+        clients.updateDefaults(notif, mDefaults)
+        
+        XCTAssertEqual(mDS100Main.invokedPort, Int(value))
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Client.ds100MainPort)
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
+    }
+    
+    
+    func testClients_updateDefaults_clientdsVezerIP() {
+        mockAll()
+        let key = DashNotifData.userPref
+        let value = "192.168.99.99"
+        let notif = notification(DashNotif.userPrefClientVezerIP, [key: value])
+        let mDefaults = MockUserDefaults()
+        
+        clients.updateDefaults(notif, mDefaults)
+        
+        XCTAssertEqual(mVezer.invokedAddress, value)
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Client.vezerIP)
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? String, value)
+    }
+    
+    
+    func testClients_updateDefaults_clientdsVezerPort() {
+        mockAll()
+        let key = DashNotifData.userPref
+        let value = "1111"
+        let notif = notification(DashNotif.userPrefClientVezerPort, [key: value])
+        let mDefaults = MockUserDefaults()
+        
+        clients.updateDefaults(notif, mDefaults)
+        
+        XCTAssertEqual(mVezer.invokedPort, Int(value))
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Client.vezerPort)
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
+    }
+}
+
+
+
+
+
 // MARK: - Utility
 
 extension ClientsTests {
@@ -203,6 +271,11 @@ extension ClientsTests {
             
             _ = clients.connectAll(from: mockDefaults)
         }
+    }
+    
+    
+    func notification(_ name: Notification.Name, _ info: [String: String]) -> Notification {
+        return Notification(name: name, userInfo: info)
     }
 }
 
