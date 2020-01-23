@@ -177,6 +177,59 @@ extension ServersTests {
 
 
 
+// MARK: - Notification
+
+extension ServersTests {
+
+    func testServers_updateDefaults_serverBlackTraxPort() {
+        mockAll()
+        let key = DashNotifData.userPref
+        let value = "1111"
+        let notif = notification(DashNotif.userPrefServerBlackTraxPort, [key: value])
+        let mDefaults = MockUserDefaults()
+        
+        servers.updateDefaults(notif, mDefaults)
+        
+        XCTAssertEqual(mBlackTrax.invokedConnectParameters?.port, Int(value))
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Server.blacktraxPort)
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
+    }
+    
+    
+    func testServers_updateDefaults_serverVezerPort() {
+        mockAll()
+        let key = DashNotifData.userPref
+        let value = "1111"
+        let notif = notification(DashNotif.userPrefServerVezerPort, [key: value])
+        let mDefaults = MockUserDefaults()
+        
+        servers.updateDefaults(notif, mDefaults)
+        
+        XCTAssertEqual(mVezer.invokedPort, Int(value))
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Server.vezerPort)
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
+    }
+    
+    
+    func testServers_updateDefaults_serverControlPort() {
+        mockAll()
+        let key = DashNotifData.userPref
+        let value = "1111"
+        let notif = notification(DashNotif.userPrefServerControlPort, [key: value])
+        let mDefaults = MockUserDefaults()
+        
+        servers.updateDefaults(notif, mDefaults)
+        
+        XCTAssertEqual(mControl.invokedPort, Int(value))
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Server.controlPort)
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
+    }
+}
+
+
+
+
+
 // MARK: - Utility
 
 extension  ServersTests {
@@ -197,6 +250,11 @@ extension  ServersTests {
             
             _ = servers.connectAll(from: mockDefaults)
         }
+    }
+    
+    
+    func notification(_ name: Notification.Name, _ info: [String: String]) -> Notification {
+        return Notification(name: name, userInfo: info)
     }
 }
 

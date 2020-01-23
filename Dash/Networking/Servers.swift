@@ -169,14 +169,19 @@ extension Servers {
     
     @objc
     func preferenceChange(_ notif: Notification) {
+        updateDefaults(notif)
+    }
+    
+    
+    func updateDefaults(_ notif: Notification, _ defaults: UserDefaultsProtocol = UserDefaults.standard) {
         guard let userInfo = notif.userInfo as? [String: String] else {
             return
         }
-        
+    
         guard let data = userInfo[DashNotifData.userPref] else {
             return
         }
-        
+    
         switch notif.name {
         case DashNotif.userPrefServerBlackTraxPort:
             let val = Int(data)
@@ -185,8 +190,8 @@ extension Servers {
                 return
             }
             try? blackTrax.connect(port: val!)
-            updateDefault(val!, DashDefaultIDs.Network.Server.blacktraxPort)
-            
+            updateDefault(val!, DashDefaultIDs.Network.Server.blacktraxPort, defaults)
+    
         case DashNotif.userPrefServerVezerPort:
             let val = Int(data)
             if val == nil {
@@ -194,8 +199,8 @@ extension Servers {
                 return
             }
             vezer?.port = val!
-            updateDefault(val!, DashDefaultIDs.Network.Server.vezerPort)
-            
+            updateDefault(val!, DashDefaultIDs.Network.Server.vezerPort, defaults)
+    
         case DashNotif.userPrefServerControlPort:
             let val = Int(data)
             if val == nil {
@@ -203,8 +208,8 @@ extension Servers {
                 return
             }
             control?.port = val!
-            updateDefault(val!, DashDefaultIDs.Network.Server.controlPort)
-            
+            updateDefault(val!, DashDefaultIDs.Network.Server.controlPort, defaults)
+    
         default:
             return
         }
@@ -216,8 +221,8 @@ extension Servers {
     }
     
     
-    private func updateDefault(_ value: Any, _ key: String) {
-        UserDefaults.standard.update(value: value, forKey: key)
+    private func updateDefault(_ value: Any, _ key: String, _ withDefault: UserDefaultsProtocol) {
+        withDefault.update(value: value, forKey: key)
     }
 }
 
