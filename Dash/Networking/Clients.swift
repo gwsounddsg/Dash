@@ -93,6 +93,12 @@ class Clients {
         vezer?.send(data: data)
         return true
     }
+    
+    
+    func printNetworks() {
+        vezer?.printNetwork()
+        ds100Main?.printNetwork()
+    }
 }
 
 

@@ -94,4 +94,10 @@ class ReceiveUDP: NSObject, GCDAsyncUdpSocketDelegate {
     func localPort() -> Int {
         return Int(_socket.localPort())
     }
+    
+    
+    func printNetwork() {
+        print("Receive UDP")
+        print("|\tPort: \(localPort())")
+    }
 }

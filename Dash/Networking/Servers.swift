@@ -91,6 +91,13 @@ class Servers: ReceiveUDPDelegate, DashOSCServerDelegate {
             print(error.localizedDescription)
         }
     }
+    
+    
+    func printNetworks() {
+        blackTrax.printNetwork()
+        vezer?.printNetwork()
+        control?.printNetwork()
+    }
 }
 
 

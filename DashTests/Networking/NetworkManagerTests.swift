@@ -96,7 +96,7 @@ extension NetworkManagerTests {
             return
         }
         
-        manager.redirectFromVezer(data: data)
+        manager.toBeRecorded(data: data)
         
         XCTAssertEqual(mClients.invokedSendVezerParameters?.data[0].name, "0")
     }

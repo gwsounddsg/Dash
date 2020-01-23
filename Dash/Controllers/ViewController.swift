@@ -112,6 +112,9 @@ class ViewController: NSViewController {
         indicatorDS100Backup.image = connectedImage(result.clients.contains(.ds100Backup))
         indicatorVezerIn.image = connectedImage(result.servers.contains(.vezer))
         indicatorVezerOut.image = connectedImage(result.clients.contains(.vezer))
+        
+        networkManager.servers.printNetworks()
+        networkManager.clients.printNetworks()
     }
     
     private func connectedImage(_ check: Bool) -> NSImage? {

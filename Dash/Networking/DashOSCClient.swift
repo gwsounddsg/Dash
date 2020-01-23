@@ -86,6 +86,17 @@ class DashOSCClient {
         
         clientSend(bundle)
     }
+    
+    
+    func printNetwork() {
+        print("Client")
+        print("|\tType: \(type)")
+        print("|\tAddress: \(address)")
+        print("|\tPort: \(port)")
+    }
+    
+    
+    
  }
 
 
