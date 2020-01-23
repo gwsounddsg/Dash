@@ -117,17 +117,17 @@ enum ActiveOutput {
 
 enum DashDefaultIDs {
     enum Network {
-        enum Incoming {
+        enum Server {
             static let blacktraxPort = "networkIncomingBlackTraxPort"
             static let controlPort = "networkIncomingControlPort"
-            static let recordedPort = "netowrkIncomingRecordedPort"
+            static let vezerPort = "networkIncomingVezerPort"
         }
         
-        enum Outgoing {
-            static let recordedIP = "networkOutgoingRecordedIP"
-            static let recordedPort = "networkOutgoingRecordedPort"
-            static let liveIP = "networkOutgoingLiveIP"
-            static let livePort = "networkOutgoingLivePort"
+        enum Client {
+            static let vezerIP = "networkOutgoingVezerIP"
+            static let vezerPort = "networkOutgoingVezerPort"
+            static let ds100MainIP = "networkOutgoingDS100MainIP"
+            static let ds100MainPort = "networkOutgoingDS100MainPort"
         }
     }
 }

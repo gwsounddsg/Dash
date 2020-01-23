@@ -185,6 +185,7 @@ extension Servers {
                 return
             }
             try? blackTrax.connect(port: val!)
+            updateDefault(val!, DashDefaultIDs.Network.Server.blacktraxPort)
             
         case DashNotif.userPrefServerVezerPort:
             let val = Int(data)
@@ -193,6 +194,7 @@ extension Servers {
                 return
             }
             vezer?.port = val!
+            updateDefault(val!, DashDefaultIDs.Network.Server.vezerPort)
             
         case DashNotif.userPrefServerControlPort:
             let val = Int(data)
@@ -201,6 +203,7 @@ extension Servers {
                 return
             }
             control?.port = val!
+            updateDefault(val!, DashDefaultIDs.Network.Server.controlPort)
             
         default:
             return
@@ -210,6 +213,11 @@ extension Servers {
     
     fileprivate func addObserver(_ selector: Selector, _ name: NSNotification.Name?) {
         NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
+    }
+    
+    
+    private func updateDefault(_ value: Any, _ key: String) {
+        UserDefaults.standard.update(value: value, forKey: key)
     }
 }
 
@@ -222,8 +230,8 @@ extension Servers {
 private extension Servers {
     
     func doConnectBlackTrax(_ defaults: UserDefaultsProtocol = UserDefaults.standard) throws {
-        guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Incoming.blacktraxPort, from: defaults) else {
-            throw DashError.CantGetDefaultValueFor(DashDefaultIDs.Network.Incoming.blacktraxPort)
+        guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Server.blacktraxPort, from: defaults) else {
+            throw DashError.CantGetDefaultValueFor(DashDefaultIDs.Network.Server.blacktraxPort)
         }
         
         if blackTrax.localPort() == port {return} // already connected
@@ -234,11 +242,11 @@ private extension Servers {
     
     
     func doConnectVezer(_ defaults: UserDefaultsProtocol) throws {
-        let keys = DashDefaultIDs.Network.Incoming.self
+        let keys = DashDefaultIDs.Network.Server.self
         
-        guard let port: Int = getDefault(withKey: keys.recordedPort, from: defaults) else {
+        guard let port: Int = getDefault(withKey: keys.vezerPort, from: defaults) else {
             vezer = nil
-            throw DashError.CantGetDefaultValueFor(keys.recordedPort)
+            throw DashError.CantGetDefaultValueFor(keys.vezerPort)
         }
         
         if vezer == nil {
@@ -252,7 +260,7 @@ private extension Servers {
     
     
     func doConnectControl(_ defaults: UserDefaultsProtocol) throws {
-        let keys = DashDefaultIDs.Network.Incoming.self
+        let keys = DashDefaultIDs.Network.Server.self
         
         guard let port: Int = getDefault(withKey: keys.controlPort, from: defaults) else {
             control = nil

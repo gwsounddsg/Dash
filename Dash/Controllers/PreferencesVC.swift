@@ -21,7 +21,6 @@ class PreferencesVC: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.preferredContentSize = NSMakeSize(self.view.frame.width, self.view.frame.height)
     }
     
@@ -31,21 +30,99 @@ class PreferencesVC: NSViewController {
         self.parent?.view.window?.title = self.title!
         
         // update textFields
-        let idNetIn = DashDefaultIDs.Network.Incoming.self
-        let idNetOut = DashDefaultIDs.Network.Outgoing.self
+        let idNetIn = DashDefaultIDs.Network.Server.self
+        let idNetOut = DashDefaultIDs.Network.Client.self
         
         inputBlackTraxText.stringValue = get(userDefault: idNetIn.blacktraxPort)
         inputControlPortText.stringValue = get(userDefault: idNetIn.controlPort)
-        inputRecordedPortText.stringValue = get(userDefault: idNetIn.recordedPort)
-        outputRecordedIPText.stringValue = get(userDefault: idNetOut.recordedIP)
-        outputRecordedPortText.stringValue = get(userDefault: idNetOut.recordedPort)
-        outputLiveIPText.stringValue = get(userDefault: idNetOut.liveIP)
-        outputLivePortText.stringValue = get(userDefault: idNetOut.livePort)
+        inputRecordedPortText.stringValue = get(userDefault: idNetIn.vezerPort)
+        outputRecordedIPText.stringValue = get(userDefault: idNetOut.vezerIP)
+        outputRecordedPortText.stringValue = get(userDefault: idNetOut.vezerPort)
+        outputLiveIPText.stringValue = get(userDefault: idNetOut.ds100MainIP)
+        outputLivePortText.stringValue = get(userDefault: idNetOut.ds100MainPort)
     }
     
     
     @IBAction func resetDefaultsClicked(_ sender: Any) {
+    
+    }
+   
+    
+    @IBAction func serverBlackTraxPortEntered(_ sender: Any) {
+        guard let data = stringForSender(sender) else {
+            print("Sender error: \(sender)")
+            return
+        }
+        post(DashNotif.userPrefServerBlackTraxPort, data)
+    }
+    
+    
+    @IBAction func serverControlPortEntered(_ sender: Any) {
+        guard let data = stringForSender(sender) else {
+            print("Sender error: \(sender)")
+            return
+        }
+        post(DashNotif.userPrefServerControlPort, data)
+    }
+    
+    
+    @IBAction func serverVezerPortEntered(_ sender: Any) {
+        guard let data = stringForSender(sender) else {
+            print("Sender error: \(sender)")
+            return
+        }
+        post(DashNotif.userPrefServerVezerPort, data)
+    }
+    
+    
+    @IBAction func clientVezerIPEntered(_ sender: Any) {
+        guard let data = stringForSender(sender) else {
+            print("Sender error: \(sender)")
+            return
+        }
+        post(DashNotif.userPrefClientVezerIP, data)
+    }
+    
+    
+    @IBAction func clientVezerPortEntered(_ sender: Any) {
+        guard let data = stringForSender(sender) else {
+            print("Sender error: \(sender)")
+            return
+        }
+        post(DashNotif.userPrefClientVezerPort, data)
+    }
+    
+    
+    @IBAction func clientDS100MainIPEntered(_ sender: Any) {
+        guard let data = stringForSender(sender) else {
+            print("Sender error: \(sender)")
+            return
+        }
+        post(DashNotif.userPrefClientDS100MainIP, data)
+    }
+    
+    
+    @IBAction func clientDS100MainPortEntered(_ sender: Any) {
+        guard let data = stringForSender(sender) else {
+            print("Sender error: \(sender)")
+            return
+        }
+        post(DashNotif.userPrefClientDS100MainPort, data)
+    }
+    
+    
+    private func stringForSender(_ sender: Any) -> String? {
+        guard let field = sender as? NSTextField else {
+            return nil
+        }
         
+        return field.stringValue
+    }
+    
+    
+    private func post(_ name: Notification.Name, _ info: String) {
+        let dict = [DashNotifData.userPref: info]
+        NotificationCenter.default.post(name: name, object: nil, userInfo: dict)
     }
 }
 

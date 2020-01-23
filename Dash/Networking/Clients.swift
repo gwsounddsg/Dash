@@ -132,6 +132,7 @@ extension Clients {
         switch notif.name {
         case DashNotif.userPrefClientDS100MainIP:
             ds100Main?.address = data
+            updateDefault(data, DashDefaultIDs.Network.Client.ds100MainIP)
             
         case DashNotif.userPrefClientDS100MainPort:
             let val = Int(data)
@@ -140,9 +141,11 @@ extension Clients {
                 return
             }
             ds100Main?.port = val!
+            updateDefault(val!, DashDefaultIDs.Network.Client.ds100MainPort)
             
         case DashNotif.userPrefClientVezerIP:
             vezer?.address = data
+            updateDefault(data, DashDefaultIDs.Network.Client.vezerIP)
             
         case DashNotif.userPrefClientVezerPort:
             let val = Int(data)
@@ -151,6 +154,7 @@ extension Clients {
                 return
             }
             vezer?.port = val!
+            updateDefault(val!, DashDefaultIDs.Network.Client.vezerPort)
             
         default:
             return
@@ -160,6 +164,11 @@ extension Clients {
     
     fileprivate func addObserver(_ selector: Selector, _ name: NSNotification.Name?) {
         NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
+    }
+    
+    
+    private func updateDefault(_ value: Any, _ key: String) {
+        UserDefaults.standard.update(value: value, forKey: key)
     }
 }
 
@@ -172,16 +181,16 @@ extension Clients {
 private extension Clients {
     
     func doConnectVezer(_ defaults: UserDefaultsProtocol) throws {
-        let keys = DashDefaultIDs.Network.Outgoing.self
+        let keys = DashDefaultIDs.Network.Client.self
         
-        guard let addy: String = getDefault(withKey: keys.recordedIP, from: defaults) else {
+        guard let addy: String = getDefault(withKey: keys.vezerIP, from: defaults) else {
             vezer = nil
-            throw DashError.CantGetDefaultValueFor(keys.recordedIP)
+            throw DashError.CantGetDefaultValueFor(keys.vezerIP)
         }
         
-        guard let port: Int = getDefault(withKey: keys.recordedPort, from: defaults) else {
+        guard let port: Int = getDefault(withKey: keys.vezerPort, from: defaults) else {
             vezer = nil
-            throw DashError.CantGetDefaultValueFor(keys.recordedPort)
+            throw DashError.CantGetDefaultValueFor(keys.vezerPort)
         }
         
         if vezer == nil {
@@ -195,16 +204,16 @@ private extension Clients {
     
     
     func doConnectDS100Main(_ defaults: UserDefaultsProtocol) throws {
-        let keys = DashDefaultIDs.Network.Outgoing.self
+        let keys = DashDefaultIDs.Network.Client.self
         
-        guard let addy: String = getDefault(withKey: keys.liveIP, from: defaults) else {
+        guard let addy: String = getDefault(withKey: keys.ds100MainIP, from: defaults) else {
             ds100Main = nil
-            throw DashError.CantGetDefaultValueFor(keys.liveIP)
+            throw DashError.CantGetDefaultValueFor(keys.ds100MainIP)
         }
         
-        guard let port: Int = getDefault(withKey: keys.livePort, from: defaults) else {
+        guard let port: Int = getDefault(withKey: keys.ds100MainPort, from: defaults) else {
             ds100Main = nil
-            throw DashError.CantGetDefaultValueFor(keys.livePort)
+            throw DashError.CantGetDefaultValueFor(keys.ds100MainPort)
         }
         
         if ds100Main == nil {
