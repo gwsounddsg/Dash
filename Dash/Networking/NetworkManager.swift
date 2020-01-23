@@ -22,14 +22,14 @@ class NetworkManager {
     var output: ActiveOutput = .blacktrax {
         didSet {
             if output == .blacktrax {
-                outputFunc = redirectDS100
+                outputFunc = redirectFromBlackTrax
             } else {
-                outputFunc = redirectVezer
+                outputFunc = redirectFromVezer
             }
         }
     }
     
-    fileprivate lazy var outputFunc: (RTTrP) -> Void = redirectDS100
+    fileprivate lazy var outputFunc: (RTTrP) -> Void = redirectFromBlackTrax
     
     
     init(_ setClient: Clients = Clients(), _ setServers: Servers = Servers()) {
@@ -61,13 +61,13 @@ extension NetworkManager {
     }
     
     
-    func redirectDS100(data: RTTrP) {
+    func redirectFromBlackTrax(data: RTTrP) {
         let ds100Data = prepareDS100Data(data)
         _ = send(ds100: ds100Data)
     }
     
     
-    func redirectVezer(data: RTTrP) {
+    func redirectFromVezer(data: RTTrP) {
         let vezerData = prepareVezerData(data)
         _ = clients.send(vezer: vezerData)
     }

@@ -128,11 +128,11 @@ class ViewController: NSViewController {
         
         UserDefaults.standard.set(defaultNetIn.blacktraxPort, forKey: idNetIn.blacktraxPort)
         UserDefaults.standard.set(defaultNetIn.controlPort, forKey: idNetIn.controlPort)
-        UserDefaults.standard.set(defaultNetIn.recordedPort, forKey: idNetIn.recordedPort)
-        UserDefaults.standard.set(defaultNetOut.liveIP, forKey: idNetOut.liveIP)
-        UserDefaults.standard.set(defaultNetOut.livePort, forKey: idNetOut.livePort)
-        UserDefaults.standard.set(defaultNetOut.recordedIP, forKey: idNetOut.recordedIP)
-        UserDefaults.standard.set(defaultNetOut.recordedPort, forKey: idNetOut.recordedPort)
+        UserDefaults.standard.set(defaultNetIn.vezerPort, forKey: idNetIn.recordedPort)
+        UserDefaults.standard.set(defaultNetOut.ds100MainIP, forKey: idNetOut.liveIP)
+        UserDefaults.standard.set(defaultNetOut.ds100MainPort, forKey: idNetOut.livePort)
+        UserDefaults.standard.set(defaultNetOut.vezerIP, forKey: idNetOut.recordedIP)
+        UserDefaults.standard.set(defaultNetOut.vezerPort, forKey: idNetOut.recordedPort)
     }
 }
 

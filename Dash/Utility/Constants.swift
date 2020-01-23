@@ -129,14 +129,14 @@ enum DashDefaultValues {
         enum Incoming {
             static let blacktraxPort = "24002"
             static let controlPort = "4202"
-            static let recordedPort = "8000"
+            static let vezerPort = "8000"
         }
         
         enum Outgoing {
-            static let recordedIP = "127.0.0.1"
-            static let recordedPort = "1234"
-            static let liveIP = "127.0.0.1" // DS100 (do I need two?)
-            static let livePort = "4545" // check number
+            static let vezerIP = "127.0.0.1"
+            static let vezerPort = "1234"
+            static let ds100MainIP = "127.0.0.1" // DS100 (do I need two?)
+            static let ds100MainPort = "4545" // check number
         }
     }
 }
