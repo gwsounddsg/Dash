@@ -41,12 +41,21 @@ enum DashNotif {
     static let blacktrax = NSNotification.Name("blacktraxDataIn")
     static let updateSwitchTo = NSNotification.Name("updateSwitchTo")
     static let toggleSwitch = NSNotification.Name("toggleSwitch")
+    
+    static let userPrefServerBlackTraxPort = NSNotification.Name("userPrefServerBlackTraxPort")
+    static let userPrefServerControlPort = NSNotification.Name("userPrefServerControlPort")
+    static let userPrefServerVezerPort = NSNotification.Name("userPreferenceServerVezerPort")
+    static let userPrefClientVezerIP = NSNotification.Name("userPrefClientVezerIP")
+    static let userPrefClientVezerPort = NSNotification.Name("userPrefClientVezerPort")
+    static let userPrefClientDS100MainIP = NSNotification.Name("userPrefClientDS100MainIP")
+    static let userPrefClientDS100MainPort = NSNotification.Name("userPrefClientDS100MainPort")
 }
 
 
 enum DashNotifData {
     static let rttrp = "rttrp"
     static let switchOutputTo = "switchOutputTo"
+    static let userPref = "userPref"
 }
 
 

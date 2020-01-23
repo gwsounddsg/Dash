@@ -32,8 +32,14 @@ class Servers: ReceiveUDPDelegate, DashOSCServerDelegate {
     fileprivate (set) var isControlConnected: Bool = false
     
     
-    init() {
+    init(withObservers: Bool = true) {
         blackTrax.delegate = self
+        
+        if withObservers {
+            addObserver(#selector(preferenceChange), DashNotif.userPrefServerBlackTraxPort)
+            addObserver(#selector(preferenceChange), DashNotif.userPrefServerVezerPort)
+            addObserver(#selector(preferenceChange), DashNotif.userPrefServerControlPort)
+        }
     }
     
     
@@ -150,6 +156,60 @@ extension Servers {
     
     private func vezerOSC(data: Message) {
         print("From Vezer: \(data)")
+    }
+}
+
+
+
+
+
+// MARK: - Notifications
+
+extension Servers {
+    
+    @objc
+    func preferenceChange(_ notif: Notification) {
+        guard let userInfo = notif.userInfo as? [String: String] else {
+            return
+        }
+        
+        guard let data = userInfo[DashNotifData.userPref] else {
+            return
+        }
+        
+        switch notif.name {
+        case DashNotif.userPrefServerBlackTraxPort:
+            let val = Int(data)
+            if val == nil {
+                print("Bad BlackTrax port number for string: \(data)")
+                return
+            }
+            try? blackTrax.connect(port: val!)
+            
+        case DashNotif.userPrefServerVezerPort:
+            let val = Int(data)
+            if val == nil {
+                print("Bad Vezer port number for string: \(data)")
+                return
+            }
+            vezer?.port = val!
+            
+        case DashNotif.userPrefServerControlPort:
+            let val = Int(data)
+            if val == nil {
+                print("Bad Control port number for string: \(data)")
+                return
+            }
+            control?.port = val!
+            
+        default:
+            return
+        }
+    }
+    
+    
+    fileprivate func addObserver(_ selector: Selector, _ name: NSNotification.Name?) {
+        NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
     }
 }
 

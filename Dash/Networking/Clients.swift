@@ -20,6 +20,16 @@ class Clients {
     fileprivate(set) var isDS100MainConnected = false
     
     
+    init(withObservers: Bool = true) {
+        if withObservers {
+            addObserver(#selector(preferenceChange), DashNotif.userPrefClientDS100MainIP)
+            addObserver(#selector(preferenceChange), DashNotif.userPrefClientDS100MainPort)
+            addObserver(#selector(preferenceChange), DashNotif.userPrefClientVezerIP)
+            addObserver(#selector(preferenceChange), DashNotif.userPrefClientVezerPort)
+        }
+    }
+    
+    
     // MARK: - Connecting
     
     func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> [DashNetworkType.Client] {
@@ -98,6 +108,58 @@ class Clients {
     func printNetworks() {
         vezer?.printNetwork()
         ds100Main?.printNetwork()
+    }
+}
+
+
+
+
+
+// MARK: - Notifications
+
+extension Clients {
+    
+    @objc
+    func preferenceChange(_ notif: Notification) {
+        guard let userInfo = notif.userInfo as? [String: String] else {
+            return
+        }
+        
+        guard let data = userInfo[DashNotifData.userPref] else {
+            return
+        }
+        
+        switch notif.name {
+        case DashNotif.userPrefClientDS100MainIP:
+            ds100Main?.address = data
+            
+        case DashNotif.userPrefClientDS100MainPort:
+            let val = Int(data)
+            if val == nil {
+                print("Bad DS100 Main port number for string: \(data)")
+                return
+            }
+            ds100Main?.port = val!
+            
+        case DashNotif.userPrefClientVezerIP:
+            vezer?.address = data
+            
+        case DashNotif.userPrefClientVezerPort:
+            let val = Int(data)
+            if val == nil {
+                print("Bad Vezer port number for string: \(data)")
+                return
+            }
+            vezer?.port = val!
+            
+        default:
+            return
+        }
+    }
+    
+    
+    fileprivate func addObserver(_ selector: Selector, _ name: NSNotification.Name?) {
+        NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
     }
 }
 
