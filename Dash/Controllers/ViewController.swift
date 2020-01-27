@@ -256,6 +256,7 @@ extension ViewController {
     func createObservers() {
         addObserver(#selector(liveBlackTrax), DashNotif.blacktrax)
         addObserver(#selector(changingActive), DashNotif.updateSwitchTo)
+        addObserver(#selector(recordedVezer), DashNotif.recordedVezerIn)
     }
     
     
@@ -277,6 +278,16 @@ extension ViewController {
         }
         
         setSwitch(output)
+    }
+    
+    
+    @objc
+    func recordedVezer(_ notif: Notification) {
+        guard let message = notif.userInfo?[DashNotifData.message] as? Message else {
+            return
+        }
+        
+        
     }
     
     

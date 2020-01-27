@@ -102,7 +102,16 @@ class DashOSCServer {
 extension DashOSCServer: OSCServerDelegate {
 
     func didReceive(_ message: OSCMessage) {
-        let msg = Message(message.address.string, message.arguments)
+        var args = message.arguments
+        
+        // extracts the trackable name from Vezer, adds it as the last argument in Message
+        if type == .vezer {
+            let fullAddress = message.address.string
+            let elements = fullAddress.split(separator: "/")
+            args.append(String(elements[1]))
+        }
+        
+        let msg = Message(message.address.string, args)
         delegate?.oscDataReceived(msg, type)
     }
 }

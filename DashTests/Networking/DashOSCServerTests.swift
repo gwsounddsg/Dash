@@ -59,6 +59,20 @@ extension DashOSCServerTests {
         XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values[0].data, msg.arguments[0]?.data)
         XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.from, .control)
     }
+    
+    
+    func testDAshOSCServer_didReceive_vezer() {
+        let vezerData = Vezer("name", 3.0, 4.0)
+        let msg = OSCMessage(OSCAddressPattern(vezerData.addy().x), vezerData.x)
+        let delegate = MockDashOSCServerDelegate()
+    
+        _server = MockDashOSCServer(.vezer, address, port)
+        _server.delegate = delegate
+        _server.didReceive(msg)
+        
+        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values.count, 2)
+        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values[1] as? String, "name")
+    }
 }
 
 

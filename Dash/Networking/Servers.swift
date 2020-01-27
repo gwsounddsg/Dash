@@ -155,7 +155,9 @@ extension Servers {
     
     
     private func vezerOSC(data: Message) {
-        print("From Vezer: \(data)")
+        
+        let info = [DashNotifData.message: data]
+        NotificationCenter.default.post(name: DashNotif.recordedVezerIn, object: nil, userInfo: info)
     }
 }
 
