@@ -138,7 +138,7 @@ extension ClientsTests {
     
     
     func testClients_sendDS100() {
-        let data = DS100("/test/sendDS100", input: "foo", x: 4, y: 6)
+        let data = DS100("/test/sendDS100", input: "foo", x: 4, y: 6, spread: 0.5)
         mockAll(true)
         
         let result = clients.send(ds100: [data])
@@ -149,7 +149,7 @@ extension ClientsTests {
     
     
     func testClients_sendDS100_notConnected() {
-        let data = DS100("/test/sendDS100", input: "foo", x: 4, y: 6)
+        let data = DS100("/test/sendDS100", input: "foo", x: 4, y: 6, spread: 0.5)
         mockAll(false)
     
         let result = clients.send(ds100: [data])

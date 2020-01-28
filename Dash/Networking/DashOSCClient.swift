@@ -69,7 +69,7 @@ class DashOSCClient {
         let bundle = OSCBundle()
         
         for each in data {
-            let msg = makeMessage(each.addy(), each.x, each.y)
+            let msg = makeMessage(each.coordinate(), each.x, each.y)
             bundle.add(msg)
         }
         

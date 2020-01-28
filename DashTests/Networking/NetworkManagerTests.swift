@@ -65,7 +65,7 @@ extension NetworkManagerTests {
     func testNetworkManager_sendDS100() {
         mockAll()
         mClients.stubbedSendDs100Result = true
-        let data = DS100("4", input: "88", x: 3, y: 2)
+        let data = DS100("4", input: "88", x: 3, y: 2, spread: 0.5)
         
         let result = manager.send(ds100: [data])
         
