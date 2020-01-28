@@ -33,6 +33,7 @@ class ViewController: NSViewController {
     fileprivate var _liveTable: RttTableView!
     fileprivate var _recordedTable: RttTableView!
     fileprivate var _liveData = [RTTrPM]()
+    fileprivate var _vezerData = [String: [String: Float]]() // [Name: [x/y: value]]
     
     
     override func viewWillAppear() {
@@ -153,7 +154,7 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
         case DashID.TableType.live:
             return _liveData.count
         case DashID.TableType.recorded:
-            return 10 //TODO
+            return _vezerData.count
         default:
             return 0
         }
@@ -215,25 +216,28 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     
     
     private func createViewForRecorded(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
+        if _vezerData.isEmpty {return nil}
+    
+        guard let data = _vezerData[String(row)] else {
+            print("Row \(row) doesn't exist")
+            return nil
+        }
+        
         var id = NSUserInterfaceItemIdentifier("")
         var text = ""
         
         switch columnIdentifier {
         case DashID.Column.trackable:
-            text = "Trackable \(row)"
+            text = String(row)
             id = DashID.Cell.trackable
             
         case DashID.Column.x:
-            text = "x\(row)"
+            text = String(format: "%.3f", data["x"] ?? "")
             id = DashID.Cell.x
             
         case DashID.Column.y:
-            text = "y\(row)"
+            text = String(format: "%.3f", data["y"] ?? "")
             id = DashID.Cell.y
-            
-        case DashID.Column.z:
-            text = "z\(row)"
-            id = DashID.Cell.z
             
         default:
             return nil
@@ -256,6 +260,7 @@ extension ViewController {
     func createObservers() {
         addObserver(#selector(liveBlackTrax), DashNotif.blacktrax)
         addObserver(#selector(changingActive), DashNotif.updateSwitchTo)
+        addObserver(#selector(recordedVezer), DashNotif.recordedVezerIn)
     }
     
     
@@ -277,6 +282,26 @@ extension ViewController {
         }
         
         setSwitch(output)
+    }
+    
+    
+    @objc
+    func recordedVezer(_ notif: Notification) {
+        guard let message = notif.userInfo?[DashNotifData.message] as? Message else {return}
+        guard let value = message.values[0] as? Float else {return}
+        guard let name = message.values[1] as? String else {return}
+        
+        let elements = message.address.split(separator: "/")
+        let coord = String(elements[2])
+        
+        if _vezerData[name] == nil {
+            _vezerData[name] = [coord: value]
+        }
+        else {
+            _vezerData[name]![coord] = value
+        }
+        
+        _recordedTable.reload()
     }
     
     

@@ -39,6 +39,7 @@ enum DashID {
 
 enum DashNotif {
     static let blacktrax = NSNotification.Name("blacktraxDataIn")
+    static let recordedVezerIn = NSNotification.Name("recordedVezerIn")
     static let updateSwitchTo = NSNotification.Name("updateSwitchTo")
     static let toggleSwitch = NSNotification.Name("toggleSwitch")
     
@@ -56,6 +57,7 @@ enum DashNotifData {
     static let rttrp = "rttrp"
     static let switchOutputTo = "switchOutputTo"
     static let userPref = "userPref"
+    static let message = "message"
 }
 
 
@@ -109,6 +111,7 @@ enum ControlOSC {
 enum ActiveOutput {
     case blacktrax, vezer
 }
+
 
 
 
