@@ -44,4 +44,14 @@ struct DS100: Equatable {
     func sourceSpread() -> String {
         return "/dbaudio1/positioning/source_spread/\(input)"
     }
+    
+    
+    func coordinateX() -> String {
+        return "/dbaudio1/coordinatemapping/source_position_x/\(mapping)/\(input)"
+    }
+    
+    
+    func coordinateY() -> String {
+        return "/dbaudio1/coordinatemapping/source_position_y/\(mapping)/\(input)"
+    }
 }
