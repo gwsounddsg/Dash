@@ -90,9 +90,9 @@ extension DashOSCClientTests {
     func testDashOSCClient_sendData() {
         let mapping = "myMap"
         let input = "something"
-        let x: Double = 5.0
-        let y: Double = 6.0
-        let data = DS100(mapping, input: input, x: x, y: y)
+        let x: Float = 5.0
+        let y: Float = 6.0
+        let data = DS100(mapping, input: input, x: x, y: y, spread: 0.5)
 
         _client.send(data: [data])
 
@@ -108,7 +108,7 @@ extension DashOSCClientTests {
             return
         }
 
-        XCTAssertEqual(oscMsg.address.string, data.addy())
+        XCTAssertEqual(oscMsg.address.string, data.coordinate())
         XCTAssertEqual(oscMsg.arguments.count, 2)
         XCTAssertEqual(oscMsg.arguments[0]?.data, x.data)
         XCTAssertEqual(oscMsg.arguments[1]?.data, y.data)

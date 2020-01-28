@@ -162,10 +162,10 @@ fileprivate extension NetworkManager {
             
             if centroid.isEmpty {continue}
             
-            let x = centroid[0].position.x
-            let y = centroid[0].position.y
+            let x = Float(centroid[0].position.x)
+            let y = Float(centroid[0].position.y)
             
-            ds100Data.append(DS100(ds100Mapping, input: trackable.name, x: x, y: y))
+            ds100Data.append(DS100(ds100Mapping, input: trackable.name, x: x, y: y, spread: 0.5))
         }
         
         return ds100Data
