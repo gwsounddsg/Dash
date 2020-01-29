@@ -76,6 +76,18 @@ class ViewController: NSViewController {
     @IBAction func switchClicked(_ sender: Any) {
         toggleSwitch()
     }
+    
+    
+    func clearData(_ type: ActiveOutput) {
+        if type == .blacktrax {
+            _liveData.removeAll()
+            _liveTable.reload()
+        }
+        else {
+            _vezerData.removeAll()
+            _recordedTable.reload()
+        }
+    }
 }
 
 
@@ -83,6 +95,7 @@ class ViewController: NSViewController {
 
 
 // MARK: - Table View
+
 extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -192,6 +205,7 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
 
 
 // MARK: - Notifications
+
 extension ViewController {
     
     func createObservers() {
@@ -259,8 +273,6 @@ extension ViewController {
 
 private extension ViewController {
     
-    
-    
     func connectAll() {
         let result = networkManager.connectAll()
         print("Not connected: \(result)")
@@ -322,18 +334,6 @@ private extension ViewController {
         
         switchButton.image = image!
         switchButton.contentTintColor = color!
-    }
-    
-    
-    func clear(_ type: ActiveOutput) {
-        if type == .blacktrax {
-            _liveData.removeAll()
-            _liveTable.reload()
-        }
-        else {
-            _vezerData.removeAll()
-            _recordedTable.reload()
-        }
     }
 }
 
