@@ -76,70 +76,6 @@ class ViewController: NSViewController {
     @IBAction func switchClicked(_ sender: Any) {
         toggleSwitch()
     }
-    
-    
-    func toggleSwitch() {
-        networkManager.output = networkManager.output == .blacktrax ? .vezer : .blacktrax
-        setSwitch(networkManager.output)
-        print("Active input is now: \(networkManager.output)")
-    }
-    
-    
-    func setSwitch(_ output: ActiveOutput) {
-        var image: NSImage?
-        var color: NSColor?
-        
-        switch output {
-        case .blacktrax:
-            image = NSImage(named: DashImage.activeBlackTrax)
-            color = DashColor.activeBlackTrax
-        case .vezer:
-            image = NSImage(named: DashImage.activeVezer)
-            color = DashColor.activeVezer
-        }
-        
-        switchButton.image = image!
-        switchButton.contentTintColor = color!
-    }
-    
-    
-    func connectAll() {
-        let result = networkManager.connectAll()
-        print("Not connected: \(result)")
-        
-        indicatorBlackTrax.image = connectedImage(result.servers.contains(.blackTrax))
-        indicatorControlIn.image = connectedImage(result.servers.contains(.control))
-        indicatorDS100Main.image = connectedImage(result.clients.contains(.ds100Main))
-        indicatorDS100Backup.image = connectedImage(result.clients.contains(.ds100Backup))
-        indicatorVezerIn.image = connectedImage(result.servers.contains(.vezer))
-        indicatorVezerOut.image = connectedImage(result.clients.contains(.vezer))
-        
-        networkManager.servers.printNetworks()
-        networkManager.clients.printNetworks()
-    }
-    
-    private func connectedImage(_ check: Bool) -> NSImage? {
-        let str = check ? DashImage.indicatorNotConnected : DashImage.indicatorConnected
-        return NSImage(named: str)
-    }
-    
-    
-    func setupDefaults() {
-//        UserDefaults.resetStandardUserDefaults() // to clear old data
-    
-        let idNetIn = DashDefaultIDs.Network.Server.self
-        let idNetOut = DashDefaultIDs.Network.Client.self
-        let defaultNetIn = DashDefaultValues.Network.Incoming.self
-        let defaultNetOut = DashDefaultValues.Network.Outgoing.self
-        
-        UserDefaults.standard.register(defaults: [defaultNetIn.blacktraxPort: idNetIn.blacktraxPort])
-        UserDefaults.standard.register(defaults: [defaultNetIn.controlPort: idNetIn.controlPort])
-        UserDefaults.standard.register(defaults: [defaultNetIn.vezerPort: idNetIn.vezerPort])
-        UserDefaults.standard.register(defaults: [defaultNetOut.ds100MainIP: idNetOut.ds100MainIP])
-        UserDefaults.standard.register(defaults: [defaultNetOut.ds100MainPort: idNetOut.ds100MainPort])
-        UserDefaults.standard.register(defaults: [defaultNetOut.vezerIP: idNetOut.vezerIP])
-        UserDefaults.standard.register(defaults: [defaultNetOut.vezerPort: idNetOut.vezerPort])
-    }
 }
 
 
@@ -314,3 +250,100 @@ extension ViewController {
         NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
     }
 }
+
+
+
+
+
+// MARK: - Utility
+
+private extension ViewController {
+    
+    
+    
+    func connectAll() {
+        let result = networkManager.connectAll()
+        print("Not connected: \(result)")
+        
+        indicatorBlackTrax.image = connectedImage(result.servers.contains(.blackTrax))
+        indicatorControlIn.image = connectedImage(result.servers.contains(.control))
+        indicatorDS100Main.image = connectedImage(result.clients.contains(.ds100Main))
+        indicatorDS100Backup.image = connectedImage(result.clients.contains(.ds100Backup))
+        indicatorVezerIn.image = connectedImage(result.servers.contains(.vezer))
+        indicatorVezerOut.image = connectedImage(result.clients.contains(.vezer))
+        
+        networkManager.servers.printNetworks()
+        networkManager.clients.printNetworks()
+    }
+    
+    private func connectedImage(_ check: Bool) -> NSImage? {
+        let str = check ? DashImage.indicatorNotConnected : DashImage.indicatorConnected
+        return NSImage(named: str)
+    }
+    
+    
+    func setupDefaults() {
+        // UserDefaults.resetStandardUserDefaults() // to clear old data
+        
+        let idNetIn = DashDefaultIDs.Network.Server.self
+        let idNetOut = DashDefaultIDs.Network.Client.self
+        let defaultNetIn = DashDefaultValues.Network.Incoming.self
+        let defaultNetOut = DashDefaultValues.Network.Outgoing.self
+        
+        UserDefaults.standard.register(defaults: [defaultNetIn.blacktraxPort: idNetIn.blacktraxPort])
+        UserDefaults.standard.register(defaults: [defaultNetIn.controlPort: idNetIn.controlPort])
+        UserDefaults.standard.register(defaults: [defaultNetIn.vezerPort: idNetIn.vezerPort])
+        UserDefaults.standard.register(defaults: [defaultNetOut.ds100MainIP: idNetOut.ds100MainIP])
+        UserDefaults.standard.register(defaults: [defaultNetOut.ds100MainPort: idNetOut.ds100MainPort])
+        UserDefaults.standard.register(defaults: [defaultNetOut.vezerIP: idNetOut.vezerIP])
+        UserDefaults.standard.register(defaults: [defaultNetOut.vezerPort: idNetOut.vezerPort])
+    }
+    
+    
+    func toggleSwitch() {
+        networkManager.output = networkManager.output == .blacktrax ? .vezer : .blacktrax
+        setSwitch(networkManager.output)
+        print("Active input is now: \(networkManager.output)")
+    }
+    
+    
+    func setSwitch(_ output: ActiveOutput) {
+        var image: NSImage?
+        var color: NSColor?
+        
+        switch output {
+        case .blacktrax:
+            image = NSImage(named: DashImage.activeBlackTrax)
+            color = DashColor.activeBlackTrax
+        case .vezer:
+            image = NSImage(named: DashImage.activeVezer)
+            color = DashColor.activeVezer
+        }
+        
+        switchButton.image = image!
+        switchButton.contentTintColor = color!
+    }
+    
+    
+    func clear(_ type: ActiveOutput) {
+        if type == .blacktrax {
+            _liveData.removeAll()
+            _liveTable.reload()
+        }
+        else {
+            _vezerData.removeAll()
+            _recordedTable.reload()
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
