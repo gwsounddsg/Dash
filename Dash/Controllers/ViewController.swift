@@ -32,7 +32,7 @@ class ViewController: NSViewController {
     // Private
     fileprivate var _liveTable: RttTableView!
     fileprivate var _recordedTable: RttTableView!
-    fileprivate var _liveData = [RTTrPM]()
+    fileprivate var _liveData = [String: CentroidAccVel]()
     fileprivate var _vezerData = [String: [String: Float]]() // [Name: [x/y: value]]
     
     
@@ -180,28 +180,29 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForBlackTrax(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _liveData.isEmpty {return nil}
         
+        guard let centroidModule = _liveData[String(row)] else {
+            print("Row \(row) doesn't exist")
+            return nil
+        }
+        
         var id = NSUserInterfaceItemIdentifier("")
         var text = ""
-        let data = _liveData[row]
         
         switch columnIdentifier {
         case DashID.Column.trackable:
-            text = data.trackable?.name ?? ""
+            text = String(row)
             id = DashID.Cell.trackable
             
         case DashID.Column.x:
-            guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-            text = String(format: "%.3f", packet[0].position.x)
+            text = String(format: "%.3f", centroidModule.position.x)
             id = DashID.Cell.x
             
         case DashID.Column.y:
-            guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-            text = String(format: "%.3f", packet[0].position.y)
+            text = String(format: "%.3f", centroidModule.position.y)
             id = DashID.Cell.y
             
         case DashID.Column.z:
-            guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-            text = String(format: "%.3f", packet[0].position.z)
+            text = String(format: "%.3f", centroidModule.position.z)
             id = DashID.Cell.z
             
         default:
@@ -270,8 +271,12 @@ extension ViewController {
             return
         }
         
-        _liveData = data.pmPackets
-        _liveTable.reload()
+        for rttrpm in data.pmPackets {
+            if let trackable = rttrpm.trackable {
+                _liveData[trackable.name] = trackable.submodules[.centroidAccVel]?[0] as? CentroidAccVel ?? nil
+                _liveTable.reload()
+            }
+        }
     }
     
     
