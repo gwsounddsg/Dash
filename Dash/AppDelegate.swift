@@ -6,10 +6,15 @@
 
 import Cocoa
 
+
+
+
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var preferencesController: NSWindowController?
+    
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
     
@@ -30,6 +35,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if preferencesController != nil {
             preferencesController!.showWindow(sender)
         }
+    }
+    
+    
+    @IBAction func clearDataBlackTrax(_ sender: Any) {
+        clear(.blacktrax)
+    }
+    
+    
+    @IBAction func clearDataVezer(_ sender: Any) {
+        clear(.vezer)
+    }
+    
+    
+    private func clear(_ table: ActiveOutput) {
+        let window = NSApp.windows[0]
+        guard let vc = window.contentViewController as? ViewController else {
+            print("bad view controller")
+            return
+        }
+        
+        vc.clearData(table)
     }
 }
 

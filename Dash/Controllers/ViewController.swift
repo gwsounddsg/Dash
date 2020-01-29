@@ -32,7 +32,7 @@ class ViewController: NSViewController {
     // Private
     fileprivate var _liveTable: RttTableView!
     fileprivate var _recordedTable: RttTableView!
-    fileprivate var _liveData = [RTTrPM]()
+    fileprivate var _liveData = [String: CentroidAccVel]()
     fileprivate var _vezerData = [String: [String: Float]]() // [Name: [x/y: value]]
     
     
@@ -78,67 +78,15 @@ class ViewController: NSViewController {
     }
     
     
-    func toggleSwitch() {
-        networkManager.output = networkManager.output == .blacktrax ? .vezer : .blacktrax
-        setSwitch(networkManager.output)
-        print("Active input is now: \(networkManager.output)")
-    }
-    
-    
-    func setSwitch(_ output: ActiveOutput) {
-        var image: NSImage?
-        var color: NSColor?
-        
-        switch output {
-        case .blacktrax:
-            image = NSImage(named: DashImage.activeBlackTrax)
-            color = DashColor.activeBlackTrax
-        case .vezer:
-            image = NSImage(named: DashImage.activeVezer)
-            color = DashColor.activeVezer
+    func clearData(_ type: ActiveOutput) {
+        if type == .blacktrax {
+            _liveData.removeAll()
+            _liveTable.reload()
         }
-        
-        switchButton.image = image!
-        switchButton.contentTintColor = color!
-    }
-    
-    
-    func connectAll() {
-        let result = networkManager.connectAll()
-        print("Not connected: \(result)")
-        
-        indicatorBlackTrax.image = connectedImage(result.servers.contains(.blackTrax))
-        indicatorControlIn.image = connectedImage(result.servers.contains(.control))
-        indicatorDS100Main.image = connectedImage(result.clients.contains(.ds100Main))
-        indicatorDS100Backup.image = connectedImage(result.clients.contains(.ds100Backup))
-        indicatorVezerIn.image = connectedImage(result.servers.contains(.vezer))
-        indicatorVezerOut.image = connectedImage(result.clients.contains(.vezer))
-        
-        networkManager.servers.printNetworks()
-        networkManager.clients.printNetworks()
-    }
-    
-    private func connectedImage(_ check: Bool) -> NSImage? {
-        let str = check ? DashImage.indicatorNotConnected : DashImage.indicatorConnected
-        return NSImage(named: str)
-    }
-    
-    
-    func setupDefaults() {
-//        UserDefaults.resetStandardUserDefaults() // to clear old data
-    
-        let idNetIn = DashDefaultIDs.Network.Server.self
-        let idNetOut = DashDefaultIDs.Network.Client.self
-        let defaultNetIn = DashDefaultValues.Network.Incoming.self
-        let defaultNetOut = DashDefaultValues.Network.Outgoing.self
-        
-        UserDefaults.standard.register(defaults: [defaultNetIn.blacktraxPort: idNetIn.blacktraxPort])
-        UserDefaults.standard.register(defaults: [defaultNetIn.controlPort: idNetIn.controlPort])
-        UserDefaults.standard.register(defaults: [defaultNetIn.vezerPort: idNetIn.vezerPort])
-        UserDefaults.standard.register(defaults: [defaultNetOut.ds100MainIP: idNetOut.ds100MainIP])
-        UserDefaults.standard.register(defaults: [defaultNetOut.ds100MainPort: idNetOut.ds100MainPort])
-        UserDefaults.standard.register(defaults: [defaultNetOut.vezerIP: idNetOut.vezerIP])
-        UserDefaults.standard.register(defaults: [defaultNetOut.vezerPort: idNetOut.vezerPort])
+        else {
+            _vezerData.removeAll()
+            _recordedTable.reload()
+        }
     }
 }
 
@@ -147,6 +95,7 @@ class ViewController: NSViewController {
 
 
 // MARK: - Table View
+
 extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -180,28 +129,29 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForBlackTrax(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _liveData.isEmpty {return nil}
         
+        guard let centroidModule = _liveData[String(row)] else {
+            print("Row \(row) doesn't exist")
+            return nil
+        }
+        
         var id = NSUserInterfaceItemIdentifier("")
         var text = ""
-        let data = _liveData[row]
         
         switch columnIdentifier {
         case DashID.Column.trackable:
-            text = data.trackable?.name ?? ""
+            text = String(row)
             id = DashID.Cell.trackable
             
         case DashID.Column.x:
-            guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-            text = String(format: "%.3f", packet[0].position.x)
+            text = String(format: "%.3f", centroidModule.position.x)
             id = DashID.Cell.x
             
         case DashID.Column.y:
-            guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-            text = String(format: "%.3f", packet[0].position.y)
+            text = String(format: "%.3f", centroidModule.position.y)
             id = DashID.Cell.y
             
         case DashID.Column.z:
-            guard let packet = data.trackable?.submodules[.centroidAccVel] as? [CentroidAccVel] else {return nil}
-            text = String(format: "%.3f", packet[0].position.z)
+            text = String(format: "%.3f", centroidModule.position.z)
             id = DashID.Cell.z
             
         default:
@@ -255,6 +205,7 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
 
 
 // MARK: - Notifications
+
 extension ViewController {
     
     func createObservers() {
@@ -270,8 +221,12 @@ extension ViewController {
             return
         }
         
-        _liveData = data.pmPackets
-        _liveTable.reload()
+        for rttrpm in data.pmPackets {
+            if let trackable = rttrpm.trackable {
+                _liveData[trackable.name] = trackable.submodules[.centroidAccVel]?[0] as? CentroidAccVel ?? nil
+                _liveTable.reload()
+            }
+        }
     }
     
     
@@ -309,3 +264,86 @@ extension ViewController {
         NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
     }
 }
+
+
+
+
+
+// MARK: - Utility
+
+private extension ViewController {
+    
+    func connectAll() {
+        let result = networkManager.connectAll()
+        print("Not connected: \(result)")
+        
+        indicatorBlackTrax.image = connectedImage(result.servers.contains(.blackTrax))
+        indicatorControlIn.image = connectedImage(result.servers.contains(.control))
+        indicatorDS100Main.image = connectedImage(result.clients.contains(.ds100Main))
+        indicatorDS100Backup.image = connectedImage(result.clients.contains(.ds100Backup))
+        indicatorVezerIn.image = connectedImage(result.servers.contains(.vezer))
+        indicatorVezerOut.image = connectedImage(result.clients.contains(.vezer))
+        
+        networkManager.servers.printNetworks()
+        networkManager.clients.printNetworks()
+    }
+    
+    private func connectedImage(_ check: Bool) -> NSImage? {
+        let str = check ? DashImage.indicatorNotConnected : DashImage.indicatorConnected
+        return NSImage(named: str)
+    }
+    
+    
+    func setupDefaults() {
+        // UserDefaults.resetStandardUserDefaults() // to clear old data
+        
+        let idNetIn = DashDefaultIDs.Network.Server.self
+        let idNetOut = DashDefaultIDs.Network.Client.self
+        let defaultNetIn = DashDefaultValues.Network.Incoming.self
+        let defaultNetOut = DashDefaultValues.Network.Outgoing.self
+        
+        UserDefaults.standard.register(defaults: [defaultNetIn.blacktraxPort: idNetIn.blacktraxPort])
+        UserDefaults.standard.register(defaults: [defaultNetIn.controlPort: idNetIn.controlPort])
+        UserDefaults.standard.register(defaults: [defaultNetIn.vezerPort: idNetIn.vezerPort])
+        UserDefaults.standard.register(defaults: [defaultNetOut.ds100MainIP: idNetOut.ds100MainIP])
+        UserDefaults.standard.register(defaults: [defaultNetOut.ds100MainPort: idNetOut.ds100MainPort])
+        UserDefaults.standard.register(defaults: [defaultNetOut.vezerIP: idNetOut.vezerIP])
+        UserDefaults.standard.register(defaults: [defaultNetOut.vezerPort: idNetOut.vezerPort])
+    }
+    
+    
+    func toggleSwitch() {
+        networkManager.output = networkManager.output == .blacktrax ? .vezer : .blacktrax
+        setSwitch(networkManager.output)
+        print("Active input is now: \(networkManager.output)")
+    }
+    
+    
+    func setSwitch(_ output: ActiveOutput) {
+        var image: NSImage?
+        var color: NSColor?
+        
+        switch output {
+        case .blacktrax:
+            image = NSImage(named: DashImage.activeBlackTrax)
+            color = DashColor.activeBlackTrax
+        case .vezer:
+            image = NSImage(named: DashImage.activeVezer)
+            color = DashColor.activeVezer
+        }
+        
+        switchButton.image = image!
+        switchButton.contentTintColor = color!
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
