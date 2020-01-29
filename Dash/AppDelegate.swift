@@ -39,24 +39,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBAction func clearDataBlackTrax(_ sender: Any) {
-        let window = NSApp.windows[0]
-        guard let vc = window.contentViewController as? ViewController else {
-            print("bad view controller")
-            return
-        }
-        
-        vc.clearData(.blacktrax)
+        clear(.blacktrax)
     }
     
     
     @IBAction func clearDataVezer(_ sender: Any) {
+        clear(.vezer)
+    }
+    
+    
+    private func clear(_ table: ActiveOutput) {
         let window = NSApp.windows[0]
         guard let vc = window.contentViewController as? ViewController else {
             print("bad view controller")
             return
         }
         
-        vc.clearData(.vezer)
+        vc.clearData(table)
     }
 }
 
