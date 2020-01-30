@@ -26,6 +26,31 @@
 			<key>orderHint</key>
 			<integer>13</integer>
 		</dict>
+		<key>DashOSCClientTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
+		<key>DashOSCClientTests.testDashOSCClient_sendData_x.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
+		<key>DashOSCClientTests.testDashOSCClient_sendData_y.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
+		<key>NetworkManagerTests.testNetworkManager_redirectFromVezer.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>17</integer>
+		</dict>
+		<key>ServersTests.testServers_oscDataReceived_vezer.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>18</integer>
+		</dict>
 	</dict>
 </dict>
 </plist>
