@@ -17,7 +17,7 @@ class DashOSCClient {
     let type: DashNetworkType.Client
     let client: OSCClient
 
-    var address: String { //"/dbaudio1/coordinatemapping/source_position_xy/"
+    var address: String {
         didSet {
             clientAddress(address)
             printNetwork()
@@ -65,11 +65,24 @@ class DashOSCClient {
     
     
     /// Sends data to DS100
-    func send(data: [DS100]) {
+    func send(data: [DS100], coordinate: Coordinate) {
         let bundle = OSCBundle()
+        var addy: String = ""
+        var msg: OSCMessage!
         
         for each in data {
-            let msg = makeMessage(each.coordinate(), each.x, each.y)
+            switch coordinate {
+            case .x:
+                addy = each.coordinateX()
+                msg = makeMessage(addy, each.x)
+            case .y:
+                addy = each.coordinateY()
+                msg = makeMessage(addy, each.y)
+            case .z, .all:
+                addy = each.coordinate()
+                msg = makeMessage(addy, each.x, each.y)
+            }
+            
             bundle.add(msg)
         }
         

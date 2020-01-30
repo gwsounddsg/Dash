@@ -66,8 +66,9 @@ extension NetworkManagerTests {
         mockAll()
         mClients.stubbedSendDs100Result = true
         let data = DS100("4", input: "88", x: 3, y: 2, spread: 0.5)
+        let coord: Coordinate = .x
         
-        let result = manager.send(ds100: [data])
+        let result = manager.send(ds100: [data], coordinates: coord)
         
         XCTAssertTrue(result)
         XCTAssertTrue(mClients.invokedSendDs100)
@@ -88,9 +89,31 @@ extension NetworkManagerTests {
     }
     
     
-    func testNetworkManager_redirectVezer() {
+    func testNetworkManager_redirectFromVezer() {
         mockAll()
-        mClients.stubbedSendVezerResult = true
+        mClients.stubbedSendResult = true
+        let val: Float = 3.2
+        let msg = Message("/trackable/name/coord", [val])
+        
+        manager.redirectFromVezer(data: msg)
+        
+        if !mClients.invokedSendDs100 {
+            XCTAssertTrue(false, "send ds100 not called")
+            return
+        }
+        
+        XCTAssertEqual(mClients.invokedSendDs100Parameters?.data[0].mapping, manager.ds100Mapping)
+        XCTAssertEqual(mClients.invokedSendDs100Parameters?.data[0].input, "name")
+        XCTAssertEqual(mClients.invokedSendDs100Parameters?.data[0].x, val)
+        XCTAssertEqual(mClients.invokedSendDs100Parameters?.data[0].y, val)
+        XCTAssertEqual(mClients.invokedSendDs100Parameters?.data[0].spread, 0.5)
+    }
+    
+    
+    func testNetworkManager_toBeRecorded() {
+        mockAll()
+        mClients.stubbedSendResult = true
+        
         guard let data = try? RTTrP(data: rttData) else {
             assertionFailure()
             return
@@ -98,7 +121,7 @@ extension NetworkManagerTests {
         
         manager.toBeRecorded(data: data)
         
-        XCTAssertEqual(mClients.invokedSendVezerParameters?.data[0].name, "0")
+        XCTAssertEqual(mClients.invokedSendParameters?.data[0].name, "0")
     }
 }
 
@@ -461,29 +484,37 @@ class MockClients: Clients {
     
     var invokedSendDs100 = false
     var invokedSendDs100Count = 0
-    var invokedSendDs100Parameters: (data: [DS100], Void)?
-    var invokedSendDs100ParametersList = [(data: [DS100], Void)]()
+    var invokedSendDs100Parameters: (data: [DS100], coordinate: Coordinate)?
+    var invokedSendDs100ParametersList = [(data: [DS100], coordinate: Coordinate)]()
     var stubbedSendDs100Result: Bool! = false
     
-    override func send(ds100 data: [DS100]) -> Bool {
+    override func send(ds100 data: [DS100], coordinate: Coordinate = .all) -> Bool {
         invokedSendDs100 = true
         invokedSendDs100Count += 1
-        invokedSendDs100Parameters = (data, ())
-        invokedSendDs100ParametersList.append((data, ()))
+        invokedSendDs100Parameters = (data, coordinate)
+        invokedSendDs100ParametersList.append((data, coordinate))
         return stubbedSendDs100Result
     }
     
-    var invokedSendVezer = false
-    var invokedSendVezerCount = 0
-    var invokedSendVezerParameters: (data: [Vezer], Void)?
-    var invokedSendVezerParametersList = [(data: [Vezer], Void)]()
-    var stubbedSendVezerResult: Bool! = false
+    var invokedSend = false
+    var invokedSendCount = 0
+    var invokedSendParameters: (data: [Vezer], Void)?
+    var invokedSendParametersList = [(data: [Vezer], Void)]()
+    var stubbedSendResult: Bool! = false
     
     override func send(vezer data: [Vezer]) -> Bool {
-        invokedSendVezer = true
-        invokedSendVezerCount += 1
-        invokedSendVezerParameters = (data, ())
-        invokedSendVezerParametersList.append((data, ()))
-        return stubbedSendVezerResult
+        invokedSend = true
+        invokedSendCount += 1
+        invokedSendParameters = (data, ())
+        invokedSendParametersList.append((data, ()))
+        return stubbedSendResult
+    }
+    
+    var invokedPrintNetworks = false
+    var invokedPrintNetworksCount = 0
+    
+    override func printNetworks() {
+        invokedPrintNetworks = true
+        invokedPrintNetworksCount += 1
     }
 }
