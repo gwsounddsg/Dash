@@ -45,14 +45,25 @@ extension NetworkManager {
     }
     
     
-    func send(ds100 data: [DS100]) -> Bool {
-        return clients.send(ds100: data)
+    func send(ds100 data: [DS100], coordinates: Coordinate) -> Bool {
+        return clients.send(ds100: data, coordinate: coordinates)
     }
     
     
     func redirectFromBlackTrax(data: RTTrP) {
         let ds100Data = prepareDS100Data(data)
-        _ = send(ds100: ds100Data)
+        _ = send(ds100: ds100Data, coordinates: .all)
+    }
+    
+    
+    func redirectFromVezer(data: Message) {
+        let elements = data.address.split(separator: "/")
+        let name = String(elements[1])
+        let coord: Coordinate = String(elements[2]) == "x" ? .x : .y
+        let val = data.values[0] as? Float ?? 0.0
+        
+        let ds100Data = DS100(ds100Mapping, input: name, x: val, y: val, spread: 0.5)
+        _ = send(ds100: [ds100Data], coordinates: coord)
     }
     
     
@@ -84,6 +95,14 @@ extension NetworkManager: ServersProtocol {
         post(DashNotif.blacktrax, dictInfo)
     }
     
+    func recordedVezer(_ data: Message) {
+        if output == .vezer {
+            redirectFromVezer(data: data)
+        }
+        
+        let info = [DashNotifData.message: data]
+        NotificationCenter.default.post(name: DashNotif.recordedVezerIn, object: nil, userInfo: info)
+    }
     
     func command(control: ControlMessage, data: Any?) {
         switch control {

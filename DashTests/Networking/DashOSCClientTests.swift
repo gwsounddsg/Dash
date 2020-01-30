@@ -87,14 +87,15 @@ extension DashOSCClientTests {
     }
 
 
-    func testDashOSCClient_sendData() {
+    func testDashOSCClient_sendData_all() {
         let mapping = "myMap"
         let input = "something"
         let x: Float = 5.0
         let y: Float = 6.0
         let data = DS100(mapping, input: input, x: x, y: y, spread: 0.5)
+        let coord: Coordinate = .all
 
-        _client.send(data: [data])
+        _client.send(data: [data], coordinate: coord)
 
         XCTAssertTrue(_client.invokedClientSend)
         if !_client.invokedClientSend {return}
@@ -112,6 +113,62 @@ extension DashOSCClientTests {
         XCTAssertEqual(oscMsg.arguments.count, 2)
         XCTAssertEqual(oscMsg.arguments[0]?.data, x.data)
         XCTAssertEqual(oscMsg.arguments[1]?.data, y.data)
+    }
+    
+    
+    func testDashOSCClient_sendData_x() {
+        let mapping = "myMap"
+        let input = "something"
+        let x: Float = 5.0
+        let y: Float = 6.0
+        let data = DS100(mapping, input: input, x: x, y: y, spread: 0.5)
+        let coord: Coordinate = .x
+        
+        _client.send(data: [data], coordinate: coord)
+        
+        XCTAssertTrue(_client.invokedClientSend)
+        if !_client.invokedClientSend {return}
+        
+        let oscBundle = _client.invokedClientSendParameter as! OSCBundle
+        XCTAssertEqual(oscBundle.elements.count, 1)
+        if oscBundle.elements.count != 1 {return}
+        
+        guard let oscMsg = oscBundle.elements[0] as? OSCMessage else {
+            XCTAssertFalse(true, "osc element is not an OSCMessage")
+            return
+        }
+        
+        XCTAssertEqual(oscMsg.address.string, data.coordinateX())
+        XCTAssertEqual(oscMsg.arguments.count, 1)
+        XCTAssertEqual(oscMsg.arguments[0]?.data, x.data)
+    }
+    
+    
+    func testDashOSCClient_sendData_y() {
+        let mapping = "myMap"
+        let input = "something"
+        let x: Float = 5.0
+        let y: Float = 6.0
+        let data = DS100(mapping, input: input, x: x, y: y, spread: 0.5)
+        let coord: Coordinate = .y
+        
+        _client.send(data: [data], coordinate: coord)
+        
+        XCTAssertTrue(_client.invokedClientSend)
+        if !_client.invokedClientSend {return}
+        
+        let oscBundle = _client.invokedClientSendParameter as! OSCBundle
+        XCTAssertEqual(oscBundle.elements.count, 1)
+        if oscBundle.elements.count != 1 {return}
+        
+        guard let oscMsg = oscBundle.elements[0] as? OSCMessage else {
+            XCTAssertFalse(true, "osc element is not an OSCMessage")
+            return
+        }
+        
+        XCTAssertEqual(oscMsg.address.string, data.coordinateY())
+        XCTAssertEqual(oscMsg.arguments.count, 1)
+        XCTAssertEqual(oscMsg.arguments[0]?.data, y.data)
     }
 }
 

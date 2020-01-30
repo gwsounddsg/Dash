@@ -113,6 +113,11 @@ enum ActiveOutput {
 }
 
 
+enum Coordinate {
+    case x, y, z, all
+}
+
+
 
 
 
@@ -139,16 +144,16 @@ enum DashDefaultIDs {
 enum DashDefaultValues {
     enum Network {
         enum Incoming {
-            static let blacktraxPort = "24002"
-            static let controlPort = "4202"
-            static let vezerPort = "8000"
+            static let blacktraxPort: Int = 24002
+            static let controlPort: Int = 4202
+            static let vezerPort: Int = 8000
         }
         
         enum Outgoing {
             static let vezerIP = "127.0.0.1"
-            static let vezerPort = "1234"
-            static let ds100MainIP = "127.0.0.1" // DS100 (do I need two?)
-            static let ds100MainPort = "4545" // check number
+            static let vezerPort: Int = 1234
+            static let ds100MainIP = "127.0.0.1" //TODO: Update me
+            static let ds100MainPort: Int = 50010
         }
     }
 }

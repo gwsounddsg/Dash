@@ -91,9 +91,9 @@ class Clients {
     
     
     //TODO: when i add second ds100, change this so both are called even if both are not connected
-    func send(ds100 data: [DS100]) -> Bool {
+    func send(ds100 data: [DS100], coordinate: Coordinate = .all) -> Bool {
         if !isDS100MainConnected {return false}
-        ds100Main!.send(data: data)
+        ds100Main!.send(data: data, coordinate: coordinate)
         return true
     }
     
