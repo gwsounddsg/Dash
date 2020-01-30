@@ -113,6 +113,11 @@ enum ActiveOutput {
 }
 
 
+enum Coordinate {
+    case x, y, z, all
+}
+
+
 
 
 

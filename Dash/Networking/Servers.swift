@@ -11,6 +11,7 @@ import RTTrPSwift
 
 protocol ServersProtocol: class {
     func liveBlackTrax(_ data: RTTrP)
+    func recordedVezer(_ data: Message)
     func command(control: ControlMessage, data: Any?)
 }
 
@@ -155,8 +156,7 @@ extension Servers {
     
     
     private func vezerOSC(data: Message) {
-        let info = [DashNotifData.message: data]
-        NotificationCenter.default.post(name: DashNotif.recordedVezerIn, object: nil, userInfo: info)
+        delegate?.recordedVezer(data)
     }
 }
 
