@@ -144,7 +144,7 @@ extension ClientsTests {
         let result = clients.send(ds100: [data])
         
         XCTAssertTrue(result)
-        XCTAssertEqual(mDS100Main.invokedSendDataDS100Parameters?.data[0], data)
+        XCTAssertEqual(mDS100Main.invokedSendDataCoordinateParameters?.data[0], data)
     }
     
     
@@ -155,7 +155,7 @@ extension ClientsTests {
         let result = clients.send(ds100: [data])
         
         XCTAssertFalse(result)
-        XCTAssertFalse(mDS100Main.invokedSendDataDS100)
+        XCTAssertFalse(mDS100Main.invokedSendDataCoordinate)
     }
     
     
@@ -166,7 +166,7 @@ extension ClientsTests {
         let result = clients.send(vezer: [data])
         
         XCTAssertTrue(result)
-        XCTAssertEqual(mVezer.invokedSendDataVezerParameters?.data[0], data)
+        XCTAssertEqual(mVezer.invokedSendDataParameters?.data[0], data)
     }
     
     
@@ -177,7 +177,7 @@ extension ClientsTests {
         let result = clients.send(vezer: [data])
     
         XCTAssertFalse(result)
-        XCTAssertFalse(mVezer.invokedSendDataVezer)
+        XCTAssertFalse(mVezer.invokedSendData)
     }
 }
 
@@ -375,27 +375,35 @@ class MDashOSCClient: DashOSCClient {
         invokedSendMessageParametersList.append((message, ()))
     }
     
-    var invokedSendDataDS100 = false
-    var invokedSendDataDS100Count = 0
-    var invokedSendDataDS100Parameters: (data: [DS100], Void)?
-    var invokedSendDataDS100ParametersList = [(data: [DS100], Void)]()
+    var invokedSendDataCoordinate = false
+    var invokedSendDataCoordinateCount = 0
+    var invokedSendDataCoordinateParameters: (data: [DS100], coordinate: Coordinate)?
+    var invokedSendDataCoordinateParametersList = [(data: [DS100], coordinate: Coordinate)]()
     
-    override func send(data: [DS100]) {
-        invokedSendDataDS100 = true
-        invokedSendDataDS100Count += 1
-        invokedSendDataDS100Parameters = (data, ())
-        invokedSendDataDS100ParametersList.append((data, ()))
+    override func send(data: [DS100], coordinate: Coordinate = .all) {
+        invokedSendDataCoordinate = true
+        invokedSendDataCoordinateCount += 1
+        invokedSendDataCoordinateParameters = (data, coordinate)
+        invokedSendDataCoordinateParametersList.append((data, coordinate))
     }
     
-    var invokedSendDataVezer = false
-    var invokedSendDataVezerCount = 0
-    var invokedSendDataVezerParameters: (data: [Vezer], Void)?
-    var invokedSendDataVezerParametersList = [(data: [Vezer], Void)]()
+    var invokedSendData = false
+    var invokedSendDataCount = 0
+    var invokedSendDataParameters: (data: [Vezer], Void)?
+    var invokedSendDataParametersList = [(data: [Vezer], Void)]()
     
     override func send(data: [Vezer]) {
-        invokedSendDataVezer = true
-        invokedSendDataVezerCount += 1
-        invokedSendDataVezerParameters = (data, ())
-        invokedSendDataVezerParametersList.append((data, ()))
+        invokedSendData = true
+        invokedSendDataCount += 1
+        invokedSendDataParameters = (data, ())
+        invokedSendDataParametersList.append((data, ()))
+    }
+    
+    var invokedPrintNetwork = false
+    var invokedPrintNetworkCount = 0
+    
+    override func printNetwork() {
+        invokedPrintNetwork = true
+        invokedPrintNetworkCount += 1
     }
 }

@@ -169,7 +169,7 @@ extension ServersTests {
     
         servers.oscDataReceived(msg, .vezer)
         
-        //TODO: not implemented yet
+        XCTAssertTrue(delegate.invokedRecordedVezer)
     }
 }
 
@@ -276,6 +276,18 @@ class MServersProtocol: ServersProtocol {
         invokedLiveBlackTraxCount += 1
         invokedLiveBlackTraxParameters = (data, ())
         invokedLiveBlackTraxParametersList.append((data, ()))
+    }
+    
+    var invokedRecordedVezer = false
+    var invokedRecordedVezerCount = 0
+    var invokedRecordedVezerParameters: (data: Message, Void)?
+    var invokedRecordedVezerParametersList = [(data: Message, Void)]()
+    
+    func recordedVezer(_ data: Message) {
+        invokedRecordedVezer = true
+        invokedRecordedVezerCount += 1
+        invokedRecordedVezerParameters = (data, ())
+        invokedRecordedVezerParametersList.append((data, ()))
     }
     
     var invokedCommand = false

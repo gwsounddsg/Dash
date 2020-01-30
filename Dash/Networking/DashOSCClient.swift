@@ -65,7 +65,7 @@ class DashOSCClient {
     
     
     /// Sends data to DS100
-    func send(data: [DS100], coordinate: Coordinate = .all) {
+    func send(data: [DS100], coordinate: Coordinate) {
         let bundle = OSCBundle()
         var addy: String = ""
         var msg: OSCMessage!
