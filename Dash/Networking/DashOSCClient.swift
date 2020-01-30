@@ -17,7 +17,7 @@ class DashOSCClient {
     let type: DashNetworkType.Client
     let client: OSCClient
 
-    var address: String { //"/dbaudio1/coordinatemapping/source_position_xy/"
+    var address: String {
         didSet {
             clientAddress(address)
             printNetwork()

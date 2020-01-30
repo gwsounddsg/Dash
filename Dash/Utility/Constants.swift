@@ -147,8 +147,8 @@ enum DashDefaultValues {
         enum Outgoing {
             static let vezerIP = "127.0.0.1"
             static let vezerPort: Int = 1234
-            static let ds100MainIP = "127.0.2.1" // DS100 (do I need two?)
-            static let ds100MainPort: Int = 4549 // check number
+            static let ds100MainIP = "127.0.0.1" //TODO: Update me
+            static let ds100MainPort: Int = 50010
         }
     }
 }
