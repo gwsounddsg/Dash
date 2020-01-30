@@ -38,12 +38,12 @@ class ViewController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        setupDefaults()
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupDefaults()
         
         let liveTabViewItem = liveTabView.tabViewItem(at: 0)
         let recTabViewItem = recordedTabView.tabViewItem(at: 0)
@@ -295,20 +295,27 @@ private extension ViewController {
     
     
     func setupDefaults() {
-        // UserDefaults.resetStandardUserDefaults() // to clear old data
-        
         let idNetIn = DashDefaultIDs.Network.Server.self
         let idNetOut = DashDefaultIDs.Network.Client.self
         let defaultNetIn = DashDefaultValues.Network.Incoming.self
         let defaultNetOut = DashDefaultValues.Network.Outgoing.self
-        
-        UserDefaults.standard.register(defaults: [defaultNetIn.blacktraxPort: idNetIn.blacktraxPort])
-        UserDefaults.standard.register(defaults: [defaultNetIn.controlPort: idNetIn.controlPort])
-        UserDefaults.standard.register(defaults: [defaultNetIn.vezerPort: idNetIn.vezerPort])
-        UserDefaults.standard.register(defaults: [defaultNetOut.ds100MainIP: idNetOut.ds100MainIP])
-        UserDefaults.standard.register(defaults: [defaultNetOut.ds100MainPort: idNetOut.ds100MainPort])
-        UserDefaults.standard.register(defaults: [defaultNetOut.vezerIP: idNetOut.vezerIP])
-        UserDefaults.standard.register(defaults: [defaultNetOut.vezerPort: idNetOut.vezerPort])
+    
+        UserDefaults.standard.register(defaults: [idNetIn.blacktraxPort: defaultNetIn.blacktraxPort])
+        UserDefaults.standard.register(defaults: [idNetIn.controlPort: defaultNetIn.controlPort])
+        UserDefaults.standard.register(defaults: [idNetIn.vezerPort: defaultNetIn.vezerPort])
+        UserDefaults.standard.register(defaults: [idNetOut.ds100MainIP: defaultNetOut.ds100MainIP])
+        UserDefaults.standard.register(defaults: [idNetOut.ds100MainPort: defaultNetOut.ds100MainPort])
+        UserDefaults.standard.register(defaults: [idNetOut.vezerIP: defaultNetOut.vezerIP])
+        UserDefaults.standard.register(defaults: [idNetOut.vezerPort: defaultNetOut.vezerPort])
+    
+        // reset defaults
+//        UserDefaults.standard.update(value: defaultNetIn.blacktraxPort, forKey: idNetIn.blacktraxPort)
+//        UserDefaults.standard.update(value: defaultNetIn.controlPort, forKey: idNetIn.controlPort)
+//        UserDefaults.standard.update(value: defaultNetIn.vezerPort, forKey: idNetIn.vezerPort)
+//        UserDefaults.standard.update(value: defaultNetOut.ds100MainIP, forKey: idNetOut.ds100MainIP)
+//        UserDefaults.standard.update(value: defaultNetOut.ds100MainPort, forKey: idNetOut.ds100MainPort)
+//        UserDefaults.standard.update(value: defaultNetOut.vezerIP, forKey: idNetOut.vezerIP)
+//        UserDefaults.standard.update(value: defaultNetOut.vezerPort, forKey: idNetOut.vezerPort)
     }
     
     
