@@ -278,6 +278,9 @@
                                                                     </textField>
                                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CZ4-ry-7MI" userLabel="Recorded Port">
                                                                         <rect key="frame" x="34" y="0.0" width="96" height="22"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="96" id="yYV-UX-K2h"/>
+                                                                        </constraints>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" drawsBackground="YES" id="anF-Aj-Fi8">
                                                                             <font key="font" usesAppearanceFont="YES"/>
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -382,6 +385,9 @@
                                                                     </textField>
                                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="REe-4r-kTw" userLabel="Live Port">
                                                                         <rect key="frame" x="34" y="0.0" width="96" height="22"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="96" id="Dqc-x7-aaf"/>
+                                                                        </constraints>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" drawsBackground="YES" id="DdY-Lf-Rx6">
                                                                             <font key="font" usesAppearanceFont="YES"/>
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>

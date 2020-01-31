@@ -14,40 +14,40 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>DashTests.xcscheme</key>
+		<key>DashOSCClientTests.testDashOSCClient_sendData_x.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>DashOSCClientTests.testDashOSCClient_sendData_y.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>5</integer>
+		</dict>
+		<key>DashOSCClientTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>DashTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>NetworkManagerTests.testNetworkManager_redirectFromVezer.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>ServersTests.testServers_oscDataReceived_vezer.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>ServersTests.testServers_updateDefaults_serverBlackTraxPort.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false />
-			<key>orderHint</key>
-			<integer>13</integer>
-		</dict>
-		<key>DashOSCClientTests.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>14</integer>
-		</dict>
-		<key>DashOSCClientTests.testDashOSCClient_sendData_x.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>15</integer>
-		</dict>
-		<key>DashOSCClientTests.testDashOSCClient_sendData_y.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>16</integer>
-		</dict>
-		<key>NetworkManagerTests.testNetworkManager_redirectFromVezer.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>17</integer>
-		</dict>
-		<key>ServersTests.testServers_oscDataReceived_vezer.xcscheme</key>
-		<dict>
 			<key>orderHint</key>
 			<integer>18</integer>
 		</dict>
