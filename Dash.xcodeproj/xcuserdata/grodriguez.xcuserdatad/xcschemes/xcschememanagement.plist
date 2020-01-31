@@ -7,45 +7,27 @@
 		<key>All in DashTests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>4</integer>
 		</dict>
 		<key>Dash.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>DashTests.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
 		<key>ReceiveUDPTests.testReceiveUDP_connectPort.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<false />
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 		<key>ReceiveUDPTests.testReceiveUDP_connectPort_sockNotNil.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<false />
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>3</integer>
 		</dict>
 		<key>ReceiveUDPTests.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<false />
 			<key>orderHint</key>
-			<integer>5</integer>
-		</dict>
-		<key>ServersTests.testServers_updateDefaults_serverBlackTraxPort.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false />
-			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>2</integer>
 		</dict>
 	</dict>
 </dict>
