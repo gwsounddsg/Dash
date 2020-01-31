@@ -191,7 +191,7 @@ extension Servers {
                 return
             }
             updateDefault(val!, DashDefaultIDs.Network.Server.blacktraxPort, defaults)
-            connectBlackTrax()
+            connectBlackTrax(from: defaults)
             blackTrax.printNetwork()
     
         case DashNotif.userPrefServerVezerPort:

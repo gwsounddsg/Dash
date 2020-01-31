@@ -65,9 +65,14 @@ class ReceiveUDP: NSObject, GCDAsyncUdpSocketDelegate {
 
     // MARK: - Utility
     
-    func connect(port: Int) throws {
-        if _socket != nil {_socket.close()}
-        _socket = GCDAsyncUdpSocket(delegate: self, delegateQueue: DispatchQueue.main)
+    func connect(port: Int, socket: GCDAsyncUdpSocket = GCDAsyncUdpSocket(delegate: nil, delegateQueue: DispatchQueue.main)) throws {
+        if _socket != nil {
+            _socket.close()
+        }
+        else {
+            _socket = socket
+            _socket.setDelegate(self)
+        }
         
         try _socket.bind(toPort: UInt16(port))
         try _socket.beginReceiving()
