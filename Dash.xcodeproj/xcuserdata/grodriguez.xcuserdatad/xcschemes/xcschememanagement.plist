@@ -7,49 +7,27 @@
 		<key>All in DashTests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>4</integer>
 		</dict>
 		<key>Dash.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>DashOSCClientTests.testDashOSCClient_sendData_x.xcscheme</key>
+		<key>ReceiveUDPTests.testReceiveUDP_connectPort.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>1</integer>
 		</dict>
-		<key>DashOSCClientTests.testDashOSCClient_sendData_y.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
-		</dict>
-		<key>DashOSCClientTests.xcscheme</key>
+		<key>ReceiveUDPTests.testReceiveUDP_connectPort_sockNotNil.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
-		<key>DashTests.xcscheme</key>
+		<key>ReceiveUDPTests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>8</integer>
-		</dict>
-		<key>NetworkManagerTests.testNetworkManager_redirectFromVezer.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
-		</dict>
-		<key>ServersTests.testServers_oscDataReceived_vezer.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>7</integer>
-		</dict>
-		<key>ServersTests.testServers_updateDefaults_serverBlackTraxPort.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false />
-			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>2</integer>
 		</dict>
 	</dict>
 </dict>

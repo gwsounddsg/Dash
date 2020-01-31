@@ -11,6 +11,8 @@ import Foundation
         didSet {
             _ = client.close()
             client = UDPClient(addr: address, port: port)
+            client.enableBroadcast()
+            print("finished**************")
         }
     }
     var client: UDPClient

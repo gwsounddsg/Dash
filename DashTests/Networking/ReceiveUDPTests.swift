@@ -31,7 +31,7 @@ extension ReceiveUDPTests {
     
     func testReceiveUDP() {
         receive = ReceiveUDP()
-        XCTAssertNotNil(receive._socket)
+        XCTAssertNil(receive._socket)
     }
 
 
@@ -64,18 +64,47 @@ extension ReceiveUDPTests {
     }
 
 
-    func testReceiveUDP_connectPort() {
+    func testReceiveUDP_connectPort_sockNil() {
         initMocks()
+        receive._socket = nil
         let port = 1234
 
         do {
-            try receive.connect(port: port)
+            try receive.connect(port: port, socket: mockSock)
         }
         catch {
             XCTAssertFalse(false, error.localizedDescription)
             return
         }
 
+        XCTAssertFalse(mockSock.invokedClose)
+        XCTAssertTrue(mockSock.invokedSetDelegateParameters === receive)
+        XCTAssertEqual(mockSock.invokedBindToPort, UInt16(port))
+        XCTAssertTrue(mockSock.invokedBeginReceiving)
+    }
+    
+    
+    func testReceiveUDP_connectPort_sockNotNil() {
+        initMocks()
+        receive._socket = nil
+        let port = 1234
+        
+        do {
+            try receive.connect(port: 4, socket: mockSock)
+            mockSock.invokedClose = false
+            mockSock.invokedSetDelegate = false
+            mockSock.invokedSetDelegateParameters = nil
+            mockSock.invokedBindToPort = 0
+            mockSock.invokedBeginReceiving = false
+            try receive.connect(port: port)
+        }
+        catch {
+            XCTAssertFalse(false, error.localizedDescription)
+            return
+        }
+        
+        XCTAssertTrue(mockSock.invokedClose)
+        XCTAssertFalse(mockSock.invokedSetDelegate)
         XCTAssertEqual(mockSock.invokedBindToPort, UInt16(port))
         XCTAssertTrue(mockSock.invokedBeginReceiving)
     }
@@ -138,6 +167,7 @@ class MockGCDAsyncUdpSocket: GCDAsyncUdpSocket {
     var invokedConnectedPort = false
     var invokedLocalAddress = false
     var invokedLocalPort = false
+    var invokedClose = false
 
 
     override func bind(toPort port: UInt16) throws {
@@ -166,6 +196,17 @@ class MockGCDAsyncUdpSocket: GCDAsyncUdpSocket {
     override func localPort() -> UInt16 {
         invokedLocalPort = true
         return 0
+    }
+    
+    override func close() {
+        invokedClose = true
+    }
+    
+    var invokedSetDelegate = false
+    var invokedSetDelegateParameters: GCDAsyncUdpSocketDelegate?
+    override func setDelegate(_ delegate: GCDAsyncUdpSocketDelegate?) {
+        invokedSetDelegate = true
+        invokedSetDelegateParameters = delegate
     }
 }
 

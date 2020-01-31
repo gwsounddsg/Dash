@@ -190,8 +190,9 @@ extension Servers {
                 print("Bad BlackTrax port number for string: \(data)")
                 return
             }
-            try? blackTrax.connect(port: val!)
             updateDefault(val!, DashDefaultIDs.Network.Server.blacktraxPort, defaults)
+            connectBlackTrax(from: defaults)
+            blackTrax.printNetwork()
     
         case DashNotif.userPrefServerVezerPort:
             let val = Int(data)
@@ -201,6 +202,7 @@ extension Servers {
             }
             vezer?.port = val!
             updateDefault(val!, DashDefaultIDs.Network.Server.vezerPort, defaults)
+            vezer?.printNetwork()
     
         case DashNotif.userPrefServerControlPort:
             let val = Int(data)
@@ -210,6 +212,7 @@ extension Servers {
             }
             control?.port = val!
             updateDefault(val!, DashDefaultIDs.Network.Server.controlPort, defaults)
+            control?.printNetwork()
     
         default:
             return

@@ -184,9 +184,10 @@ extension ServersTests {
     func testServers_updateDefaults_serverBlackTraxPort() {
         mockAll()
         let key = DashNotifData.userPref
-        let value = "1111"
-        let notif = notification(DashNotif.userPrefServerBlackTraxPort, [key: value])
+        let value: Int = 1111
+        let notif = notification(DashNotif.userPrefServerBlackTraxPort, [key: String(value)])
         let mDefaults = MockUserDefaults()
+        mDefaults.stubbedGetIntResult = value
         
         servers.updateDefaults(notif, mDefaults)
         
@@ -304,6 +305,7 @@ class MServersProtocol: ServersProtocol {
 }
 
 
+
 class MockReceiveUDP: ReceiveUDP {
     
     var invoked_socketSetter = false
@@ -360,15 +362,15 @@ class MockReceiveUDP: ReceiveUDP {
     
     var invokedConnect = false
     var invokedConnectCount = 0
-    var invokedConnectParameters: (port: Int, Void)?
-    var invokedConnectParametersList = [(port: Int, Void)]()
+    var invokedConnectParameters: (port: Int, socket: GCDAsyncUdpSocket)?
+    var invokedConnectParametersList = [(port: Int, socket: GCDAsyncUdpSocket)]()
     var stubbedConnectError: Error?
     
-    override func connect(port: Int) throws {
+    override func connect(port: Int, socket: GCDAsyncUdpSocket = GCDAsyncUdpSocket(delegate: nil, delegateQueue: DispatchQueue.main)) throws {
         invokedConnect = true
         invokedConnectCount += 1
-        invokedConnectParameters = (port, ())
-        invokedConnectParametersList.append((port, ()))
+        invokedConnectParameters = (port, socket)
+        invokedConnectParametersList.append((port, socket))
         if let error = stubbedConnectError {
             throw error
         }
@@ -412,6 +414,14 @@ class MockReceiveUDP: ReceiveUDP {
         invokedLocalPort = true
         invokedLocalPortCount += 1
         return stubbedLocalPortResult
+    }
+    
+    var invokedPrintNetwork = false
+    var invokedPrintNetworkCount = 0
+    
+    override func printNetwork() {
+        invokedPrintNetwork = true
+        invokedPrintNetworkCount += 1
     }
 }
 
