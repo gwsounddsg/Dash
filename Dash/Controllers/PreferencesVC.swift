@@ -29,22 +29,13 @@ class PreferencesVC: NSViewController {
         // update window title with active tabview title
         self.parent?.view.window?.title = self.title!
         
-        // update textFields
-        let idNetIn = DashDefaultIDs.Network.Server.self
-        let idNetOut = DashDefaultIDs.Network.Client.self
-        
-        inputBlackTraxText.stringValue = get(userDefault: idNetIn.blacktraxPort)
-        inputControlPortText.stringValue = get(userDefault: idNetIn.controlPort)
-        inputRecordedPortText.stringValue = get(userDefault: idNetIn.vezerPort)
-        outputRecordedIPText.stringValue = get(userDefault: idNetOut.vezerIP)
-        outputRecordedPortText.stringValue = get(userDefault: idNetOut.vezerPort)
-        outputLiveIPText.stringValue = get(userDefault: idNetOut.ds100MainIP)
-        outputLivePortText.stringValue = get(userDefault: idNetOut.ds100MainPort)
+        updateFieldsWithDefaults()
     }
     
     
     @IBAction func resetDefaultsClicked(_ sender: Any) {
-    
+        post(DashNotif.resetDefaults)
+        updateFieldsWithDefaults()
     }
    
     
@@ -120,7 +111,7 @@ class PreferencesVC: NSViewController {
     }
     
     
-    private func post(_ name: Notification.Name, _ info: String) {
+    private func post(_ name: Notification.Name, _ info: String = "") {
         let dict = [DashNotifData.userPref: info]
         NotificationCenter.default.post(name: name, object: nil, userInfo: dict)
     }
@@ -133,10 +124,18 @@ class PreferencesVC: NSViewController {
 // MARK: - Defaults
 extension PreferencesVC {
     
-    func setDefaults() {
-        
-    }
+    func updateFieldsWithDefaults() {
+        let idNetIn = DashDefaultIDs.Network.Server.self
+        let idNetOut = DashDefaultIDs.Network.Client.self
     
+        inputBlackTraxText.stringValue = get(userDefault: idNetIn.blacktraxPort)
+        inputControlPortText.stringValue = get(userDefault: idNetIn.controlPort)
+        inputRecordedPortText.stringValue = get(userDefault: idNetIn.vezerPort)
+        outputRecordedIPText.stringValue = get(userDefault: idNetOut.vezerIP)
+        outputRecordedPortText.stringValue = get(userDefault: idNetOut.vezerPort)
+        outputLiveIPText.stringValue = get(userDefault: idNetOut.ds100MainIP)
+        outputLivePortText.stringValue = get(userDefault: idNetOut.ds100MainPort)
+    }
     
     func get(userDefault: String, from defaults: UserDefaultsProtocol = UserDefaults.standard) -> String {
         return defaults.getString(forKey: userDefault) ?? ""
