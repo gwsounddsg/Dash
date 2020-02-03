@@ -50,6 +50,8 @@ enum DashNotif {
     static let userPrefClientVezerPort = NSNotification.Name("userPrefClientVezerPort")
     static let userPrefClientDS100MainIP = NSNotification.Name("userPrefClientDS100MainIP")
     static let userPrefClientDS100MainPort = NSNotification.Name("userPrefClientDS100MainPort")
+    
+    static let resetDefaults = NSNotification.Name("resetDefaults")
 }
 
 
