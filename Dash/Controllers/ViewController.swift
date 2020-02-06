@@ -246,9 +246,7 @@ extension ViewController {
         guard let message = notif.userInfo?[DashNotifData.message] as? Message else {return}
         guard let value = message.values[0] as? Float else {return}
         guard let name = message.values[1] as? String else {return}
-        
-        let elements = message.address.split(separator: "/")
-        let coord = String(elements[2])
+        guard let coord = message.addressPart(2) else {return}
         
         if _vezerData[name] == nil {
             _vezerData[name] = [coord: value]

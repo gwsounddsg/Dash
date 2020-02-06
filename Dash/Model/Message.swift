@@ -19,6 +19,7 @@ struct Message {
     let address: String
     let values: [DashData]
     
+    
     init(_ address: String, _ values: [DashData?]) {
         self.address = address
         
@@ -29,5 +30,11 @@ struct Message {
         }
         
         self.values = temp
+    }
+    
+    
+    func addressPart(_ index: Int) -> String? {
+        let elements = address.split(separator: "/")
+        return String(elements[index])
     }
 }

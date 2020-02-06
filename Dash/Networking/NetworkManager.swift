@@ -57,9 +57,8 @@ extension NetworkManager {
     
     
     func redirectFromVezer(data: Message) {
-        let elements = data.address.split(separator: "/")
-        let name = String(elements[1])
-        let coord: Coordinate = String(elements[2]) == "x" ? .x : .y
+        guard let name = data.addressPart(1) else {return}
+        let coord: Coordinate = data.addressPart(2) == "x" ? .x : .y
         let val = data.values[0] as? Float ?? 0.0
         
         let ds100Data = DS100(ds100Mapping, input: name, x: val, y: val, spread: 0.5)
