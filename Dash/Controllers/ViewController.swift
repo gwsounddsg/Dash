@@ -35,8 +35,6 @@ class ViewController: NSViewController {
     fileprivate var _liveData = [String: CentroidAccVel]()
     fileprivate var _vezerData = [String: [String: Float]]() // [Name: [x/y: value]]
     
-    fileprivate var _currentTrackables = [String: Int]()
-    
     
     override func viewWillAppear() {
         super.viewWillAppear()
@@ -237,9 +235,9 @@ extension ViewController {
         for rttrpm in data.pmPackets {
             if let trackable = rttrpm.trackable {
                 
-                if _currentTrackables[trackable.name] == nil {
-                    let value = _currentTrackables.count
-                    _currentTrackables[trackable.name] = value
+                if networkManager.currentTrackables[trackable.name] == nil {
+                    let value = networkManager.currentTrackables.count
+                    networkManager.currentTrackables[trackable.name] = value
                 }
                 
                 _liveData[trackable.name] = trackable.submodules[.centroidAccVel]?[0] as? CentroidAccVel ?? nil
@@ -266,9 +264,9 @@ extension ViewController {
         guard let name = message.values[1] as? String else {return}
         guard let coord = message.addressPart(2) else {return}
     
-        if _currentTrackables[name] == nil {
-            let value = _currentTrackables.count
-            _currentTrackables[name] = value
+        if networkManager.currentTrackables[name] == nil {
+            let value = networkManager.currentTrackables.count
+            networkManager.currentTrackables[name] = value
         }
         
         if _vezerData[name] == nil {
@@ -379,7 +377,7 @@ private extension ViewController {
     func getTrackableID(_ row: Int) -> String? {
         var trackableName: String?
         
-        for (key, value) in _currentTrackables {
+        for (key, value) in networkManager.currentTrackables {
             if value == row {
                 trackableName = key
                 break

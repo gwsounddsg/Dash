@@ -20,6 +20,8 @@ class NetworkManager {
     var ds100Mapping = "1"
     var output: ActiveOutput = .blacktrax
     
+    var currentTrackables = [String: Int]()
+    
     
     init(_ setClient: Clients = Clients(), _ setServers: Servers = Servers()) {
         clients = setClient
@@ -178,12 +180,16 @@ fileprivate extension NetworkManager {
                 continue
             }
             
+            guard let input = currentTrackables[trackable.name] else {
+                continue
+            }
+            
             if centroid.isEmpty {continue}
             
             let x = Float(centroid[0].position.x)
             let y = Float(centroid[0].position.y)
             
-            ds100Data.append(DS100(ds100Mapping, input: trackable.name, x: x, y: y, spread: 0.5))
+            ds100Data.append(DS100(ds100Mapping, input: String(input), x: x, y: y, spread: 0.5))
         }
         
         return ds100Data
