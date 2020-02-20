@@ -35,6 +35,8 @@ class ViewController: NSViewController {
     fileprivate var _liveData = [String: CentroidAccVel]()
     fileprivate var _vezerData = [String: [String: Float]]() // [Name: [x/y: value]]
     
+    fileprivate var _currentTrackables = [String: Int]()
+    
     
     override func viewWillAppear() {
         super.viewWillAppear()
@@ -118,7 +120,7 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
             return createViewForBlackTrax(tableView, tableColumn!.identifier, row)
         
         case DashID.TableType.recorded:
-            return createViewForRecorded(tableView, tableColumn!.identifier, row)
+            return createViewForVezer(tableView, tableColumn!.identifier, row)
         
         default:
             return nil
@@ -129,7 +131,12 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForBlackTrax(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _liveData.isEmpty {return nil}
         
-        guard let centroidModule = _liveData[String(row)] else {
+        guard let trackableName = getTrackableID(row) else {
+            print("Can't find trackable name for row: \(row)")
+            return nil
+        }
+        
+        guard let centroidModule = _liveData[trackableName] else {
             print("Row \(row) doesn't exist")
             return nil
         }
@@ -165,10 +172,15 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     }
     
     
-    private func createViewForRecorded(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
+    private func createViewForVezer(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _vezerData.isEmpty {return nil}
     
-        guard let data = _vezerData[String(row)] else {
+        guard let trackableName = getTrackableID(row) else {
+            print("Can't find trackable name for row: \(row)")
+            return nil
+        }
+    
+        guard let data = _vezerData[trackableName] else {
             print("Row \(row) doesn't exist")
             return nil
         }
@@ -178,7 +190,7 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
         
         switch columnIdentifier {
         case DashID.Column.trackable:
-            text = String(row)
+            text = trackableName
             id = DashID.Cell.trackable
             
         case DashID.Column.x:
@@ -224,6 +236,12 @@ extension ViewController {
         
         for rttrpm in data.pmPackets {
             if let trackable = rttrpm.trackable {
+                
+                if _currentTrackables[trackable.name] == nil {
+                    let value = _currentTrackables.count
+                    _currentTrackables[trackable.name] = value
+                }
+                
                 _liveData[trackable.name] = trackable.submodules[.centroidAccVel]?[0] as? CentroidAccVel ?? nil
                 _liveTable.reload()
             }
@@ -246,9 +264,12 @@ extension ViewController {
         guard let message = notif.userInfo?[DashNotifData.message] as? Message else {return}
         guard let value = message.values[0] as? Float else {return}
         guard let name = message.values[1] as? String else {return}
-        
-        let elements = message.address.split(separator: "/")
-        let coord = String(elements[2])
+        guard let coord = message.addressPart(2) else {return}
+    
+        if _currentTrackables[name] == nil {
+            let value = _currentTrackables.count
+            _currentTrackables[name] = value
+        }
         
         if _vezerData[name] == nil {
             _vezerData[name] = [coord: value]
@@ -352,6 +373,20 @@ private extension ViewController {
         
         switchButton.image = image!
         switchButton.contentTintColor = color!
+    }
+    
+    
+    func getTrackableID(_ row: Int) -> String? {
+        var trackableName: String?
+        
+        for (key, value) in _currentTrackables {
+            if value == row {
+                trackableName = key
+                break
+            }
+        }
+        
+        return trackableName
     }
 }
 

@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol OSCServerDelegate {
+public protocol OSCServerDelegate: class {
     func didReceive(_ data: Data)
     func didReceive(_ bundle: OSCBundle)
     func didReceive(_ message: OSCMessage)
@@ -11,21 +11,21 @@ extension OSCServerDelegate {
     public func didReceive(_ message: OSCMessage){}
 }
 
-public class OSCServer {
-    public var address: String {
+open class OSCServer {
+    open var address: String {
         didSet {
             _ = server.close()
             server = UDPServer(addr: self.address, port:self.port)
         }
     }
-    public var port: Int {
+    open var port: Int {
         didSet {
             _ = server.close()
             server = UDPServer(addr: self.address, port:self.port)
         }
     }
-    public var delegate: OSCServerDelegate?
-    public var running = false
+    open var delegate: OSCServerDelegate?
+    open var running = false
     var server: UDPServer
     
     public init(address: String, port: Int){
@@ -35,10 +35,10 @@ public class OSCServer {
         run()
     }
     
-    public func start(){
+    open func start(){
         running = true
     }
-    public func stop(){
+    open func stop(){
         running = false
     }
     func run() {
@@ -188,9 +188,20 @@ public class OSCServer {
                 self.delegate?.didReceive(message)
             }
             if let bundle = element as? OSCBundle {
-                self.delegate?.didReceive(bundle)
-                for element in bundle.elements {
-                    self.sendToDelegate(element)
+                
+                // send to delegate at the correct time
+                if bundle.timetag.secondsSinceNow < 0 {
+                    self.delegate?.didReceive(bundle)
+                    for element in bundle.elements {
+                        self.sendToDelegate(element)
+                    }
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + bundle.timetag.secondsSinceNow, execute: {
+                        self.delegate?.didReceive(bundle)
+                        for element in bundle.elements {
+                            self.sendToDelegate(element)
+                        }
+                    })
                 }
             }
         }
