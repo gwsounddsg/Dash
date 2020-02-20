@@ -129,8 +129,8 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForBlackTrax(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _liveData.isEmpty {return nil}
         
-        guard let trackableName = getTrackableID(row) else {
-            print("Can't find trackable name for row: \(row)")
+        guard let trackableName = getTrackableID(row+1) else {
+            print("Can't find trackable name for row: \(row+1)")
             return nil
         }
         
@@ -144,7 +144,7 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
         
         switch columnIdentifier {
         case DashID.Column.trackable:
-            text = String(row)
+            text = trackableName
             id = DashID.Cell.trackable
             
         case DashID.Column.x:
@@ -173,8 +173,8 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForVezer(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _vezerData.isEmpty {return nil}
     
-        guard let trackableName = getTrackableID(row) else {
-            print("Can't find trackable name for row: \(row)")
+        guard let trackableName = getTrackableID(row+1) else {
+            print("Can't find trackable name for row: \(row+1)")
             return nil
         }
     
@@ -234,12 +234,7 @@ extension ViewController {
         
         for rttrpm in data.pmPackets {
             if let trackable = rttrpm.trackable {
-                
-                if networkManager.currentTrackables[trackable.name] == nil {
-                    let value = networkManager.currentTrackables.count
-                    networkManager.currentTrackables[trackable.name] = value
-                }
-                
+                checkTrackable(trackable.name)
                 _liveData[trackable.name] = trackable.submodules[.centroidAccVel]?[0] as? CentroidAccVel ?? nil
                 _liveTable.reload()
             }
@@ -264,10 +259,7 @@ extension ViewController {
         guard let name = message.values[1] as? String else {return}
         guard let coord = message.addressPart(2) else {return}
     
-        if networkManager.currentTrackables[name] == nil {
-            let value = networkManager.currentTrackables.count
-            networkManager.currentTrackables[name] = value
-        }
+        checkTrackable(name)
         
         if _vezerData[name] == nil {
             _vezerData[name] = [coord: value]
@@ -385,6 +377,14 @@ private extension ViewController {
         }
         
         return trackableName
+    }
+    
+    func checkTrackable(_ name: String) {
+        if networkManager.currentTrackables[name] == nil {
+            var str = name
+            str.remove(at: str.startIndex)
+            networkManager.currentTrackables[name] = Int(str)
+        }
     }
 }
 

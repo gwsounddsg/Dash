@@ -48,6 +48,11 @@ extension NetworkManager {
     
     
     func send(ds100 data: [DS100], coordinates: Coordinate) -> Bool {
+        print("Packet")
+        for trackable in data {
+            print("|\t\(trackable)")
+        }
+        
         return clients.send(ds100: data, coordinate: coordinates)
     }
     
