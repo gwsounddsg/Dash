@@ -35,6 +35,8 @@ class ViewController: NSViewController {
     fileprivate var _liveData = [String: CentroidAccVel]()
     fileprivate var _vezerData = [String: [String: Float]]() // [Name: [x/y: value]]
     
+    fileprivate var _currentTrackables = [String: Int]()
+    
     
     override func viewWillAppear() {
         super.viewWillAppear()
@@ -129,7 +131,20 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForBlackTrax(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _liveData.isEmpty {return nil}
         
-        guard let centroidModule = _liveData[String(row)] else {
+        var trackableName: String?
+        for (key, value) in _currentTrackables {
+            if value == row {
+                trackableName = key
+                break
+            }
+        }
+        
+        if trackableName == nil {
+            print("Can't find trackable name: \(trackableName) for row: \(row)")
+            return nil
+        }
+        
+        guard let centroidModule = _liveData[trackableName!] else {
             print("Row \(row) doesn't exist")
             return nil
         }
@@ -224,6 +239,12 @@ extension ViewController {
         
         for rttrpm in data.pmPackets {
             if let trackable = rttrpm.trackable {
+                
+                if _currentTrackables[trackable.name] == nil {
+                    let value = _currentTrackables.count
+                    _currentTrackables[trackable.name] = value
+                }
+                
                 _liveData[trackable.name] = trackable.submodules[.centroidAccVel]?[0] as? CentroidAccVel ?? nil
                 _liveTable.reload()
             }

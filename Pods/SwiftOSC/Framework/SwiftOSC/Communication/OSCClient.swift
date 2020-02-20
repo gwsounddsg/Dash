@@ -1,18 +1,16 @@
 import Foundation
 
-@objc public class OSCClient: NSObject {
-    public var address: String {
+@objc open class OSCClient: NSObject {
+    open var address: String {
         didSet {
             _ = client.close()
             client = UDPClient(addr: address, port: port)
         }
     }
-    public var port: Int {
+    open var port: Int {
         didSet {
             _ = client.close()
             client = UDPClient(addr: address, port: port)
-            client.enableBroadcast()
-            print("finished**************")
         }
     }
     var client: UDPClient
@@ -23,8 +21,8 @@ import Foundation
         client = UDPClient(addr: address, port: port)
         client.enableBroadcast()
     }
-    public func send(_ element: OSCElement){
-        var data = element.data
+    open func send(_ element: OSCElement){
+        let data = element.data
         if data.count > 9216 {
             print("OSCPacket is too large. Must be smaller than 9200 bytes")
         } else {
