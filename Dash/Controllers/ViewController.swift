@@ -120,7 +120,7 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
             return createViewForBlackTrax(tableView, tableColumn!.identifier, row)
         
         case DashID.TableType.recorded:
-            return createViewForRecorded(tableView, tableColumn!.identifier, row)
+            return createViewForVezer(tableView, tableColumn!.identifier, row)
         
         default:
             return nil
@@ -131,20 +131,12 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForBlackTrax(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _liveData.isEmpty {return nil}
         
-        var trackableName: String?
-        for (key, value) in _currentTrackables {
-            if value == row {
-                trackableName = key
-                break
-            }
-        }
-        
-        if trackableName == nil {
-            print("Can't find trackable name: \(trackableName) for row: \(row)")
+        guard let trackableName = getTrackableID(row) else {
+            print("Can't find trackable name for row: \(row)")
             return nil
         }
         
-        guard let centroidModule = _liveData[trackableName!] else {
+        guard let centroidModule = _liveData[trackableName] else {
             print("Row \(row) doesn't exist")
             return nil
         }
@@ -180,10 +172,15 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     }
     
     
-    private func createViewForRecorded(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
+    private func createViewForVezer(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _vezerData.isEmpty {return nil}
     
-        guard let data = _vezerData[String(row)] else {
+        guard let trackableName = getTrackableID(row) else {
+            print("Can't find trackable name for row: \(row)")
+            return nil
+        }
+    
+        guard let data = _vezerData[trackableName] else {
             print("Row \(row) doesn't exist")
             return nil
         }
@@ -193,7 +190,7 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
         
         switch columnIdentifier {
         case DashID.Column.trackable:
-            text = String(row)
+            text = trackableName
             id = DashID.Cell.trackable
             
         case DashID.Column.x:
@@ -268,6 +265,11 @@ extension ViewController {
         guard let value = message.values[0] as? Float else {return}
         guard let name = message.values[1] as? String else {return}
         guard let coord = message.addressPart(2) else {return}
+    
+        if _currentTrackables[name] == nil {
+            let value = _currentTrackables.count
+            _currentTrackables[name] = value
+        }
         
         if _vezerData[name] == nil {
             _vezerData[name] = [coord: value]
@@ -371,6 +373,20 @@ private extension ViewController {
         
         switchButton.image = image!
         switchButton.contentTintColor = color!
+    }
+    
+    
+    func getTrackableID(_ row: Int) -> String? {
+        var trackableName: String?
+        
+        for (key, value) in _currentTrackables {
+            if value == row {
+                trackableName = key
+                break
+            }
+        }
+        
+        return trackableName
     }
 }
 
