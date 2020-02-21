@@ -177,8 +177,11 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
             print("Can't find trackable name for row: \(row+1)")
             return nil
         }
+        
+        var indexName = trackableName
+        indexName.remove(at: indexName.startIndex)
     
-        guard let data = _vezerData[trackableName] else {
+        guard let data = _vezerData[indexName] else {
             print("Row \(row) doesn't exist")
             return nil
         }
