@@ -29,7 +29,9 @@ class PreferencesVC: NSViewController {
         // update window title with active tabview title
         self.parent?.view.window?.title = self.title!
         
-        updateFieldsWithDefaults()
+        if self.title == "Connections" {
+            updateFieldsWithDefaults()
+        }
     }
     
     
