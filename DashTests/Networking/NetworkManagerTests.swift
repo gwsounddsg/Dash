@@ -82,6 +82,7 @@ extension NetworkManagerTests {
             assertionFailure()
             return
         }
+        manager.currentTrackables[data.pmPackets[0].trackable!.name] = 0
         
         manager.redirectFromBlackTrax(data: data)
         
@@ -118,6 +119,7 @@ extension NetworkManagerTests {
             assertionFailure()
             return
         }
+        manager.currentTrackables[data.pmPackets[0].trackable!.name] = 0
         
         manager.toBeRecorded(data: data)
         
@@ -140,6 +142,7 @@ extension NetworkManagerTests {
             assertionFailure()
             return
         }
+        manager.currentTrackables[data.pmPackets[0].trackable!.name] = 0
 
         expectation(forNotification: DashNotif.blacktrax, object: nil, handler: { (notif) -> Bool in
             let info = notif.userInfo as? [String: RTTrP]

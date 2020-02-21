@@ -35,8 +35,6 @@ class ViewController: NSViewController {
     fileprivate var _liveData = [String: CentroidAccVel]()
     fileprivate var _vezerData = [String: [String: Float]]() // [Name: [x/y: value]]
     
-    fileprivate var _currentTrackables = [String: Int]()
-    
     
     override func viewWillAppear() {
         super.viewWillAppear()
@@ -131,8 +129,8 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForBlackTrax(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _liveData.isEmpty {return nil}
         
-        guard let trackableName = getTrackableID(row) else {
-            print("Can't find trackable name for row: \(row)")
+        guard let trackableName = getTrackableID(row+1) else {
+            print("Can't find trackable name for row: \(row+1)")
             return nil
         }
         
@@ -146,7 +144,7 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
         
         switch columnIdentifier {
         case DashID.Column.trackable:
-            text = String(row)
+            text = trackableName
             id = DashID.Cell.trackable
             
         case DashID.Column.x:
@@ -175,8 +173,8 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForVezer(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _vezerData.isEmpty {return nil}
     
-        guard let trackableName = getTrackableID(row) else {
-            print("Can't find trackable name for row: \(row)")
+        guard let trackableName = getTrackableID(row+1) else {
+            print("Can't find trackable name for row: \(row+1)")
             return nil
         }
     
@@ -236,12 +234,7 @@ extension ViewController {
         
         for rttrpm in data.pmPackets {
             if let trackable = rttrpm.trackable {
-                
-                if _currentTrackables[trackable.name] == nil {
-                    let value = _currentTrackables.count
-                    _currentTrackables[trackable.name] = value
-                }
-                
+                checkTrackable(trackable.name)
                 _liveData[trackable.name] = trackable.submodules[.centroidAccVel]?[0] as? CentroidAccVel ?? nil
                 _liveTable.reload()
             }
@@ -266,10 +259,7 @@ extension ViewController {
         guard let name = message.values[1] as? String else {return}
         guard let coord = message.addressPart(2) else {return}
     
-        if _currentTrackables[name] == nil {
-            let value = _currentTrackables.count
-            _currentTrackables[name] = value
-        }
+        checkTrackable(name)
         
         if _vezerData[name] == nil {
             _vezerData[name] = [coord: value]
@@ -379,7 +369,7 @@ private extension ViewController {
     func getTrackableID(_ row: Int) -> String? {
         var trackableName: String?
         
-        for (key, value) in _currentTrackables {
+        for (key, value) in networkManager.currentTrackables {
             if value == row {
                 trackableName = key
                 break
@@ -387,6 +377,14 @@ private extension ViewController {
         }
         
         return trackableName
+    }
+    
+    func checkTrackable(_ name: String) {
+        if networkManager.currentTrackables[name] == nil {
+            var str = name
+            str.remove(at: str.startIndex)
+            networkManager.currentTrackables[name] = Int(str)
+        }
     }
 }
 
