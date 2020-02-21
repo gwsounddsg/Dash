@@ -48,10 +48,10 @@ extension NetworkManager {
     
     
     func send(ds100 data: [DS100], coordinates: Coordinate) -> Bool {
-        print("Packet")
-        for trackable in data {
-            print("|\t\(trackable)")
-        }
+//        print("Packet")
+//        for trackable in data {
+//            print("|\t\(trackable)")
+//        }
         
         return clients.send(ds100: data, coordinate: coordinates)
     }
@@ -159,13 +159,17 @@ fileprivate extension NetworkManager {
             guard let centroid = trackable.submodules[.centroidAccVel] as? [CentroidAccVel] else {
                 continue
             }
+    
+            guard let input = currentTrackables[trackable.name] else {
+                continue
+            }
             
             if centroid.isEmpty {continue}
             
             let x = centroid[0].position.x
             let y = centroid[0].position.y
             
-            vezerData.append(Vezer(trackable.name, x, y))
+            vezerData.append(Vezer(String(input), x, y))
         }
         
         return vezerData
