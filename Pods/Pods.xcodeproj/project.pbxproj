@@ -98,7 +98,7 @@
 		00003DCB9BAE7D17003A0B2AB86615F8 /* Pods-Dash-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Dash-acknowledgements.markdown"; sourceTree = "<group>"; };
 		017C242A3AEB0760EE395DB9DBE5FA6A /* OSCTypeProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OSCTypeProtocol.swift; path = Framework/SwiftOSC/Types/OSCTypeProtocol.swift; sourceTree = "<group>"; };
 		01AC205468CDDBD9A9103CB221C2D202 /* Impulse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Impulse.swift; path = Framework/SwiftOSC/Types/Impulse.swift; sourceTree = "<group>"; };
-		05988961720891EAD1FBB95E11D909C6 /* Pods_Dash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		05988961720891EAD1FBB95E11D909C6 /* Pods_Dash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Dash.framework; path = "Pods-Dash.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		06529A62ECE14D1A99FA3D5BC526D8DC /* OSCAddressPattern.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OSCAddressPattern.swift; path = Framework/SwiftOSC/Addresses/OSCAddressPattern.swift; sourceTree = "<group>"; };
 		0E2E4858558D502ADCF38E8D863902B0 /* Pods-DashTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DashTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		0F750FA51A7BD9B727B24D4CB5A5427C /* SwiftOSC-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftOSC-Info.plist"; sourceTree = "<group>"; };
@@ -112,12 +112,12 @@
 		33CED3671576E3EB59BED7CAD6804F43 /* RTTrPSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RTTrPSwift-dummy.m"; sourceTree = "<group>"; };
 		33D63FD2A45AD2938EEFD8F5CFFC8C8D /* Pods-DashTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-DashTests.modulemap"; sourceTree = "<group>"; };
 		347EEEA41667190AC1B979461DA0A2DC /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GCDAsyncUdpSocket.h; path = Source/GCD/GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
-		363251272DAE4ADAB03599B742126844 /* SwiftOSC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftOSC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		363251272DAE4ADAB03599B742126844 /* SwiftOSC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftOSC.framework; path = SwiftOSC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA4A9731E65B454C85B3C8D9ECCCCAD /* TrackedPointAccVel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TrackedPointAccVel.swift; path = RTTrPSwift/Classes/Modules/TrackedPointAccVel.swift; sourceTree = "<group>"; };
 		3DF25E3FD08EF96D1D523168096A6D38 /* Pods-Dash-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Dash-umbrella.h"; sourceTree = "<group>"; };
 		3E6248BE9841FF9F5F0215F30A43EB91 /* Float.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Float.swift; path = Framework/SwiftOSC/Types/Float.swift; sourceTree = "<group>"; };
 		3E9F6C57852FA5E9FCA926EEC18BA1AF /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/CoreServices.framework; sourceTree = DEVELOPER_DIR; };
-		400FA707C24437DB0E7C95AC1892DC68 /* RTTrPSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RTTrPSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		400FA707C24437DB0E7C95AC1892DC68 /* RTTrPSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RTTrPSwift.framework; path = RTTrPSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4890D2D127BEFABB7672295C47A59A48 /* yudpsocket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = yudpsocket.swift; path = Framework/SwiftOSC/Communication/ysocket/yudpsocket.swift; sourceTree = "<group>"; };
 		48DB0CAA732179400E063BCE3849B1AF /* CocoaAsyncSocket.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CocoaAsyncSocket.modulemap; sourceTree = "<group>"; };
 		51ABAF711AE8846129750A69EEB4A4F4 /* CentroidAccVel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CentroidAccVel.swift; path = RTTrPSwift/Classes/Modules/CentroidAccVel.swift; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 		649AE8D353343FA5BE1D7D36AFE6FA58 /* Int.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Int.swift; path = Framework/SwiftOSC/Types/Int.swift; sourceTree = "<group>"; };
 		669F8927C89779622E71F3CEFEC112DA /* OSCClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OSCClient.swift; path = Framework/SwiftOSC/Communication/OSCClient.swift; sourceTree = "<group>"; };
 		6A7E25C3AEF716CDBE7E8BF7AFAD6278 /* Bool.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bool.swift; path = Framework/SwiftOSC/Types/Bool.swift; sourceTree = "<group>"; };
-		6CBEFE4F9E22AFDC6347A739BB35FF8C /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CBEFE4F9E22AFDC6347A739BB35FF8C /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CocoaAsyncSocket.framework; path = CocoaAsyncSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D12E040622505CF13952CAE8ED8532D /* Pods-Dash.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Dash.modulemap"; sourceTree = "<group>"; };
 		6E97F288EBF68D70F614E4EBEF8176DD /* Pods-Dash-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Dash-dummy.m"; sourceTree = "<group>"; };
 		7099E430BCDF985F5D0897B10239B6EE /* TrackedPointPosition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TrackedPointPosition.swift; path = RTTrPSwift/Classes/Modules/TrackedPointPosition.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 		7D6E08443177C71B12A7ECCEBEE9A202 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = Source/GCD/GCDAsyncSocket.h; sourceTree = "<group>"; };
 		80FE978B837300B32BFFCDAB8F62EE7A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		850C7F61865F515DFEF21814DAE6A72B /* SwiftOSC.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftOSC.modulemap; sourceTree = "<group>"; };
-		87F449100D5B89E013C2156941133E57 /* Pods_DashTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DashTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		87F449100D5B89E013C2156941133E57 /* Pods_DashTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_DashTests.framework; path = "Pods-DashTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		88CD7A2CD547F7FA0EE824DBF24C5719 /* RTTrPSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RTTrPSwift-prefix.pch"; sourceTree = "<group>"; };
 		89DB53962BF87C3D6D53D47E17A6ACB9 /* RTTrPSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RTTrPSwift.xcconfig; sourceTree = "<group>"; };
 		8BE29346E859D92B6015E209F28A2246 /* SwiftOSC-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftOSC-dummy.m"; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 		932C7AC7274383D5CB255B9509628FD0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		977E94A74A66BAAF9C5ECC92ECC1D49C /* Quaternion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Quaternion.swift; path = RTTrPSwift/Classes/Modules/Quaternion.swift; sourceTree = "<group>"; };
 		9C5A2F6B415E02C1C39E5D73135AA434 /* Blob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Blob.swift; path = Framework/SwiftOSC/Types/Blob.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9FFC848DF67A07F21B83CD9579A1CAA1 /* ysocket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ysocket.swift; path = Framework/SwiftOSC/Communication/ysocket/ysocket.swift; sourceTree = "<group>"; };
 		A1D9A6A3311E23BC1A815A9762138646 /* Pods-DashTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DashTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A2D05B418753206A775A2B8097C4C3F7 /* Pods-DashTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DashTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 		C21581937027EACFBF51364CE26DEF68 /* Trackable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Trackable.swift; path = RTTrPSwift/Classes/Modules/Trackable.swift; sourceTree = "<group>"; };
 		C415B6DD5E46E777F86218CC11622C23 /* RTTrPSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RTTrPSwift-umbrella.h"; sourceTree = "<group>"; };
 		C697F1ED7CC4D96C1B43F880FAD3AB26 /* Timer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Timer.swift; path = Framework/SwiftOSC/Helpers/Timer.swift; sourceTree = "<group>"; };
-		CA1E946EA34F58D7298C99380987D5EA /* yudpsocket.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = yudpsocket.c; path = Framework/SwiftOSC/Communication/ysocket/yudpsocket.c; sourceTree = "<group>"; };
+		CA1E946EA34F58D7298C99380987D5EA /* yudpsocket.c */ = {isa = PBXFileReference; includeInIndex = 1; name = yudpsocket.c; path = Framework/SwiftOSC/Communication/ysocket/yudpsocket.c; sourceTree = "<group>"; };
 		CB128BD100E613E87F1D38AA97FBA55B /* Utility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utility.swift; path = RTTrPSwift/Classes/Utility.swift; sourceTree = "<group>"; };
 		CD86C41989786F79C0ABB30DD72E5B9D /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncUdpSocket.m; path = Source/GCD/GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
 		CE8889DE68A387764D2DAE48EE3CE773 /* CocoaAsyncSocket-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CocoaAsyncSocket-Info.plist"; sourceTree = "<group>"; };
@@ -275,6 +275,7 @@
 				CD86C41989786F79C0ABB30DD72E5B9D /* GCDAsyncUdpSocket.m */,
 				1D959492663ED4359FD847BCD3066754 /* Support Files */,
 			);
+			name = CocoaAsyncSocket;
 			path = CocoaAsyncSocket;
 			sourceTree = "<group>";
 		};
@@ -369,6 +370,7 @@
 				CB128BD100E613E87F1D38AA97FBA55B /* Utility.swift */,
 				BB5CB794B605F90D4C992DFA17C80BCD /* Support Files */,
 			);
+			name = RTTrPSwift;
 			path = RTTrPSwift;
 			sourceTree = "<group>";
 		};
@@ -398,6 +400,7 @@
 				4890D2D127BEFABB7672295C47A59A48 /* yudpsocket.swift */,
 				84089D33A0AFE8FB892AE9FEA0714A52 /* Support Files */,
 			);
+			name = SwiftOSC;
 			path = SwiftOSC;
 			sourceTree = "<group>";
 		};
@@ -570,7 +573,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 10.0";
@@ -742,6 +745,7 @@
 			baseConfigurationReference = D1D1558D3C3AD418B89D54A88FDDE66F /* Pods-Dash.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -781,6 +785,7 @@
 			baseConfigurationReference = A2D05B418753206A775A2B8097C4C3F7 /* Pods-DashTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -820,6 +825,7 @@
 			baseConfigurationReference = BE40863731B5178D313D98D97F08E6A8 /* Pods-Dash.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -982,6 +988,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DABFDDAC96DE8DCD1CEAC269D7044ABF /* SwiftOSC.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1019,6 +1026,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89DB53962BF87C3D6D53D47E17A6ACB9 /* RTTrPSwift.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1056,6 +1064,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DABFDDAC96DE8DCD1CEAC269D7044ABF /* SwiftOSC.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1093,6 +1102,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89DB53962BF87C3D6D53D47E17A6ACB9 /* RTTrPSwift.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1130,6 +1140,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FE5CC692FEC8D7D25899E758244F0F6C /* CocoaAsyncSocket.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1167,6 +1178,7 @@
 			baseConfigurationReference = A1D9A6A3311E23BC1A815A9762138646 /* Pods-DashTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1205,6 +1217,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FE5CC692FEC8D7D25899E758244F0F6C /* CocoaAsyncSocket.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
