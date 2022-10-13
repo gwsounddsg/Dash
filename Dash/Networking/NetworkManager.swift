@@ -19,8 +19,7 @@ class NetworkManager {
     
     var ds100Mapping = "1"
     var output: ActiveOutput = .blacktrax
-    
-    var currentTrackables = [String: Int]()
+    var trackableList = [TrackableInfo]()
     
     
     init(_ setClient: Clients = Clients(), _ setServers: Servers = Servers()) {
@@ -152,24 +151,21 @@ fileprivate extension NetworkManager {
         var vezerData = [Vezer]()
         
         for packet in pmPackets {
-            guard let trackable = packet.trackable else {
-                continue
-            }
-            
-            guard let centroid = trackable.submodules[.centroidAccVel] as? [CentroidAccVel] else {
-                continue
-            }
-    
-            guard let input = currentTrackables[trackable.name] else {
-                continue
-            }
-            
+            guard let trackable = packet.trackable else {continue}
+            guard let centroid = trackable.submodules[.centroidAccVel] as? [CentroidAccVel] else {continue}
             if centroid.isEmpty {continue}
+            
+            var trackableInfo: TrackableInfo?
+            for item in trackableList where item.name == trackable.name {
+                trackableInfo = item
+            }
+            if trackableInfo == nil {continue}
+            
             
             let x = centroid[0].position.x
             let y = centroid[0].position.y
             
-            vezerData.append(Vezer(String(input), x, y))
+            vezerData.append(Vezer(trackableInfo!.name, x, y))
         }
         
         return vezerData
@@ -181,24 +177,20 @@ fileprivate extension NetworkManager {
         var ds100Data = [DS100]()
         
         for packet in pmPackets {
-            guard let trackable = packet.trackable else {
-                continue
-            }
-            
-            guard let centroid = trackable.submodules[.centroidAccVel] as? [CentroidAccVel] else {
-                continue
-            }
-            
-            guard let input = currentTrackables[trackable.name] else {
-                continue
-            }
-            
+            guard let trackable = packet.trackable else {continue}
+            guard let centroid = trackable.submodules[.centroidAccVel] as? [CentroidAccVel] else {continue}
             if centroid.isEmpty {continue}
+            
+            var trackableInfo: TrackableInfo?
+            for item in trackableList where item.name == trackable.name {
+                trackableInfo = item
+            }
+            if trackableInfo == nil {continue}
             
             let x = Float(centroid[0].position.x)
             let y = Float(centroid[0].position.y)
             
-            ds100Data.append(DS100(ds100Mapping, input: String(input), x: x, y: y, spread: 0.5))
+            ds100Data.append(DS100(ds100Mapping, input: trackableInfo!.name, x: x, y: y, spread: 0.5))
         }
         
         return ds100Data

@@ -129,8 +129,8 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForBlackTrax(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _liveData.isEmpty {return nil}
         
-        guard let trackableName = getTrackableID(row+1) else {
-            print("Can't find trackable name for row: \(row+1)")
+        guard let trackableName = getTrackableID(row + 1) else {
+            print("Can't find trackable name for row: \(row + 1)")
             return nil
         }
         
@@ -173,8 +173,8 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForVezer(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _vezerData.isEmpty {return nil}
     
-        guard let trackableName = getTrackableID(row+1) else {
-            print("Can't find trackable name for row: \(row+1)")
+        guard let trackableName = getTrackableID(row + 1) else {
+            print("Can't find trackable name for row: \(row + 1)")
             return nil
         }
         
@@ -370,34 +370,18 @@ private extension ViewController {
     
     
     func getTrackableID(_ row: Int) -> String? {
-        var trackableName: String?
-        
-        for (key, value) in networkManager.currentTrackables {
-            if value == row {
-                trackableName = key
-                break
-            }
+        if networkManager.trackableList.count >= row {
+            return nil
         }
-        
-        return trackableName
+        return networkManager.trackableList[row].name
     }
     
+    
     func checkTrackable(_ name: String) {
-        if networkManager.currentTrackables[name] == nil {
-            var str = name
-            str.remove(at: str.startIndex)
-            networkManager.currentTrackables[name] = Int(str)
-        }
+//        if networkManager.currentTrackables[name] == nil {
+//            var str = name
+//            str.remove(at: str.startIndex)
+//            networkManager.currentTrackables[name] = Int(str)
+//        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
