@@ -12,7 +12,7 @@ import RTTrPSwift
 
 
 
-protocol ReceiveUDPDelegate: class {
+protocol ReceiveUDPDelegate: AnyObject {
     func newPacket(_ data: RTTrP)
 }
 

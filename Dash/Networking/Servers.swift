@@ -9,7 +9,7 @@ import Foundation
 import RTTrPSwift
 
 
-protocol ServersProtocol: class {
+protocol ServersProtocol: AnyObject {
     func liveBlackTrax(_ data: RTTrP)
     func recordedVezer(_ data: Message)
     func command(control: ControlMessage, data: Any?)

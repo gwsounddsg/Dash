@@ -129,8 +129,8 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForBlackTrax(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _liveData.isEmpty {return nil}
         
-        guard let trackableName = getTrackableID(row+1) else {
-            print("Can't find trackable name for row: \(row+1)")
+        guard let trackableName = getTrackableID(row + 1) else {
+            print("Can't find trackable name for row: \(row + 1)")
             return nil
         }
         
@@ -173,8 +173,8 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
     private func createViewForVezer(_ tableView: NSTableView, _ columnIdentifier: NSUserInterfaceItemIdentifier, _ row: Int) -> NSView? {
         if _vezerData.isEmpty {return nil}
     
-        guard let trackableName = getTrackableID(row+1) else {
-            print("Can't find trackable name for row: \(row+1)")
+        guard let trackableName = getTrackableID(row + 1) else {
+            print("Can't find trackable name for row: \(row + 1)")
             return nil
         }
         
