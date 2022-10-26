@@ -372,11 +372,9 @@ private extension ViewController {
     func getTrackableID(_ row: Int) -> String? {
         var trackableName: String?
         
-        for (key, value) in networkManager.currentTrackables {
-            if value == row {
-                trackableName = key
-                break
-            }
+        for (key, value) in networkManager.currentTrackables where value == row {
+            trackableName = key
+            break
         }
         
         return trackableName
