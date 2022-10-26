@@ -19,7 +19,7 @@ extension Data {
 
 
 // This protocol, and following extension, are about making it easier to do Unit Tests
-protocol UserDefaultsProtocol: class {
+protocol UserDefaultsProtocol: AnyObject {
     func update(value: Any?, forKey: String)
     func getString(forKey: String) -> String?
     func getInt(forKey: String) -> Int?
