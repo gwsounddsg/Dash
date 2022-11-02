@@ -22,6 +22,7 @@
 		9A66296823CF4EFC0025125D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */; };
 		9ABDE08B23CE2621004189B3 /* TestingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABDE08A23CE2621004189B3 /* TestingConstants.swift */; };
 		9AC1E5A523CE50EA00757262 /* TestingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1E5A423CE50EA00757262 /* TestingExtensions.swift */; };
+		9AC548142912DA70009A34CE /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC548132912DA70009A34CE /* Network.framework */; };
 		9AC6902523C3A8800047320A /* RttTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902423C3A8800047320A /* RttTableView.swift */; };
 		9AC6902723C3A9240047320A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902623C3A9240047320A /* Constants.swift */; };
 		9AC6902A23C3AD570047320A /* RttTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC6902923C3AD570047320A /* RttTableView.xib */; };
@@ -70,6 +71,7 @@
 		9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		9ABDE08A23CE2621004189B3 /* TestingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingConstants.swift; sourceTree = "<group>"; };
 		9AC1E5A423CE50EA00757262 /* TestingExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingExtensions.swift; sourceTree = "<group>"; };
+		9AC548132912DA70009A34CE /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		9AC6902423C3A8800047320A /* RttTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RttTableView.swift; sourceTree = "<group>"; };
 		9AC6902623C3A9240047320A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9AC6902923C3AD570047320A /* RttTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RttTableView.xib; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B21898E7B892105727D0E3C /* Pods_Dash.framework in Frameworks */,
+				9AC548142912DA70009A34CE /* Network.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +118,7 @@
 		27155D42594F23411D674B5D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9AC548132912DA70009A34CE /* Network.framework */,
 				04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */,
 				C1E29DC86667E69AF0E9F488 /* Pods_DashTests.framework */,
 			);
