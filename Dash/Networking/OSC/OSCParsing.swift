@@ -18,6 +18,11 @@ func OSCParse(_ rawData: Data) throws -> OSCMessage {
 }
 
 
+
+
+
+// MARK: - Address
+
 private func getAddress(_ data: Data) -> String {
     let addressEnd = data.firstIndex(of: 0x00)!
     guard let address = data.subdata(in: 0..<addressEnd).toString() else {return ""}
