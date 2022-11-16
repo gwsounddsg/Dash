@@ -14,3 +14,14 @@ func OSCParse(_ rawData: Data) throws -> OSCMessage {
     // build OSCMessage and Return
     return OSCMessage()
 }
+
+
+private func getAddress(_ rawData: Data) -> String {
+    var address = ""
+    var data = rawData
+
+    let addressEnd = data.firstIndex(of: 0x00)!
+    guard let addressString = data.subdata(in: 0..<addressEnd).toString() else {return address}
+
+    return address
+}
