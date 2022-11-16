@@ -36,6 +36,7 @@
 		BAF3B7CD612409C1A962A83F /* Pods_DashTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E29DC86667E69AF0E9F488 /* Pods_DashTests.framework */; };
 		CD1832D32812F04C4F8C43A0 /* Clients.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18360097ABDE641A6C55C1 /* Clients.swift */; };
 		CD183705FD5C1B30AF9896B0 /* Servers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183FE03BD8D9093937E2B8 /* Servers.swift */; };
+		CD1837FB728865DB208FF225 /* OSCType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1839C8E54B6CB024AF57A6 /* OSCType.swift */; };
 		CD183A74FF36165CED59F896 /* Vezer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18356AF1367FDF484BF6FF /* Vezer.swift */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 		C99DC24200B3F14295912028 /* Pods-DashTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashTests.release.xcconfig"; path = "Target Support Files/Pods-DashTests/Pods-DashTests.release.xcconfig"; sourceTree = "<group>"; };
 		CD18356AF1367FDF484BF6FF /* Vezer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vezer.swift; sourceTree = "<group>"; };
 		CD18360097ABDE641A6C55C1 /* Clients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clients.swift; sourceTree = "<group>"; };
+		CD1839C8E54B6CB024AF57A6 /* OSCType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCType.swift; sourceTree = "<group>"; };
 		CD183FE03BD8D9093937E2B8 /* Servers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Servers.swift; sourceTree = "<group>"; };
 		F43F3A006F031062C7D58C58 /* Pods-Dash.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.debug.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -220,6 +222,14 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		9AE588702925802900BCB9E8 /* OSC */ = {
+			isa = PBXGroup;
+			children = (
+				CD1839C8E54B6CB024AF57A6 /* OSCType.swift */,
+			);
+			path = OSC;
+			sourceTree = "<group>";
+		};
 		9AEA615223C5080100B27003 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +243,7 @@
 		9AEA615523C5088200B27003 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				9AE588702925802900BCB9E8 /* OSC */,
 				CD18360097ABDE641A6C55C1 /* Clients.swift */,
 				9AEA615823C5126300B27003 /* DashOSCClient.swift */,
 				9AEA615A23C5126B00B27003 /* DashOSCServer.swift */,
@@ -458,6 +469,7 @@
 				CD183705FD5C1B30AF9896B0 /* Servers.swift in Sources */,
 				CD1832D32812F04C4F8C43A0 /* Clients.swift in Sources */,
 				CD183A74FF36165CED59F896 /* Vezer.swift in Sources */,
+				CD1837FB728865DB208FF225 /* OSCType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
