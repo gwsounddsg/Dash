@@ -8,6 +8,8 @@ import Foundation
 
 func OSCParse(_ rawData: Data) throws -> OSCMessage {
     // get address
+    let address = getAddress(rawData)
+    if (address == "") {throw OSCError.addressNotValid}
 
     // get arguments
 
@@ -20,6 +22,7 @@ private func getAddress(_ data: Data) -> String {
     let addressEnd = data.firstIndex(of: 0x00)!
     guard let address = data.subdata(in: 0..<addressEnd).toString() else {return ""}
 
+    if (!isAddressValid(address)) {return ""}
     return address
 }
 
