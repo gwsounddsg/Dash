@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum OSCTag: String {
+enum OSCTag: String, CaseIterable {
     case int = "i"
     case float = "f"
     case string = "s"
