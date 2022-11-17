@@ -17,3 +17,15 @@ enum OSCTag: String, CaseIterable {
     case null = "N"
     case impulse = "I"
 }
+
+
+func GetAllOscTags() -> String {
+    let tags = OSCTag.allCases
+    var allTypes = ""
+
+    for tag in tags {
+        allTypes += tag.rawValue
+    }
+
+    return allTypes
+}

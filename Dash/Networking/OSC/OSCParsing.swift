@@ -58,3 +58,40 @@ private func isAddressValid(_ address: String) -> Bool {
 
     return true
 }
+
+
+
+
+
+// MARK: - Arguments
+
+private func areArgumentsValid(_ rawData: Data, _ addressEnd: Data.Index) -> Bool {
+    var data = rawData.subdata(in: (addressEnd/4+1) * 4..<rawData.count)
+    guard let typeEnd = data.firstIndex(of: 0x00) else {return false}
+    guard let type = data.subdata(in: 1..<typeEnd).toString() else {return false}
+
+    let allTypes = GetAllOscTags()
+    let charSet = CharacterSet(charactersIn: allTypes)
+
+    if type.rangeOfCharacter(from: charSet.inverted) == nil {
+        return false
+    }
+
+    return true
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
