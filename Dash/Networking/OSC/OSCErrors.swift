@@ -7,4 +7,6 @@ import Foundation
 
 enum OSCError: Error {
     case addressNotValid
+    case typeTagNotValid
+    case argumentsNotValid
 }

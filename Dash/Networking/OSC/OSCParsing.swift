@@ -7,14 +7,34 @@ import Foundation
 
 
 func OSCParse(_ rawData: Data) throws -> OSCMessage {
-    // get address
-    let address = getAddress(rawData)
-    if (address == "") {throw OSCError.addressNotValid}
+    // split parts = address, arg types, args
+    let parts = try splitOscParts(rawData)
 
-    // get arguments
+    // check address
+    if !isAddressValid(parts.0) {throw OSCError.addressNotValid}
+
+    // check types
+    if !areTypesValid(parts.1) {throw OSCError.typeTagNotValid}
+
+    // get args
+    let args = getArguments(parts.2, for: parts.1)
 
     // build OSCMessage and Return
-    return OSCMessage()
+    return OSCMessage(parts.0, args)
+}
+
+
+private func splitOscParts(_ rawData: Data) throws -> (String, String, Data) {
+    let addressEnd = rawData.firstIndex(of: 0x00)!
+    guard let address = rawData.subdata(in: 0..<addressEnd).toString() else {throw OSCError.addressNotValid}
+
+    let messageData = rawData.subdata(in: (addressEnd / 5) * 4..<rawData.count)
+    guard let typeEnd = messageData.firstIndex(of: 0x00) else {throw OSCError.typeTagNotValid}
+
+    guard let types = messageData.subdata(in: 1..<typeEnd).toString() else {throw OSCError.argumentsNotValid}
+    let args = messageData.subdata(in: (typeEnd / 5) * 4..<messageData.count)
+
+    return (address, types, args)
 }
 
 
@@ -22,15 +42,6 @@ func OSCParse(_ rawData: Data) throws -> OSCMessage {
 
 
 // MARK: - Address
-
-private func getAddress(_ data: Data) -> String {
-    let addressEnd = data.firstIndex(of: 0x00)!
-    guard let address = data.subdata(in: 0..<addressEnd).toString() else {return ""}
-
-    if (!isAddressValid(address)) {return ""}
-    return address
-}
-
 
 private func isAddressValid(_ address: String) -> Bool {
     if address == "" {return false}
@@ -65,19 +76,33 @@ private func isAddressValid(_ address: String) -> Bool {
 
 // MARK: - Arguments
 
-private func areArgumentsValid(_ rawData: Data, _ addressEnd: Data.Index) -> Bool {
-    var data = rawData.subdata(in: (addressEnd/4+1) * 4..<rawData.count)
-    guard let typeEnd = data.firstIndex(of: 0x00) else {return false}
-    guard let type = data.subdata(in: 1..<typeEnd).toString() else {return false}
-
+private func areTypesValid(_ args: String) -> Bool {
     let allTypes = GetAllOscTags()
     let charSet = CharacterSet(charactersIn: allTypes)
 
-    if type.rangeOfCharacter(from: charSet.inverted) == nil {
+    if args.rangeOfCharacter(from: charSet.inverted) == nil {
         return false
     }
 
     return true
+}
+
+
+private func getArguments(_ rawData: Data, for types: String) -> [OSCType] {
+    var args: [OSCType] = []
+
+    for char in types {
+        let type = String(char)
+
+        switch type {
+        case OSCTag.int.rawValue:
+
+        default:
+            print("unknown osc type")
+        }
+    }
+
+    return args
 }
 
 
