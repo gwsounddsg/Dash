@@ -34,6 +34,7 @@
 		9AEA615923C5126300B27003 /* DashOSCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615823C5126300B27003 /* DashOSCClient.swift */; };
 		9AEA615B23C5126B00B27003 /* DashOSCServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615A23C5126B00B27003 /* DashOSCServer.swift */; };
 		BAF3B7CD612409C1A962A83F /* Pods_DashTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E29DC86667E69AF0E9F488 /* Pods_DashTests.framework */; };
+		CD1830524CC75693D73F5A5E /* ExtFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1834A5EC3A01366538B855 /* ExtFloat.swift */; };
 		CD1830A4B7EF563AECF83C21 /* OSCMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183E369A1F96D6F8107406 /* OSCMessage.swift */; };
 		CD1832D32812F04C4F8C43A0 /* Clients.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18360097ABDE641A6C55C1 /* Clients.swift */; };
 		CD18341CAFC0B96913E017E7 /* ExtData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1831A08AC0CC9162B35921 /* ExtData.swift */; };
@@ -95,6 +96,7 @@
 		C99DC24200B3F14295912028 /* Pods-DashTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashTests.release.xcconfig"; path = "Target Support Files/Pods-DashTests/Pods-DashTests.release.xcconfig"; sourceTree = "<group>"; };
 		CD1830BC96E48283D5E82470 /* ExtInt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtInt.swift; sourceTree = "<group>"; };
 		CD1831A08AC0CC9162B35921 /* ExtData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtData.swift; sourceTree = "<group>"; };
+		CD1834A5EC3A01366538B855 /* ExtFloat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtFloat.swift; sourceTree = "<group>"; };
 		CD18356AF1367FDF484BF6FF /* Vezer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vezer.swift; sourceTree = "<group>"; };
 		CD18360097ABDE641A6C55C1 /* Clients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clients.swift; sourceTree = "<group>"; };
 		CD1839C8E54B6CB024AF57A6 /* OSCType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCType.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			children = (
 				CD1831A08AC0CC9162B35921 /* ExtData.swift */,
 				CD1830BC96E48283D5E82470 /* ExtInt.swift */,
+				CD1834A5EC3A01366538B855 /* ExtFloat.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				CD183962FE6A334640EA2886 /* OSCErrors.swift in Sources */,
 				CD18365A44C1C6D8824145D4 /* OSCTag.swift in Sources */,
 				CD18365974C9B59DBD97409F /* ExtInt.swift in Sources */,
+				CD1830524CC75693D73F5A5E /* ExtFloat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
