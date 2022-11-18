@@ -9,10 +9,39 @@ public struct OSCMessage {
     public var address: String = ""
     public var arguments: [OSCType?] = []
 
+
     init() {}
+
 
     init(_ address: String, _ arguments: [OSCType]) {
         self.address = address
         self.arguments = arguments
+    }
+
+
+    func getData() -> Data {
+        var data = Data()
+
+        // add address
+        data.append(address.toBase32())
+
+        // add types
+        var types = ","
+        if arguments.isEmpty {
+            types += OSCTag.null
+        }
+        else {
+            for arg in arguments {
+                types += arg?.tag
+            }
+        }
+        data.append(types.toBase32())
+
+        // add arg(s)
+        for arg in arguments {
+            data.append(arg?.data)
+        }
+
+        return data
     }
 }

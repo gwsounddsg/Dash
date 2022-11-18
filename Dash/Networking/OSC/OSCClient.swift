@@ -71,7 +71,16 @@ extension OSCClient {
 
 // MARK: - Sending
 extension OSCClient {
-
+    func send(_ message: OSCMessage) {
+        _client?.send(content: message.getData(), completion: .contentProcessed { error in
+            if error != nil {
+                print("OSCClient.send() error: \(error)")
+            }
+            else {
+                print("Message sent")
+            }
+        })
+    }
 }
 
 
