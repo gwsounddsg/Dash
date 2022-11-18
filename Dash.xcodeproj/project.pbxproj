@@ -45,6 +45,7 @@
 		CD183962FE6A334640EA2886 /* OSCErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183B57968056E20DB6FA1F /* OSCErrors.swift */; };
 		CD1839FBBDC7FC6D7E7ABAB5 /* ExtString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1831CC76431A8FE7F43A37 /* ExtString.swift */; };
 		CD183A74FF36165CED59F896 /* Vezer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18356AF1367FDF484BF6FF /* Vezer.swift */; };
+		CD183AE2A5A030B7B2A97F11 /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18318DA539B60487E3247B /* Blob.swift */; };
 		CD183B81B3176A36A44EAC5E /* ExtBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18361171B118F94A274A53 /* ExtBool.swift */; };
 		CD183EBDF0A6B9AE00CDAA77 /* OSCType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183DAAAD8D04875C5002BB /* OSCType.swift */; };
 /* End PBXBuildFile section */
@@ -97,6 +98,7 @@
 		C1E29DC86667E69AF0E9F488 /* Pods_DashTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DashTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99DC24200B3F14295912028 /* Pods-DashTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashTests.release.xcconfig"; path = "Target Support Files/Pods-DashTests/Pods-DashTests.release.xcconfig"; sourceTree = "<group>"; };
 		CD1830BC96E48283D5E82470 /* ExtInt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtInt.swift; sourceTree = "<group>"; };
+		CD18318DA539B60487E3247B /* Blob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blob.swift; sourceTree = "<group>"; };
 		CD1831A08AC0CC9162B35921 /* ExtData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtData.swift; sourceTree = "<group>"; };
 		CD1831CC76431A8FE7F43A37 /* ExtString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtString.swift; sourceTree = "<group>"; };
 		CD1834A5EC3A01366538B855 /* ExtFloat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtFloat.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				CD183DAAAD8D04875C5002BB /* OSCType.swift */,
+				CD18318DA539B60487E3247B /* Blob.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				CD1839FBBDC7FC6D7E7ABAB5 /* ExtString.swift in Sources */,
 				CD183B81B3176A36A44EAC5E /* ExtBool.swift in Sources */,
 				CD183EBDF0A6B9AE00CDAA77 /* OSCType.swift in Sources */,
+				CD183AE2A5A030B7B2A97F11 /* Blob.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

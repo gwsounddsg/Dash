@@ -5,9 +5,6 @@
 
 import Foundation
 
-public typealias Blob = Data
-public typealias Timetag = UInt64
-
 
 public protocol OSCType {
     var data: Data { get }
