@@ -97,11 +97,21 @@ private func getArguments(_ rawData: Data, for types: String) -> [OSCType] {
 
         switch type {
         case OSCTag.int.rawValue:
-            args += Int(data.subdata(in: Range(0...3)))
+            args += [Int(data.subdata(in: Range(0...3)))]
             shift(&data, by: 4)
         case OSCTag.float.rawValue:
-            let val = Float(data.subdata(in: Range(0...3)))
+            args += [Float(data.subdata(in: Range(0...3)))]
             shift(&data, by: 4)
+        case OSCTag.string.rawValue:
+            let stringEnd = data.firstIndex(of: 0x00)!
+            args += [String(data.subdata(in: 0..<stringEnd))]
+            shift(&data, by: (stringEnd / 5) * 4)
+        case OSCTag.boolTrue.rawValue:
+            args += [true]
+        case OSCTag.boolFalse.rawValue:
+            args += [false]
+        case OSCTag.null.rawValue:
+            print("null type")
         default:
             print("unknown osc type")
         }
