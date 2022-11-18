@@ -46,6 +46,7 @@
 		CD183962FE6A334640EA2886 /* OSCErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183B57968056E20DB6FA1F /* OSCErrors.swift */; };
 		CD1839FBBDC7FC6D7E7ABAB5 /* ExtString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1831CC76431A8FE7F43A37 /* ExtString.swift */; };
 		CD183A74FF36165CED59F896 /* Vezer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18356AF1367FDF484BF6FF /* Vezer.swift */; };
+		CD183B81B3176A36A44EAC5E /* ExtBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18361171B118F94A274A53 /* ExtBool.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		CD1834A5EC3A01366538B855 /* ExtFloat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtFloat.swift; sourceTree = "<group>"; };
 		CD18356AF1367FDF484BF6FF /* Vezer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vezer.swift; sourceTree = "<group>"; };
 		CD18360097ABDE641A6C55C1 /* Clients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clients.swift; sourceTree = "<group>"; };
+		CD18361171B118F94A274A53 /* ExtBool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtBool.swift; sourceTree = "<group>"; };
 		CD1839C8E54B6CB024AF57A6 /* OSCType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCType.swift; sourceTree = "<group>"; };
 		CD183B57968056E20DB6FA1F /* OSCErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCErrors.swift; sourceTree = "<group>"; };
 		CD183CB342FB3162BAF8D3EE /* OSCTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCTag.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				CD1830BC96E48283D5E82470 /* ExtInt.swift */,
 				CD1834A5EC3A01366538B855 /* ExtFloat.swift */,
 				CD1831CC76431A8FE7F43A37 /* ExtString.swift */,
+				CD18361171B118F94A274A53 /* ExtBool.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				CD18365974C9B59DBD97409F /* ExtInt.swift in Sources */,
 				CD1830524CC75693D73F5A5E /* ExtFloat.swift in Sources */,
 				CD1839FBBDC7FC6D7E7ABAB5 /* ExtString.swift in Sources */,
+				CD183B81B3176A36A44EAC5E /* ExtBool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
