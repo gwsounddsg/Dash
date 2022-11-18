@@ -42,11 +42,11 @@
 		CD18365974C9B59DBD97409F /* ExtInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1830BC96E48283D5E82470 /* ExtInt.swift */; };
 		CD18365A44C1C6D8824145D4 /* OSCTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183CB342FB3162BAF8D3EE /* OSCTag.swift */; };
 		CD183705FD5C1B30AF9896B0 /* Servers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183FE03BD8D9093937E2B8 /* Servers.swift */; };
-		CD1837FB728865DB208FF225 /* OSCType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1839C8E54B6CB024AF57A6 /* OSCType.swift */; };
 		CD183962FE6A334640EA2886 /* OSCErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183B57968056E20DB6FA1F /* OSCErrors.swift */; };
 		CD1839FBBDC7FC6D7E7ABAB5 /* ExtString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1831CC76431A8FE7F43A37 /* ExtString.swift */; };
 		CD183A74FF36165CED59F896 /* Vezer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18356AF1367FDF484BF6FF /* Vezer.swift */; };
 		CD183B81B3176A36A44EAC5E /* ExtBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18361171B118F94A274A53 /* ExtBool.swift */; };
+		CD183EBDF0A6B9AE00CDAA77 /* OSCType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183DAAAD8D04875C5002BB /* OSCType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,9 +103,9 @@
 		CD18356AF1367FDF484BF6FF /* Vezer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vezer.swift; sourceTree = "<group>"; };
 		CD18360097ABDE641A6C55C1 /* Clients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clients.swift; sourceTree = "<group>"; };
 		CD18361171B118F94A274A53 /* ExtBool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtBool.swift; sourceTree = "<group>"; };
-		CD1839C8E54B6CB024AF57A6 /* OSCType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCType.swift; sourceTree = "<group>"; };
 		CD183B57968056E20DB6FA1F /* OSCErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCErrors.swift; sourceTree = "<group>"; };
 		CD183CB342FB3162BAF8D3EE /* OSCTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCTag.swift; sourceTree = "<group>"; };
+		CD183DAAAD8D04875C5002BB /* OSCType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCType.swift; sourceTree = "<group>"; };
 		CD183E369A1F96D6F8107406 /* OSCMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCMessage.swift; sourceTree = "<group>"; };
 		CD183F486BD5FE45A48C04F7 /* OSCParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCParsing.swift; sourceTree = "<group>"; };
 		CD183FE03BD8D9093937E2B8 /* Servers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Servers.swift; sourceTree = "<group>"; };
@@ -244,11 +244,11 @@
 			isa = PBXGroup;
 			children = (
 				9AE58871292581B100BCB9E8 /* Extensions */,
-				CD1839C8E54B6CB024AF57A6 /* OSCType.swift */,
 				CD183F486BD5FE45A48C04F7 /* OSCParsing.swift */,
 				CD183E369A1F96D6F8107406 /* OSCMessage.swift */,
 				CD183B57968056E20DB6FA1F /* OSCErrors.swift */,
 				CD183CB342FB3162BAF8D3EE /* OSCTag.swift */,
+				CD183E4571677D62BD731D0F /* Types */,
 			);
 			path = OSC;
 			sourceTree = "<group>";
@@ -287,6 +287,14 @@
 				CD183FE03BD8D9093937E2B8 /* Servers.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		CD183E4571677D62BD731D0F /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				CD183DAAAD8D04875C5002BB /* OSCType.swift */,
+			);
+			path = Types;
 			sourceTree = "<group>";
 		};
 		F2B6F2D02B923DC85F0CCEFC /* Pods */ = {
@@ -504,7 +512,6 @@
 				CD183705FD5C1B30AF9896B0 /* Servers.swift in Sources */,
 				CD1832D32812F04C4F8C43A0 /* Clients.swift in Sources */,
 				CD183A74FF36165CED59F896 /* Vezer.swift in Sources */,
-				CD1837FB728865DB208FF225 /* OSCType.swift in Sources */,
 				CD1835D13C327503C58995B6 /* OSCParsing.swift in Sources */,
 				CD1830A4B7EF563AECF83C21 /* OSCMessage.swift in Sources */,
 				CD18341CAFC0B96913E017E7 /* ExtData.swift in Sources */,
@@ -514,6 +521,7 @@
 				CD1830524CC75693D73F5A5E /* ExtFloat.swift in Sources */,
 				CD1839FBBDC7FC6D7E7ABAB5 /* ExtString.swift in Sources */,
 				CD183B81B3176A36A44EAC5E /* ExtBool.swift in Sources */,
+				CD183EBDF0A6B9AE00CDAA77 /* OSCType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
