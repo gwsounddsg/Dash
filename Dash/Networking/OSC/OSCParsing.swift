@@ -90,13 +90,18 @@ private func areTypesValid(_ args: String) -> Bool {
 
 private func getArguments(_ rawData: Data, for types: String) -> [OSCType] {
     var args: [OSCType] = []
+    var data = rawData
 
     for char in types {
         let type = String(char)
 
         switch type {
         case OSCTag.int.rawValue:
-
+            args += Int(data.subdata(in: Range(0...3)))
+            shift(&data, by: 4)
+        case OSCTag.float.rawValue:
+            let val = Float(data.subdata(in: Range(0...3)))
+            shift(&data, by: 4)
         default:
             print("unknown osc type")
         }
@@ -105,6 +110,10 @@ private func getArguments(_ rawData: Data, for types: String) -> [OSCType] {
     return args
 }
 
+
+private func shift(_ data: inout Data, by count: Int) {
+    data = data.subdata(in: count..<data.count)
+}
 
 
 
