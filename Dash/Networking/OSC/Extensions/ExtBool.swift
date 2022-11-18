@@ -6,6 +6,12 @@
 import Foundation
 
 extension Bool: OSCType {
+    public var tag: OSCTag {
+        get {
+            return self ? .boolTrue : .boolFalse
+        }
+    }
+
     public var data: Data {
         get { return Data() }
     }

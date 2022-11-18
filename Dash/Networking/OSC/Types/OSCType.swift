@@ -8,4 +8,5 @@ import Foundation
 
 public protocol OSCType {
     var data: Data { get }
+    var tag: OSCTag { get }
 }

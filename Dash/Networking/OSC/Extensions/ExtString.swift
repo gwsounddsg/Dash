@@ -22,4 +22,16 @@ extension String: OSCType {
     init(_ data: Data) {
         self = String(data: data, encoding: .utf8)!
     }
+
+
+    func toBase32() -> Data {
+        var data = self.data(using: .utf8)!
+        var val: UInt8 = 0
+
+        for _ in 1...(4 - (data.count % 4)) {
+            data.append(&val, count: 1)
+        }
+
+        return data
+    }
 }

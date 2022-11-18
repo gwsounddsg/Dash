@@ -6,6 +6,7 @@
 import Foundation
 
 extension Int: OSCType {
+    public var tag: OSCTag = .int
     public var data: Data {
         get {
             let bytes: [UInt8] = withUnsafeBytes(of: Int32(self).bigEndian, Array.init)
