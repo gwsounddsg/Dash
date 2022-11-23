@@ -6,7 +6,6 @@
 // ==================================================================
 
 import Foundation
-import SwiftOSC
 
 
 typealias DashData = OSCType

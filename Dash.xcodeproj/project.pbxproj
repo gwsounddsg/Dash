@@ -11,7 +11,6 @@
 		578C7FFD23B299A30014EFDD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578C7FFC23B299A30014EFDD /* AppDelegate.swift */; };
 		578C800123B299A40014EFDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 578C800023B299A40014EFDD /* Assets.xcassets */; };
 		578C800423B299A40014EFDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 578C800223B299A40014EFDD /* Main.storyboard */; };
-		57AF9D7323B2AFD6001A27A6 /* ReceiveUDP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */; };
 		57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7623B2B54E001A27A6 /* Extensions.swift */; };
 		57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7A23B2B869001A27A6 /* DS100.swift */; };
 		6B21898E7B892105727D0E3C /* Pods_Dash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */; };
@@ -72,7 +71,6 @@
 		578C800323B299A40014EFDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		578C800523B299A40014EFDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		578C800623B299A40014EFDD /* Dash.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Dash.entitlements; sourceTree = "<group>"; };
-		57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveUDP.swift; sourceTree = "<group>"; };
 		57AF9D7623B2B54E001A27A6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		57AF9D7A23B2B869001A27A6 /* DS100.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DS100.swift; sourceTree = "<group>"; };
 		651BB45AE5E5B9541C7EA030 /* Pods-Dash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.release.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.release.xcconfig"; sourceTree = "<group>"; };
@@ -294,7 +292,6 @@
 				9AEA615823C5126300B27003 /* DashOSCClient.swift */,
 				9AEA615A23C5126B00B27003 /* DashOSCServer.swift */,
 				9AEA615623C50CBB00B27003 /* NetworkManager.swift */,
-				57AF9D7223B2AFD6001A27A6 /* ReceiveUDP.swift */,
 				CD183FE03BD8D9093937E2B8 /* Servers.swift */,
 			);
 			path = Networking;
@@ -512,7 +509,6 @@
 				9AEA614F23C4DFCB00B27003 /* PreferencesVC.swift in Sources */,
 				5707DEDF23B2AB6D00A76810 /* ViewController.swift in Sources */,
 				9AEA615123C4E0D400B27003 /* PreferencesWindowController.swift in Sources */,
-				57AF9D7323B2AFD6001A27A6 /* ReceiveUDP.swift in Sources */,
 				57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */,
 				9AC6902523C3A8800047320A /* RttTableView.swift in Sources */,
 				9AEA615423C5083F00B27003 /* Message.swift in Sources */,
