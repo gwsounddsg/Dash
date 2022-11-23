@@ -6,7 +6,10 @@
 import Foundation
 
 extension Float: OSCType {
-    public var tag: OSCTag = .float
+    public var tag: OSCTag {
+        get { return .float }
+    }
+
     public var data: Data {
         get {
             let bytes: [UInt8] = withUnsafeBytes(of: self.bitPattern.bigEndian, Array.init)

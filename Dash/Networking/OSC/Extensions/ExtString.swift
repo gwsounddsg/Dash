@@ -6,6 +6,10 @@
 import Foundation
 
 extension String: OSCType {
+    public var tag: OSCTag {
+        get { return .string }
+    }
+
     public var data: Data {
         get {
             var data = self.data(using: .utf8)!
