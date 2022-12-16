@@ -51,6 +51,7 @@
 		CD183AE2A5A030B7B2A97F11 /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18318DA539B60487E3247B /* Blob.swift */; };
 		CD183B81B3176A36A44EAC5E /* ExtBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18361171B118F94A274A53 /* ExtBool.swift */; };
 		CD183D3B4A50B0EA460CA6A7 /* Timetag.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1835EF47BB7E5C24F6C6B7 /* Timetag.swift */; };
+		CD183E057607FF5F659734C6 /* ExtInt32.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18377D9F1EF74EC907B5D0 /* ExtInt32.swift */; };
 		CD183E4BF7E3AD91DEE0A2FA /* ExtDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183C36C7DD778A79776740 /* ExtDouble.swift */; };
 		CD183EBDF0A6B9AE00CDAA77 /* OSCType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183DAAAD8D04875C5002BB /* OSCType.swift */; };
 		CD183FB9B7C414B864888978 /* OSCTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183BC841C6DEF1CF1D529B /* OSCTag.swift */; };
@@ -113,6 +114,7 @@
 		CD18361171B118F94A274A53 /* ExtBool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtBool.swift; sourceTree = "<group>"; };
 		CD18363787CA0149E3090564 /* ExtUInt32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtUInt32.swift; sourceTree = "<group>"; };
 		CD1836A1ECE981A9EB7A44FA /* ExtDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtDate.swift; sourceTree = "<group>"; };
+		CD18377D9F1EF74EC907B5D0 /* ExtInt32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtInt32.swift; sourceTree = "<group>"; };
 		CD1838444E70AF34023AFE72 /* OSCBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCBundle.swift; sourceTree = "<group>"; };
 		CD183B57968056E20DB6FA1F /* OSCErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCErrors.swift; sourceTree = "<group>"; };
 		CD183B89F6663FEF9DF61362 /* OSCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCClient.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				CD18363787CA0149E3090564 /* ExtUInt32.swift */,
 				CD183C36C7DD778A79776740 /* ExtDouble.swift */,
 				CD1836A1ECE981A9EB7A44FA /* ExtDate.swift */,
+				CD18377D9F1EF74EC907B5D0 /* ExtInt32.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				CD183164178CAD090F837233 /* OSCBundle.swift in Sources */,
 				CD183D3B4A50B0EA460CA6A7 /* Timetag.swift in Sources */,
 				CD18388C817CF6B6458CD649 /* ExtDate.swift in Sources */,
+				CD183E057607FF5F659734C6 /* ExtInt32.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
