@@ -35,6 +35,7 @@
 		BAF3B7CD612409C1A962A83F /* Pods_DashTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E29DC86667E69AF0E9F488 /* Pods_DashTests.framework */; };
 		CD1830524CC75693D73F5A5E /* ExtFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1834A5EC3A01366538B855 /* ExtFloat.swift */; };
 		CD1830A4B7EF563AECF83C21 /* OSCMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183E369A1F96D6F8107406 /* OSCMessage.swift */; };
+		CD183164178CAD090F837233 /* OSCBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1838444E70AF34023AFE72 /* OSCBundle.swift */; };
 		CD1832D32812F04C4F8C43A0 /* Clients.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18360097ABDE641A6C55C1 /* Clients.swift */; };
 		CD18341CAFC0B96913E017E7 /* ExtData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1831A08AC0CC9162B35921 /* ExtData.swift */; };
 		CD1835D13C327503C58995B6 /* OSCParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183F486BD5FE45A48C04F7 /* OSCParsing.swift */; };
@@ -108,6 +109,7 @@
 		CD18360097ABDE641A6C55C1 /* Clients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clients.swift; sourceTree = "<group>"; };
 		CD18361171B118F94A274A53 /* ExtBool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtBool.swift; sourceTree = "<group>"; };
 		CD18363787CA0149E3090564 /* ExtUInt32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtUInt32.swift; sourceTree = "<group>"; };
+		CD1838444E70AF34023AFE72 /* OSCBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCBundle.swift; sourceTree = "<group>"; };
 		CD183B57968056E20DB6FA1F /* OSCErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCErrors.swift; sourceTree = "<group>"; };
 		CD183B89F6663FEF9DF61362 /* OSCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCClient.swift; sourceTree = "<group>"; };
 		CD183BC841C6DEF1CF1D529B /* OSCTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCTag.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				CD183E4571677D62BD731D0F /* Types */,
 				CD183B89F6663FEF9DF61362 /* OSCClient.swift */,
 				CD183BEE7B8F63861A9F2A91 /* OSCServer.swift */,
+				CD1838444E70AF34023AFE72 /* OSCBundle.swift */,
 			);
 			path = OSC;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				CD183980DD44CFE4DE3A71FA /* OSCServer.swift in Sources */,
 				CD183FB9B7C414B864888978 /* OSCTag.swift in Sources */,
 				CD183E4BF7E3AD91DEE0A2FA /* ExtDouble.swift in Sources */,
+				CD183164178CAD090F837233 /* OSCBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
