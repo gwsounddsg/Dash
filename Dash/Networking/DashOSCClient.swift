@@ -14,22 +14,23 @@ import Network
 class DashOSCClient {
     
     let type: DashNetworkType.Client
-    let client = OSCClient()
+    let _client: OSCClient
 
     var address: String {
         get {
-            return client.address()
+            return _client.address()
         }
     }
     var port: Int {
         get {
-            return client.port()
+            return _client.port()
         }
     }
 
     
-    init(_ type: DashNetworkType.Client, _ address: String, _ port: Int) {
+    init(_ type: DashNetworkType.Client, _ address: String, _ port: Int, _ client: OSCClient = OSCClient()) {
         self.type = type
+        _client = client
         client.setEndpoints(address: address, port: port)
         client.connect()
     }
