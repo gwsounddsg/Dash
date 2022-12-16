@@ -53,10 +53,10 @@ class DashOSCClient {
             switch coordinate {
             case .x:
                 addy = each.coordinateX()
-                msg = OSCMessage(addy, each.x)
+                msg = OSCMessage(addy, [each.x])
             case .y:
                 addy = each.coordinateY()
-                msg = OSCMessage(addy, each.y)
+                msg = OSCMessage(addy, [each.y])
             case .z, .all:
                 addy = each.coordinate()
                 msg = OSCMessage(addy, [each.x, each.y])
