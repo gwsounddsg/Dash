@@ -6,7 +6,7 @@
 // ==================================================================
 
 import Foundation
-
+import Network
 
 
 
@@ -14,48 +14,27 @@ import Foundation
 class DashOSCClient {
     
     let type: DashNetworkType.Client
-    let client: OSCClient
+    let client = OSCClient()
 
     var address: String {
-        didSet {
-            clientAddress(address)
-            printNetwork()
+        get {
+            return client.address()
         }
     }
     var port: Int {
-        didSet {
-            clientPort(port)
-            printNetwork()
+        get {
+            return client.port()
         }
     }
 
     
     init(_ type: DashNetworkType.Client, _ address: String, _ port: Int) {
         self.type = type
-        self.address = address
-        self.port = port
-        client = OSCClient(address: address, port: port)
+        client.setEndpoints(address: address, port: port)
+        client.connect()
     }
 
 
-    /// Only internal for mocking
-    internal func clientSend(_ message: OSCElement) {
-        client.send(message)
-    }
-
-
-    /// Only internal for mocking
-    internal func clientAddress(_ newAddress: String) {
-        client.address = newAddress
-    }
-
-
-    /// Only internal for mocking
-    internal func clientPort(_ newPort: Int) {
-        client.port = newPort
-    }
-    
-    
     /// Regular OSC message
     func send(message: Message) {
         let msg = makeMessage(message.address, message.values)

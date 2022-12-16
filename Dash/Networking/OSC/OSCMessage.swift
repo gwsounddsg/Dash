@@ -28,18 +28,18 @@ public struct OSCMessage {
         // add types
         var types = ","
         if arguments.isEmpty {
-            types += OSCTag.null
+            types += OSCTag.null.rawValue
         }
         else {
             for arg in arguments {
-                types += arg?.tag
+                types += arg!.tag.rawValue
             }
         }
         data.append(types.toBase32())
 
         // add arg(s)
         for arg in arguments {
-            data.append(arg?.data)
+            data.append(arg!.data)
         }
 
         return data

@@ -28,10 +28,16 @@ class OSCClient {
 
 //MARK: - Connections
 extension OSCClient {
+    func connect() {
+        connect(to: _address, with: _port)
+    }
+
+
     func connect(to address: NWEndpoint.Host, with port: NWEndpoint.Port) {
         _address = address
         _port = port
 
+        disconnect()
         _client = NWConnection(to: .hostPort(host: _address, port: _port), using: .udp)
         if _client == nil {
             return
@@ -69,6 +75,40 @@ extension OSCClient {
 
 
 
+// MARK: - Endpoints
+extension OSCClient {
+    func address() -> String {
+        return _address.debugDescription
+    }
+
+
+    func port() -> Int {
+        return Int(_port.rawValue)
+    }
+
+
+    func setEndpoints(address: String, port: Int) {
+        _address = NWEndpoint.Host(address)
+        _port = NWEndpoint.Port(rawValue: UInt16(port))!
+    }
+
+
+    func updateAddress(_ newAddress: NWEndpoint.Host) {
+        _address = newAddress
+        connect()
+    }
+
+
+    func updatePort(_ newPort: NWEndpoint.Port) {
+        _port = newPort
+        connect()
+    }
+}
+
+
+
+
+
 // MARK: - Sending
 extension OSCClient {
     func send(_ message: OSCMessage) {
@@ -90,15 +130,5 @@ extension OSCClient {
 extension OSCClient {
     func isConnected() -> Bool {
         return _client != nil
-    }
-
-
-    func address() -> NWEndpoint.Host {
-        return _address
-    }
-
-
-    func port() -> NWEndpoint.Port {
-        return _port
     }
 }
