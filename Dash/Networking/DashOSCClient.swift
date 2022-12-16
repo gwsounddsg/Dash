@@ -41,7 +41,7 @@ class DashOSCClient {
         let msg = makeMessage(message.address, message.values)
         clientSend(msg)
     }
-    
+
     
     /// Sends data to DS100
     func send(data: [DS100], coordinate: Coordinate) {
@@ -97,7 +97,11 @@ class DashOSCClient {
 
 
 fileprivate extension DashOSCClient {
-    
+    private func clientSend(_ message: OSCMessage) {
+        _client.send(message)
+    }
+
+
     func makeMessage(_ address: String, _ data: OSCType?...) -> OSCMessage {
         return OSCMessage(OSCAddressPattern(address), data)
     }
