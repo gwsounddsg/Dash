@@ -29,4 +29,9 @@ public struct OSCBundle {
         timetag = 1
         self.elements = elements
     }
+
+
+    public mutating func add(_ elements: OSCType...) {
+        self.elements += elements
+    }
 }
