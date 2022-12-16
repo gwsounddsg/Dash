@@ -38,7 +38,7 @@ class DashOSCClient {
 
     /// Regular OSC message
     func send(message: Message) {
-        let msg = makeMessage(message.address, message.values)
+        let msg = OSCMessage(message.address, message.values)
         clientSend(msg)
     }
 
@@ -53,13 +53,13 @@ class DashOSCClient {
             switch coordinate {
             case .x:
                 addy = each.coordinateX()
-                msg = makeMessage(addy, each.x)
+                msg = OSCMessage(addy, each.x)
             case .y:
                 addy = each.coordinateY()
-                msg = makeMessage(addy, each.y)
+                msg = OSCMessage(addy, each.y)
             case .z, .all:
                 addy = each.coordinate()
-                msg = makeMessage(addy, each.x, each.y)
+                msg = OSCMessage(addy, [each.x, each.y])
             }
             
             bundle.add(msg)
@@ -75,8 +75,8 @@ class DashOSCClient {
         
         for each in data {
             let addy = each.addy()
-            let msgX = makeMessage(addy.x, each.x)
-            let msgY = makeMessage(addy.y, each.y)
+            let msgX = OSCMessage(addy.x, [each.x])
+            let msgY = OSCMessage(addy.y, [each.y])
             bundle.add(msgX, msgY)
         }
         
@@ -97,17 +97,7 @@ class DashOSCClient {
 
 
 fileprivate extension DashOSCClient {
-    private func clientSend(_ message: OSCMessage) {
+    func clientSend(_ message: OSCMessage) {
         _client.send(message)
-    }
-
-
-    func makeMessage(_ address: String, _ data: OSCType?...) -> OSCMessage {
-        return OSCMessage(OSCAddressPattern(address), data)
-    }
-    
-    
-    func makeMessage(_ address: String, _ data: [OSCType?]) -> OSCMessage {
-        return OSCMessage(OSCAddressPattern(address), data)
     }
 }
