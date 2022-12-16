@@ -17,14 +17,10 @@ class DashOSCClient {
     let _client: OSCClient
 
     var address: String {
-        get {
-            return _client.address()
-        }
+        get { _client.address() }
     }
     var port: Int {
-        get {
-            return _client.port()
-        }
+        get { _client.port() }
     }
 
     
