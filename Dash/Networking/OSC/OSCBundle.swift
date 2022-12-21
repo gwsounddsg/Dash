@@ -5,7 +5,7 @@
 
 import Foundation
 
-public struct OSCBundle {
+public struct OSCBundle: OSCElement {
     public var timetag: Timetag
     public var elements: [OSCMessage] = []
 

@@ -67,7 +67,7 @@ class DashOSCClient {
     
     /// Sends data to Vezer
     func send(data: [Vezer]) {
-        let bundle = OSCBundle()
+        var bundle = OSCBundle()
         
         for each in data {
             let addy = each.addy()
@@ -93,7 +93,7 @@ class DashOSCClient {
 
 
 fileprivate extension DashOSCClient {
-    func clientSend(_ message: OSCMessage) {
-        _client.send(message)
+    func clientSend(_ element: OSCElement) {
+        _client.send(element)
     }
 }

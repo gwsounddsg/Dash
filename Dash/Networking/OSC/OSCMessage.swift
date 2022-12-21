@@ -5,9 +5,36 @@
 
 import Foundation
 
-public struct OSCMessage {
+public struct OSCMessage: OSCElement {
     public var address: String = ""
     public var arguments: [OSCType?] = []
+
+    public var data: Data {
+        get {
+            var data = Data()
+
+            // add address
+            data.append(address.toBase32())
+
+            // add types
+            var types = ","
+            if arguments.isEmpty {
+                types += OSCTag.null.rawValue
+            } else {
+                for arg in arguments {
+                    types += arg!.tag.rawValue
+                }
+            }
+            data.append(types.toBase32())
+
+            // add arg(s)
+            for arg in arguments {
+                data.append(arg!.data)
+            }
+
+            return data
+        }
+    }
 
 
     init() {}
@@ -16,32 +43,5 @@ public struct OSCMessage {
     init(_ address: String, _ arguments: [OSCType]) {
         self.address = address
         self.arguments = arguments
-    }
-
-
-    func getData() -> Data {
-        var data = Data()
-
-        // add address
-        data.append(address.toBase32())
-
-        // add types
-        var types = ","
-        if arguments.isEmpty {
-            types += OSCTag.null.rawValue
-        }
-        else {
-            for arg in arguments {
-                types += arg!.tag.rawValue
-            }
-        }
-        data.append(types.toBase32())
-
-        // add arg(s)
-        for arg in arguments {
-            data.append(arg!.data)
-        }
-
-        return data
     }
 }
