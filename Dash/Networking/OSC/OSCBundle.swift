@@ -7,7 +7,7 @@ import Foundation
 
 public struct OSCBundle {
     public var timetag: Timetag
-    public var elements: [OSCType] = []
+    public var elements: [OSCMessage] = []
 
     public var data: Data {
         get {
@@ -16,7 +16,7 @@ public struct OSCBundle {
             data.append(timetag.data)
 
             for element in elements {
-                let elementData = element.data
+                let elementData = element.getData()
                 data.append(Int32(elementData.count).toData())
             }
 
@@ -25,13 +25,13 @@ public struct OSCBundle {
     }
 
 
-    public init(_ elements: OSCType...) {
+    public init(_ elements: OSCMessage...) {
         timetag = 1
         self.elements = elements
     }
 
 
-    public mutating func add(_ elements: OSCType...) {
+    public mutating func add(_ elements: OSCMessage...) {
         self.elements += elements
     }
 }
