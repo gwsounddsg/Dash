@@ -31,7 +31,7 @@ extension Blob: OSCType {
         }
     }
 
-    
+
     init(_ data: Data) {
         self = data
     }
