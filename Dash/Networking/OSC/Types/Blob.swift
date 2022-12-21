@@ -9,6 +9,11 @@ public typealias Blob = Data
 
 
 extension Blob: OSCType {
+    public var tag: OSCTag {
+        get { return .blob }
+    }
+
+
     public var data: Data {
         get {
             let length = UInt32(self.count)
@@ -26,6 +31,7 @@ extension Blob: OSCType {
         }
     }
 
+    
     init(_ data: Data) {
         self = data
     }
