@@ -6,6 +6,6 @@
 import Foundation
 
 
-protocol OSCElement {
+public protocol OSCElement {
     var data: Data { get }
 }

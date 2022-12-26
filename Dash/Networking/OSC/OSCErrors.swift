@@ -9,4 +9,8 @@ enum OSCError: Error {
     case addressNotValid
     case typeTagNotValid
     case argumentsNotValid
+
+    enum Bundle: Error {
+        case invalidOSCPacketReceived(String)
+    }
 }

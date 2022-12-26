@@ -17,7 +17,6 @@ protocol DashOSCServerDelegate: AnyObject {
 
 
 class DashOSCServer {
-    
     let type: DashNetworkType.Server
     let server: OSCServer
     weak var delegate: DashOSCServerDelegate?

@@ -6,7 +6,7 @@
 import Foundation
 
 
-func OSCParse(_ rawData: Data) throws -> OSCMessage {
+func OSCParseMessage(_ rawData: Data) throws -> OSCMessage {
     // split parts = address, arg types, args
     let parts = try splitOscParts(rawData)
 
@@ -125,6 +125,46 @@ private func shift(_ data: inout Data, by count: Int) {
     data = data.subdata(in: count..<data.count)
 }
 
+
+
+
+
+//MARK: - Bundles
+func OSCParseBundle(_ data: Data) throws -> OSCBundle {
+    if data.count <= 8 { throw OSCError.Bundle.invalidOSCPacketReceived("Data count under 8") }
+
+    if OSCBundle.bundleID != data.subdata(in: Range(0...7)) {
+        print("Received packet expected to be a bundle but didn't have the bundle id")
+        throw OSCError.Bundle.invalidOSCPacketReceived("Bundles must start with #bundle")
+    }
+
+    return try decodeBundle(data)
+}
+
+
+private func decodeBundle(_ data: Data) throws -> OSCBundle {
+    let timeTag = Timetag(data.subdata(in: 8..<16))
+    var elements: [OSCElement] = []
+
+    var bundleData = data.subdata(in: 16..<data.count)
+
+    while bundleData.count > 0 {
+        let length = Int(bundleData.subdata(in: Range(0...3)).toInt32())
+        let length4 = length + 4
+
+        let nextData = bundleData.subdata(in: 4..<length4)
+        bundleData = bundleData.subdata(in: length4..<bundleData.count)
+
+        if bundleData == nextData.subdata(in: Range(0...7)) {
+            elements.append(try OSCParseBundle(nextData))
+        }
+        else {
+            elements.append(try OSCParseMessage(nextData))
+        }
+    }
+
+    return OSCBundle(elements, timeTag: timeTag)
+}
 
 
 

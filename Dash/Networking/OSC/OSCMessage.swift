@@ -9,6 +9,7 @@ public struct OSCMessage: OSCElement {
     public var address: String = ""
     public var arguments: [OSCType?] = []
 
+
     public var data: Data {
         get {
             var data = Data()

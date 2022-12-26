@@ -52,4 +52,12 @@ extension Timetag: OSCType {
     public init(secondsSinceNow seconds: Double) {
         self = UInt64(seconds * 0x1_0000_0000)
     }
+
+
+    public init(_ data: Data) {
+        var int = UInt64()
+        let buffer = UnsafeMutableBufferPointer(start: &int, count: 1)
+        _ = data.copyBytes(to: buffer)
+        self = int.byteSwapped
+    }
 }
