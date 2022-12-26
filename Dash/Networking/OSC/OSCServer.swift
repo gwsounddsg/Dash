@@ -23,18 +23,21 @@ class OSCServer {
 
     private let _queue:DispatchQueue
     private var _listener: NWListener?
-    private var _port: NWEndpoint.Port?
+    private var _port: NWEndpoint.Port
     private var _connection: NWConnection?
 
 
-    init(_ label: String, delegate: OSCServerDelegate) {
+    init(on port: Int, and label: String, delegate: OSCServerDelegate) {
         _queue = DispatchQueue(label: label)
         self.delegate = delegate
+        _port = NWEndpoint.Port(String(port))!
     }
 
 
     init?(with listener: NWListener, and label: String, delegate: OSCServerDelegate) {
-        _port = listener.port
+        if listener.port == nil {return nil}
+
+        _port = listener.port!
         _listener = listener
         _queue = DispatchQueue(label: label)
         self.delegate = delegate
@@ -48,14 +51,12 @@ class OSCServer {
 // MARK: - Starting
 extension OSCServer {
     func start() -> Bool {
-        if _listener == nil {
-            do {
-                _listener = try NWListener(using: .udp, on: _port)
-            }
-            catch let error {
-                print("Couldn't connect listener with error: \(error)")
-                return false
-            }
+        do {
+            _listener = try NWListener(using: .udp, on: _port)
+        }
+        catch let error {
+            print("Couldn't connect listener with error: \(error)")
+            return false
         }
 
         setupUpdateHandler()
@@ -68,7 +69,7 @@ extension OSCServer {
         _listener!.stateUpdateHandler = { newState in
             switch newState {
             case .ready:
-                print("Listening on port: \(String(describing: _port))")
+                print("Listening on port: \(String(describing: self._port))")
             case .failed (let error):
                 print("Listener failed with error: \(error)")
             default:
@@ -101,7 +102,7 @@ extension OSCServer {
         _connection?.stateUpdateHandler = { newState in
             switch newState {
             case .ready:
-                print("Listener ready to receive message - \(_connection)")
+                print("Listener ready to receive message - \(String(describing: self._connection))")
                 self.receive()
             default:
                 print("Create Connection state: \(newState)")
