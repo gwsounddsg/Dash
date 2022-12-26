@@ -17,7 +17,7 @@ protocol OSCServerDelegate {
 
 class OSCServer {
     let delegate: OSCServerDelegate
-    let queue: DispatchQueue = {
+    let queue: DispatchQueue {
         get {return _queue}
     }
 
