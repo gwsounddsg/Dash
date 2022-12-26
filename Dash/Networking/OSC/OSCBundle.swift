@@ -33,11 +33,6 @@ public struct OSCBundle: OSCElement {
     }
 
 
-    public init(_ data: Data) throws {
-
-    }
-
-
     public mutating func add(_ elements: OSCMessage...) {
         self.elements += elements
     }
