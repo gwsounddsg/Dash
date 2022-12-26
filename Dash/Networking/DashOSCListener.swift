@@ -106,7 +106,7 @@ fileprivate extension DashListener {
         _connection?.receiveMessage { completeContent, contentContext, isComplete, error in
             if self.delegate == nil {return}
             if error != nil {
-                print("Listener receive error: \()")
+                print("Listener receive error: \(error)")
                 return
             }
 

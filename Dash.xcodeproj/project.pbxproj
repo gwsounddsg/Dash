@@ -16,6 +16,7 @@
 		6B21898E7B892105727D0E3C /* Pods_Dash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */; };
 		9A2E843723D892FC00843EA9 /* ClientsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2E843623D892FC00843EA9 /* ClientsTests.swift */; };
 		9A2E843923D8930600843EA9 /* ServersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2E843823D8930600843EA9 /* ServersTests.swift */; };
+		9A534387295A019F0040EDCB /* DashOSCListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A534386295A019F0040EDCB /* DashOSCListener.swift */; };
 		9A66296423CF4EE50025125D /* DashOSCClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296323CF4EE50025125D /* DashOSCClientTests.swift */; };
 		9A66296623CF4EF10025125D /* DashOSCServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296523CF4EF10025125D /* DashOSCServerTests.swift */; };
 		9A66296823CF4EFC0025125D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */; };
@@ -82,6 +83,7 @@
 		9005CB6A86854E374AE5B036 /* Pods-DashTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashTests.debug.xcconfig"; path = "Target Support Files/Pods-DashTests/Pods-DashTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9A2E843623D892FC00843EA9 /* ClientsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTests.swift; sourceTree = "<group>"; };
 		9A2E843823D8930600843EA9 /* ServersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServersTests.swift; sourceTree = "<group>"; };
+		9A534386295A019F0040EDCB /* DashOSCListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashOSCListener.swift; sourceTree = "<group>"; };
 		9A66296323CF4EE50025125D /* DashOSCClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCClientTests.swift; sourceTree = "<group>"; };
 		9A66296523CF4EF10025125D /* DashOSCServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCServerTests.swift; sourceTree = "<group>"; };
 		9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				9AE588702925802900BCB9E8 /* OSC */,
 				CD18360097ABDE641A6C55C1 /* Clients.swift */,
 				9AEA615823C5126300B27003 /* DashOSCClient.swift */,
+				9A534386295A019F0040EDCB /* DashOSCListener.swift */,
 				9AEA615623C50CBB00B27003 /* NetworkManager.swift */,
 				CD183FE03BD8D9093937E2B8 /* Servers.swift */,
 			);
@@ -552,6 +555,7 @@
 				CD183164178CAD090F837233 /* OSCBundle.swift in Sources */,
 				CD183D3B4A50B0EA460CA6A7 /* Timetag.swift in Sources */,
 				CD18388C817CF6B6458CD649 /* ExtDate.swift in Sources */,
+				9A534387295A019F0040EDCB /* DashOSCListener.swift in Sources */,
 				CD183E057607FF5F659734C6 /* ExtInt32.swift in Sources */,
 				CD1831C51742946E0AF96E36 /* OSCElement.swift in Sources */,
 			);
