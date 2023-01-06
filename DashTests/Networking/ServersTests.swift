@@ -18,7 +18,7 @@ import CocoaAsyncSocket
 
 class ServersTests: XCTestCase {
 
-    var servers: Servers!
+    var servers: Listeners!
     var mBlackTrax: MockReceiveUDP!
     var mVezer: MDashOSCServer!
     var mControl: MDashOSCServer!
@@ -26,7 +26,7 @@ class ServersTests: XCTestCase {
     
     
     override func setUp() {
-        servers = Servers()
+        servers = Listeners()
         delegate = MServersProtocol()
         servers.delegate = delegate
     }
@@ -265,7 +265,7 @@ extension  ServersTests {
 
 // MARK: - Mocks
 
-class MServersProtocol: ServersProtocol {
+class MServersProtocol: ListenersProtocol {
     
     var invokedLiveBlackTrax = false
     var invokedLiveBlackTraxCount = 0

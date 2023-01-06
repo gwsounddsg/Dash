@@ -217,7 +217,7 @@ extension NetworkManagerTests {
 
 // swiftlint:disable weak_delegate
 
-class MockServers: Servers {
+class MockServers: Listeners {
     
     var invokedBlackTraxSetter = false
     var invokedBlackTraxSetterCount = 0
@@ -281,12 +281,12 @@ class MockServers: Servers {
     }
     var invokedDelegateSetter = false
     var invokedDelegateSetterCount = 0
-    var invokedDelegate: ServersProtocol?
-    var invokedDelegateList = [ServersProtocol?]()
+    var invokedDelegate: ListenersProtocol?
+    var invokedDelegateList = [ListenersProtocol?]()
     var invokedDelegateGetter = false
     var invokedDelegateGetterCount = 0
-    var stubbedDelegate: ServersProtocol!
-    override var delegate: ServersProtocol? {
+    var stubbedDelegate: ListenersProtocol!
+    override var delegate: ListenersProtocol? {
         set {
             invokedDelegateSetter = true
             invokedDelegateSetterCount += 1

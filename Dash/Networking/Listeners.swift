@@ -9,7 +9,7 @@ import Foundation
 import RTTrPSwift
 
 
-protocol ServersProtocol: AnyObject {
+protocol ListenersProtocol: AnyObject {
     func liveBlackTrax(_ data: RTTrP)
     func recordedVezer(_ data: Message)
     func command(control: ControlMessage, data: Any?)
@@ -19,13 +19,13 @@ protocol ServersProtocol: AnyObject {
 
 
 
-class Servers: ReceiveUDPDelegate, DashOSCServerDelegate {
+class Listeners: ReceiveUDPDelegate, DashOSCServerDelegate {
     
     // ivars
     var blackTrax = ReceiveUDP()
     var vezer: DashOSCServer?
     var control: DashOSCServer?
-    weak var delegate: ServersProtocol?
+    weak var delegate: ListenersProtocol?
     
     // states
     fileprivate (set) var isBlackTraxConnected: Bool = false
@@ -113,7 +113,7 @@ class Servers: ReceiveUDPDelegate, DashOSCServerDelegate {
 
 // MARK: - ReceiveUDPDelegate
 
-extension Servers {
+extension Listeners {
 
     func newPacket(_ data: RTTrP) {
         delegate?.liveBlackTrax(data)
@@ -126,7 +126,7 @@ extension Servers {
 
 // MARK: - DashOSCServerDelegate
 
-extension Servers {
+extension Listeners {
     
     func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Server) {
         switch from {
@@ -166,7 +166,7 @@ extension Servers {
 
 // MARK: - Notifications
 
-extension Servers {
+extension Listeners {
     
     @objc
     func preferenceChange(_ notif: Notification) {
@@ -236,7 +236,7 @@ extension Servers {
 
 // MARK: - Utility
 
-private extension Servers {
+private extension Listeners {
     
     func doConnectBlackTrax(_ defaults: UserDefaultsProtocol = UserDefaults.standard) throws {
         guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Server.blacktraxPort, from: defaults) else {

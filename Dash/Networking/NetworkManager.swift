@@ -14,7 +14,7 @@ import RTTrPSwift
 
 class NetworkManager {
     
-    let servers: Servers
+    let servers: Listeners
     let clients: Clients
     
     var ds100Mapping = "1"
@@ -23,7 +23,7 @@ class NetworkManager {
     var currentTrackables = [String: Int]()
     
     
-    init(_ setClient: Clients = Clients(), _ setServers: Servers = Servers()) {
+    init(_ setClient: Clients = Clients(), _ setServers: Listeners = Listeners()) {
         clients = setClient
         servers = setServers
         servers.delegate = self
@@ -85,7 +85,7 @@ extension NetworkManager {
 
 // MARK: - ServersProtocol
 
-extension NetworkManager: ServersProtocol {
+extension NetworkManager: ListenersProtocol {
     
     func liveBlackTrax(_ data: RTTrP) {
         // send to ds100?
