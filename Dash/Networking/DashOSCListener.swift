@@ -28,12 +28,11 @@ class DashOSCListener: DashListener {
                 return
             }
 
-            guard let newData = completeContent else {
-                print("Listener receive data nil")
+            if let newData = completeContent {
+                self.sendToDelegate(newData)
                 return
             }
 
-            self.sendToDelegate(newData)
             self.receive() // loop
         }
     }

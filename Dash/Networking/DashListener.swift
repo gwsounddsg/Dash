@@ -44,12 +44,10 @@ class DashListener {
                 return
             }
 
-            guard let newData = completeContent else {
-                print("Listener receive data nil")
-                return
+            if let newData = completeContent {
+                self.delegate?.listenerReceived(newData, self.type)
             }
 
-            self.delegate?.listenerReceived(newData, self.type)
             self.receive() // loop
         }
     }
