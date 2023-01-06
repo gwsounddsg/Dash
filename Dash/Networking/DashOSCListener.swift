@@ -16,7 +16,7 @@ protocol DashListenerDelegate: AnyObject {
 
 
 
-class DashListener {
+class DashOSCListener {
     let address: String
     let port: NWEndpoint.Port
     let queue: DispatchQueue
@@ -40,7 +40,7 @@ class DashListener {
 
 
 //MARK - Connection
-extension DashListener {
+extension DashOSCListener {
     func connect() {
         do {_listener = try NWListener(using: .udp, on: port)}
         catch {print("Couldn't connect listener with error: \(error)")}
@@ -101,7 +101,7 @@ extension DashListener {
 
 
 // MARK: Relaying
-fileprivate extension DashListener {
+fileprivate extension DashOSCListener {
     func receive() {
         _connection?.receiveMessage { completeContent, contentContext, isComplete, error in
             if self.delegate == nil {return}

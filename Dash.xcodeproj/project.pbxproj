@@ -37,6 +37,7 @@
 		CD1830A4B7EF563AECF83C21 /* OSCMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183E369A1F96D6F8107406 /* OSCMessage.swift */; };
 		CD183164178CAD090F837233 /* OSCBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1838444E70AF34023AFE72 /* OSCBundle.swift */; };
 		CD1831C51742946E0AF96E36 /* OSCElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183682FA59F4705BAEA0F9 /* OSCElement.swift */; };
+		CD183211AC22EFBBD12BF903 /* DashListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183744DF1F52D2703EB377 /* DashListener.swift */; };
 		CD1832D32812F04C4F8C43A0 /* Clients.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD18360097ABDE641A6C55C1 /* Clients.swift */; };
 		CD18341CAFC0B96913E017E7 /* ExtData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1831A08AC0CC9162B35921 /* ExtData.swift */; };
 		CD1835D13C327503C58995B6 /* OSCParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD183F486BD5FE45A48C04F7 /* OSCParsing.swift */; };
@@ -116,6 +117,7 @@
 		CD18363787CA0149E3090564 /* ExtUInt32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtUInt32.swift; sourceTree = "<group>"; };
 		CD183682FA59F4705BAEA0F9 /* OSCElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCElement.swift; sourceTree = "<group>"; };
 		CD1836A1ECE981A9EB7A44FA /* ExtDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtDate.swift; sourceTree = "<group>"; };
+		CD183744DF1F52D2703EB377 /* DashListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashListener.swift; sourceTree = "<group>"; };
 		CD18377D9F1EF74EC907B5D0 /* ExtInt32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtInt32.swift; sourceTree = "<group>"; };
 		CD1838444E70AF34023AFE72 /* OSCBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCBundle.swift; sourceTree = "<group>"; };
 		CD183B57968056E20DB6FA1F /* OSCErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSCErrors.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				9A534386295A019F0040EDCB /* DashOSCListener.swift */,
 				9AEA615623C50CBB00B27003 /* NetworkManager.swift */,
 				CD183FE03BD8D9093937E2B8 /* Listeners.swift */,
+				CD183744DF1F52D2703EB377 /* DashListener.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				9A534387295A019F0040EDCB /* DashOSCListener.swift in Sources */,
 				CD183E057607FF5F659734C6 /* ExtInt32.swift in Sources */,
 				CD1831C51742946E0AF96E36 /* OSCElement.swift in Sources */,
+				CD183211AC22EFBBD12BF903 /* DashListener.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
