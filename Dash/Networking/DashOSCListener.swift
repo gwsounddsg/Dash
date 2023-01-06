@@ -7,106 +7,24 @@ import Foundation
 import Network
 
 
-protocol DashListenerDelegate: AnyObject {
-    func oscMessageReceived(_ message: OSCMessage, _ from: DashNetworkType.Server)
-    func oscBundleReceived(_ bundle: OSCBundle, _ from: DashNetworkType.Server)
+protocol DashOSCListenerDelegate: AnyObject {
+    func oscMessageReceived(_ message: OSCMessage, _ from: DashNetworkType.Listener)
+    func oscBundleReceived(_ bundle: OSCBundle, _ from: DashNetworkType.Listener)
 }
 
 
 
 
 
-class DashOSCListener {
-    let address: String
-    let port: NWEndpoint.Port
-    let queue: DispatchQueue
-    let type: DashNetworkType.Server
-
-    weak var delegate: DashListenerDelegate?
-
-    private var _listener: NWListener?
-    private var _connection: NWConnection?
+class DashOSCListener: DashListener {
+    weak var oscDelegate: DashOSCListenerDelegate?
 
 
-    init(_ address: String, _ port: Int, _ type: DashNetworkType.Server) {
-        self.address = address
-        self.port = NWEndpoint.Port(rawValue: UInt16(port))!
-        self.type = type
-    }
-}
-
-
-
-
-
-//MARK - Connection
-extension DashOSCListener {
-    func connect() {
-        do {_listener = try NWListener(using: .udp, on: port)}
-        catch {print("Couldn't connect listener with error: \(error)")}
-
-        setupConnectionHandler()
-        setupConnectionHandler()
-
-        _listener!.start(queue: queue)
-        print("Started Listening")
-    }
-
-
-    private func setupStateHandler() {
-        if _listener == nil {return}
-        _listener!.stateUpdateHandler = { state in
-            switch state {
-            case .ready:
-                print("Listening on port \(String(describing: self._listener!.port))")
-            case .failed(let error):
-                print("Listener failed with error: \(error)")
-            default:
-                print("Unhandled state for listener")
-            }
-        }
-    }
-
-
-    private func setupConnectionHandler() {
-        if _listener == nil {return}
-        _listener!.newConnectionHandler = { [weak self] connection in
-            guard let strongSelf = self else {
-                print("Error: weak self")
-                return
-            }
-
-            connection.start(queue: strongSelf.queue)
-            strongSelf.createConnection(connection)
-        }
-    }
-
-
-    private func createConnection(_ connection: NWConnection)  {
-        _connection = connection
-        _connection?.stateUpdateHandler = { state in
-            switch state {
-            case .ready:
-                print("Listener ready to receive message: \(connection)")
-                self.receive()
-            default:
-                print("Create connection state: \(state)")
-            }
-        }
-    }
-}
-
-
-
-
-
-// MARK: Relaying
-fileprivate extension DashOSCListener {
-    func receive() {
+    override func receive() {
         _connection?.receiveMessage { completeContent, contentContext, isComplete, error in
-            if self.delegate == nil {return}
+            if self.oscDelegate == nil {return}
             if error != nil {
-                print("Listener receive error: \(error)")
+                print("Listener receive error: \(String(describing: error))")
                 return
             }
 
@@ -119,9 +37,15 @@ fileprivate extension DashOSCListener {
             self.receive() // loop
         }
     }
+}
 
 
-    private func sendToDelegate(_ data: Data) {
+
+
+
+// MARK: Relaying
+private extension DashOSCListener {
+    func sendToDelegate(_ data: Data) {
         let forwardSlash = 0x2f
 
         if data[0] == forwardSlash {
@@ -133,10 +57,10 @@ fileprivate extension DashOSCListener {
     }
 
 
-    private func sendMessageToDelegate(_ data: Data) {
+    func sendMessageToDelegate(_ data: Data) {
         do {
             let message = try OSCParseMessage(data)
-            delegate!.oscMessageReceived(message, type)
+            oscDelegate!.oscMessageReceived(message, type)
         }
         catch {
             print("Error parsing received osc packet: \(error)")
@@ -144,10 +68,10 @@ fileprivate extension DashOSCListener {
     }
 
 
-    private func sendBundleToDelegate(_ data: Data) {
+    func sendBundleToDelegate(_ data: Data) {
         do {
             let bundle = try OSCParseBundle(data)
-            delegate!.oscBundleReceived(bundle, type)
+            oscDelegate!.oscBundleReceived(bundle, type)
         }
         catch {
             print("Error parsing received osc bundle: \(error)")

@@ -327,9 +327,9 @@ class MockServers: Listeners {
     var invokedConnectAllCount = 0
     var invokedConnectAllParameters: (defaults: UserDefaultsProtocol, Void)?
     var invokedConnectAllParametersList = [(defaults: UserDefaultsProtocol, Void)]()
-    var stubbedConnectAllResult: [DashNetworkType.Server]! = []
+    var stubbedConnectAllResult: [DashNetworkType.Listener]! = []
     
-    override func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> [DashNetworkType.Server] {
+    override func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> [DashNetworkType.Listener] {
         invokedConnectAll = true
         invokedConnectAllCount += 1
         invokedConnectAllParameters = (defaults, ())

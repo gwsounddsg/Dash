@@ -46,12 +46,12 @@ class Listeners: ReceiveUDPDelegate, DashOSCServerDelegate {
     
     // MARK: - Connecting
     
-    func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> [DashNetworkType.Server] {
+    func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> [DashNetworkType.Listener] {
         connectBlackTrax(from: defaults)
         connectControl(from: defaults)
         connectVezer(from: defaults)
         
-        var badClients = [DashNetworkType.Server]()
+        var badClients = [DashNetworkType.Listener]()
         if !isBlackTraxConnected {badClients.append(.blackTrax)}
         if !isControlConnected {badClients.append(.control)}
         if !isVezerConnected {badClients.append(.vezer)}
@@ -128,7 +128,7 @@ extension Listeners {
 
 extension Listeners {
     
-    func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Server) {
+    func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Listener) {
         switch from {
         case .control:
             controlOSC(data: msg)

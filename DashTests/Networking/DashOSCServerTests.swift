@@ -120,10 +120,10 @@ class MockDashOSCServerDelegate: DashOSCServerDelegate {
 
     var invokedOscDataReceived = false
     var invokedOscDataReceivedCount = 0
-    var invokedOscDataReceivedParameters: (msg: Message, from: DashNetworkType.Server)?
-    var invokedOscDataReceivedParametersList = [(msg: Message, from: DashNetworkType.Server)]()
+    var invokedOscDataReceivedParameters: (msg: Message, from: DashNetworkType.Listener)?
+    var invokedOscDataReceivedParametersList = [(msg: Message, from: DashNetworkType.Listener)]()
 
-    func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Server) {
+    func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Listener) {
         invokedOscDataReceived = true
         invokedOscDataReceivedCount += 1
         invokedOscDataReceivedParameters = (msg, from)

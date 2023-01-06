@@ -68,14 +68,14 @@ enum DashNotifData {
 
 // MARK: - Types
 
-typealias ClientsServers = (clients: [DashNetworkType.Client], servers: [DashNetworkType.Server])
+typealias ClientsServers = (clients: [DashNetworkType.Client], servers: [DashNetworkType.Listener])
 
 enum DashNetworkType {
     enum Client {
         case vezer, ds100Main, ds100Backup
     }
     
-    enum Server {
+    enum Listener {
         case vezer, control, blackTrax
     }
 }
