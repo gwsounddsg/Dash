@@ -11,7 +11,7 @@ import RTTrPSwift
 
 protocol ListenersProtocol: AnyObject {
     func liveBlackTrax(_ data: RTTrP)
-    func recordedVezer(_ data: Message)
+    func recordedVezer(_ data: OSCMessage)
     func command(control: ControlMessage, data: Any?)
 }
 
@@ -106,10 +106,16 @@ class Listeners: DashListenerDelegate, DashOSCListenerDelegate {
 
 
 
-// MARK: - ReceiveUDPDelegate
+// MARK: - DashListenersDelegate
 extension Listeners {
-    func newPacket(_ data: RTTrP) {
-        delegate?.liveBlackTrax(data)
+    func listenerReceived(_ data: Data, _ from: DashNetworkType.Listener) {
+        do {
+            let rttrp = try RTTrP(data: data.bytes)
+            delegate?.liveBlackTrax(rttrp)
+        }
+        catch {
+            print("Failed to convert data to RTTrP with error: \(error)")
+        }
     }
 }
 
@@ -119,34 +125,46 @@ extension Listeners {
 
 // MARK: - DashOSCServerDelegate
 extension Listeners {
-    func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Listener) {
+    func oscMessageReceived(_ message: OSCMessage, _ from: DashNetworkType.Listener) {
         switch from {
         case .control:
-            controlOSC(data: msg)
+            controlOSC(data: message)
         case .vezer:
-            vezerOSC(data: msg)
+            vezerOSC(data: message)
         case .blackTrax:
             break
         }
     }
-    
-    
-    private func controlOSC(data: Message) {
-        switch data.address {
-        case ControlOSC.switchTo:
-            if data.values.isEmpty {
-                print(data.address + " message is empty")
-                return
-            }
-            delegate?.command(control: .switchActive, data: data.values[0])
-    
-        default:
-            print("Invalid control message: \(data.address)")
-        }
+
+    func oscBundleReceived(_ bundle: OSCBundle, _ from: DashNetworkType.Listener) {
+//        switch from {
+//        case .control:
+//            controlOSC(data: bundle)
+//        case .vezer:
+//            vezerOSC(data: bundle)
+//        case .blackTrax:
+//            break
+//        }
+        print("Bundles not handled yet!!!!!")
     }
-    
-    
-    private func vezerOSC(data: Message) {
+
+
+    private func controlOSC(data: OSCMessage) {
+//        switch data.address {
+//        case ControlOSC.switchTo:
+//            if data.values.isEmpty {
+//                print(data.address + " message is empty")
+//                return
+//            }
+//            delegate?.command(control: .switchActive, data: data.values[0])
+//
+//        default:
+//            print("Invalid control message: \(data.address)")
+//        }
+    }
+
+
+    private func vezerOSC(data: OSCMessage) {
         delegate?.recordedVezer(data)
     }
 }
