@@ -238,6 +238,7 @@ private extension Listeners {
     
     func doConnectBlackTrax(_ defaults: UserDefaultsProtocol = UserDefaults.standard) throws {
         guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Server.blacktraxPort, from: defaults) else {
+            blackTrax = nil
             throw DashError.CantGetDefaultValueFor(DashDefaultIDs.Network.Server.blacktraxPort)
         }
 
