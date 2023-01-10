@@ -88,7 +88,6 @@ class Listeners: DashListenerDelegate, DashOSCListenerDelegate {
         
         do {
             try doConnectControl(defaults)
-            control!.start()
             isControlConnected = true
         }
         catch {
@@ -207,8 +206,8 @@ extension Listeners {
                 print("Bad Control port number for string: \(data)")
                 return
             }
-            control?.port = val!
             updateDefault(val!, DashDefaultIDs.Network.Server.controlPort, defaults)
+            connectControl(from: defaults)
             control?.printNetwork()
     
         default:
@@ -272,13 +271,11 @@ private extension Listeners {
             control = nil
             throw DashError.CantGetDefaultValueFor(keys.controlPort)
         }
-        
-        if control == nil {
-            control = DashOSCServer(.control, "", port)
-            control!.delegate = self
-        }
-        else {
-            control!.port = port
-        }
+
+        if control != nil && control!.port.rawValue == port {return}
+
+        control = DashOSCListener("127.0.0.1", port, "Control udp listener", .control)
+        control!.delegate = self
+        control!.connect()
     }
 }
