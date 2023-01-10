@@ -20,7 +20,6 @@ protocol ListenersProtocol: AnyObject {
 
 
 class Listeners: DashListenerDelegate, DashOSCListenerDelegate {
-    
     // ivars
     var blackTrax: DashListener?
     var vezer: DashOSCListener?
@@ -108,9 +107,7 @@ class Listeners: DashListenerDelegate, DashOSCListenerDelegate {
 
 
 // MARK: - ReceiveUDPDelegate
-
 extension Listeners {
-
     func newPacket(_ data: RTTrP) {
         delegate?.liveBlackTrax(data)
     }
@@ -121,9 +118,7 @@ extension Listeners {
 
 
 // MARK: - DashOSCServerDelegate
-
 extension Listeners {
-
     func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Listener) {
         switch from {
         case .control:
@@ -161,9 +156,7 @@ extension Listeners {
 
 
 // MARK: - Notifications
-
 extension Listeners {
-    
     @objc
     func preferenceChange(_ notif: Notification) {
         updateDefaults(notif)
@@ -231,9 +224,7 @@ extension Listeners {
 
 
 // MARK: - Utility
-
 private extension Listeners {
-    
     func doConnectBlackTrax(_ defaults: UserDefaultsProtocol = UserDefaults.standard) throws {
         guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Server.blacktraxPort, from: defaults) else {
             blackTrax = nil
