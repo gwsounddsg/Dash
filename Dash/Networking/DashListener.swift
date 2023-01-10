@@ -35,6 +35,11 @@ class DashListener {
     }
 
 
+    deinit {
+        _listener?.cancel()
+    }
+
+
     func receive() {
         _connection?.receiveMessage { completeContent, contentContext, isComplete, error in
             if self.delegate == nil {return}
@@ -50,6 +55,15 @@ class DashListener {
 
             self.receive() // loop
         }
+    }
+
+
+    func printNetwork() {
+        print("DashListener:")
+        print("|\ttype: \(type)")
+        print("|\taddress: \(address)")
+        print("|\tport: \(port)")
+        print("|\tqueue: \(queue.label)")
     }
 }
 

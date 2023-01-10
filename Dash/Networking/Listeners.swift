@@ -19,12 +19,12 @@ protocol ListenersProtocol: AnyObject {
 
 
 
-class Listeners: ReceiveUDPDelegate, DashOSCServerDelegate {
+class Listeners: DashListenerDelegate, DashOSCListenerDelegate {
     
     // ivars
-    var blackTrax = ReceiveUDP()
-    var vezer: DashOSCServer?
-    var control: DashOSCServer?
+    var blackTrax: DashListener?
+    var vezer: DashOSCListener?
+    var control: DashOSCListener?
     weak var delegate: ListenersProtocol?
     
     // states
@@ -34,7 +34,8 @@ class Listeners: ReceiveUDPDelegate, DashOSCServerDelegate {
     
     
     init(withObservers: Bool = true) {
-        blackTrax.delegate = self
+//        blackTrax = DashListener("127.0.0.1", 4202, "Dash BlackTrax Listening", .blackTrax)
+//        blackTrax.delegate = self
         
         if withObservers {
             addObserver(#selector(preferenceChange), DashNotif.userPrefServerBlackTraxPort)
@@ -101,7 +102,7 @@ class Listeners: ReceiveUDPDelegate, DashOSCServerDelegate {
     
     
     func printNetworks() {
-        blackTrax.printNetwork()
+        blackTrax?.printNetwork()
         vezer?.printNetwork()
         control?.printNetwork()
     }
@@ -127,7 +128,7 @@ extension Listeners {
 // MARK: - DashOSCServerDelegate
 
 extension Listeners {
-    
+
     func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Listener) {
         switch from {
         case .control:
@@ -192,8 +193,8 @@ extension Listeners {
             }
             updateDefault(val!, DashDefaultIDs.Network.Server.blacktraxPort, defaults)
             connectBlackTrax(from: defaults)
-            blackTrax.printNetwork()
-    
+            blackTrax?.printNetwork()
+
         case DashNotif.userPrefServerVezerPort:
             let val = Int(data)
             if val == nil {
@@ -242,11 +243,11 @@ private extension Listeners {
         guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Server.blacktraxPort, from: defaults) else {
             throw DashError.CantGetDefaultValueFor(DashDefaultIDs.Network.Server.blacktraxPort)
         }
-        
-        if blackTrax.localPort() == port {return} // already connected
-        
-        do {try blackTrax.connect(port: port)}
-        catch {throw error}
+
+        if blackTrax != nil && blackTrax!.port.rawValue == port {return}
+
+        blackTrax = DashListener("127.0.0.1", port, "BlackTrax udp listener", .blackTrax)
+        blackTrax!.connect()
     }
     
     
