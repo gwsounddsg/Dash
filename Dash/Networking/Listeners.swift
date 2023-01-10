@@ -75,7 +75,6 @@ class Listeners: DashListenerDelegate, DashOSCListenerDelegate {
         
         do {
             try doConnectVezer(defaults)
-            vezer!.start()
             isVezerConnected = true
         }
         catch {
@@ -198,8 +197,8 @@ extension Listeners {
                 print("Bad Vezer port number for string: \(data)")
                 return
             }
-            vezer?.port = val!
             updateDefault(val!, DashDefaultIDs.Network.Server.vezerPort, defaults)
+            connectVezer(from: defaults)
             vezer?.printNetwork()
     
         case DashNotif.userPrefServerControlPort:
@@ -257,14 +256,12 @@ private extension Listeners {
             vezer = nil
             throw DashError.CantGetDefaultValueFor(keys.vezerPort)
         }
-        
-        if vezer == nil {
-            vezer = DashOSCServer(.vezer, "", port)
-            vezer!.delegate = self
-        }
-        else {
-            vezer!.port = port
-        }
+
+        if vezer != nil && vezer!.port.rawValue == port {return}
+
+        vezer = DashOSCListener("127.0.0.1", port, "Vezer udp listener", .vezer)
+        vezer!.delegate = self
+        vezer!.connect()
     }
     
     
