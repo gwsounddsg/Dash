@@ -34,9 +34,6 @@ class Listeners: DashListenerDelegate, DashOSCListenerDelegate {
     
     
     init(withObservers: Bool = true) {
-//        blackTrax = DashListener("127.0.0.1", 4202, "Dash BlackTrax Listening", .blackTrax)
-//        blackTrax.delegate = self
-        
         if withObservers {
             addObserver(#selector(preferenceChange), DashNotif.userPrefServerBlackTraxPort)
             addObserver(#selector(preferenceChange), DashNotif.userPrefServerVezerPort)
@@ -247,6 +244,7 @@ private extension Listeners {
         if blackTrax != nil && blackTrax!.port.rawValue == port {return}
 
         blackTrax = DashListener("127.0.0.1", port, "BlackTrax udp listener", .blackTrax)
+        blackTrax!.delegate = self
         blackTrax!.connect()
     }
     
