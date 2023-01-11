@@ -27,7 +27,7 @@ public struct OSCBundle: OSCElement {
     }
 
 
-    public init(_ elements: [OSCElement], timeTag: Timetag = 1) {
+    public init(_ elements: [OSCElement] = [], timeTag: Timetag = 1) {
         self.timeTag = timeTag
         self.elements = elements
     }
