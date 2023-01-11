@@ -6,7 +6,6 @@
 // ==================================================================
 
 import XCTest
-import SwiftOSC
 @testable import Dash
 
 

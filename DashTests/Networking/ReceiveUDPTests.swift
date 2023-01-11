@@ -6,7 +6,6 @@
 // ==================================================================
 
 import XCTest
-import CocoaAsyncSocket
 import RTTrPSwift
 @testable import Dash
 
