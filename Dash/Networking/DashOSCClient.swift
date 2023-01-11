@@ -11,8 +11,8 @@ import Network
 
 
 
+
 class DashOSCClient {
-    
     let type: DashNetworkType.Client
     let _client: OSCClient
 
@@ -33,9 +33,8 @@ class DashOSCClient {
 
 
     /// Regular OSC message
-    func send(message: Message) {
-        let msg = OSCMessage(message.address, message.values)
-        clientSend(msg)
+    func send(message: OSCMessage) {
+        clientSend(message)
     }
 
     
@@ -86,14 +85,9 @@ class DashOSCClient {
         print("|\tAddress: \(address)")
         print("|\tPort: \(port)")
     }
- }
 
 
-
-
-
-fileprivate extension DashOSCClient {
-    func clientSend(_ element: OSCElement) {
+    private func clientSend(_ element: OSCElement) {
         _client.send(element)
     }
-}
+ }
