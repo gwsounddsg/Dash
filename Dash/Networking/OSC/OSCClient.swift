@@ -24,6 +24,11 @@ class OSCClient {
         connect(to: withAddress, with: port)
         if _client == nil {return nil}
     }
+
+
+    deinit {
+        _client?.cancel()
+    }
 }
 
 
