@@ -33,8 +33,13 @@ class DashOSCClient {
         client.setEndpoints(address: address, port: port)
         client.connect()
     }
+    
 
+    internal func clientSend(_ element: OSCElement) {
+        _client.send(element)
+    }
 
+    
     func printNetwork() {
         print("Client")
         print("|\tType: \(type)")
@@ -93,10 +98,5 @@ extension DashOSCClient {
         }
         
         clientSend(bundle)
-    }
-
-
-    private func clientSend(_ element: OSCElement) {
-        _client.send(element)
     }
  }

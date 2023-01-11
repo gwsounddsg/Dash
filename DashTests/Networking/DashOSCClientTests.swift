@@ -68,7 +68,7 @@ extension DashOSCClientTests {
     func testDashOSCClient_sendMessage() {
         let addy = "/send/message/"
         let vals: [Float] = [1.0, 2.0]
-        let msg = Message(addy, vals)
+        let msg = OSCMessage(addy, vals)
 
         _client.send(message: msg)
 
@@ -79,7 +79,7 @@ extension DashOSCClientTests {
 
         let oscMsg = _client.invokedClientSendParameter as! OSCMessage
 
-        XCTAssertEqual(oscMsg.address.string, addy)
+        XCTAssertEqual(oscMsg.address, addy)
         XCTAssertEqual(oscMsg.arguments.count, vals.count)
         XCTAssertEqual(oscMsg.arguments[0]?.data, vals[0].data)
         XCTAssertEqual(oscMsg.arguments[1]?.data, vals[1].data)
@@ -108,7 +108,7 @@ extension DashOSCClientTests {
             return
         }
 
-        XCTAssertEqual(oscMsg.address.string, data.coordinate())
+        XCTAssertEqual(oscMsg.address, data.coordinate())
         XCTAssertEqual(oscMsg.arguments.count, 2)
         XCTAssertEqual(oscMsg.arguments[0]?.data, x.data)
         XCTAssertEqual(oscMsg.arguments[1]?.data, y.data)
@@ -137,7 +137,7 @@ extension DashOSCClientTests {
             return
         }
         
-        XCTAssertEqual(oscMsg.address.string, data.coordinateX())
+        XCTAssertEqual(oscMsg.address, data.coordinateX())
         XCTAssertEqual(oscMsg.arguments.count, 1)
         XCTAssertEqual(oscMsg.arguments[0]?.data, x.data)
     }
@@ -165,7 +165,7 @@ extension DashOSCClientTests {
             return
         }
         
-        XCTAssertEqual(oscMsg.address.string, data.coordinateY())
+        XCTAssertEqual(oscMsg.address, data.coordinateY())
         XCTAssertEqual(oscMsg.arguments.count, 1)
         XCTAssertEqual(oscMsg.arguments[0]?.data, y.data)
     }
@@ -198,15 +198,15 @@ private class MockDashOSCClient: DashOSCClient {
         invokedClientSendList.append(message)
     }
 
-    override func clientAddress(_ newAddress: String) {
-        invokedClientAddress = true
-        invokedClientAddressParameter = newAddress
-        invokedClientAddressList.append(newAddress)
-    }
-
-    override func clientPort(_ newPort: Int) {
-        invokedClientPort = true
-        invokedClientPortParameter = newPort
-        invokedClientPortList.append(newPort)
-    }
+//    override func clientAddress(_ newAddress: String) {
+//        invokedClientAddress = true
+//        invokedClientAddressParameter = newAddress
+//        invokedClientAddressList.append(newAddress)
+//    }
+//
+//    override func clientPort(_ newPort: Int) {
+//        invokedClientPort = true
+//        invokedClientPortParameter = newPort
+//        invokedClientPortList.append(newPort)
+//    }
 }
