@@ -18,7 +18,7 @@
 		9A2E843923D8930600843EA9 /* ServersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2E843823D8930600843EA9 /* ServersTests.swift */; };
 		9A534387295A019F0040EDCB /* DashOSCListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A534386295A019F0040EDCB /* DashOSCListener.swift */; };
 		9A66296423CF4EE50025125D /* DashOSCClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296323CF4EE50025125D /* DashOSCClientTests.swift */; };
-		9A66296623CF4EF10025125D /* DashOSCServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296523CF4EF10025125D /* DashOSCServerTests.swift */; };
+		9A66296623CF4EF10025125D /* DashOSCListenerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296523CF4EF10025125D /* DashOSCListenerTests.swift */; };
 		9A66296823CF4EFC0025125D /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */; };
 		9ABDE08B23CE2621004189B3 /* TestingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABDE08A23CE2621004189B3 /* TestingConstants.swift */; };
 		9AC1E5A523CE50EA00757262 /* TestingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC1E5A423CE50EA00757262 /* TestingExtensions.swift */; };
@@ -86,7 +86,7 @@
 		9A2E843823D8930600843EA9 /* ServersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServersTests.swift; sourceTree = "<group>"; };
 		9A534386295A019F0040EDCB /* DashOSCListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashOSCListener.swift; sourceTree = "<group>"; };
 		9A66296323CF4EE50025125D /* DashOSCClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCClientTests.swift; sourceTree = "<group>"; };
-		9A66296523CF4EF10025125D /* DashOSCServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCServerTests.swift; sourceTree = "<group>"; };
+		9A66296523CF4EF10025125D /* DashOSCListenerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashOSCListenerTests.swift; sourceTree = "<group>"; };
 		9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		9ABDE08A23CE2621004189B3 /* TestingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingConstants.swift; sourceTree = "<group>"; };
 		9AC1E5A423CE50EA00757262 /* TestingExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingExtensions.swift; sourceTree = "<group>"; };
@@ -252,7 +252,7 @@
 			children = (
 				9A2E843623D892FC00843EA9 /* ClientsTests.swift */,
 				9A66296323CF4EE50025125D /* DashOSCClientTests.swift */,
-				9A66296523CF4EF10025125D /* DashOSCServerTests.swift */,
+				9A66296523CF4EF10025125D /* DashOSCListenerTests.swift */,
 				9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */,
 				9AD1100A23CE093200BBFE73 /* ReceiveUDPTests.swift */,
 				9A2E843823D8930600843EA9 /* ServersTests.swift */,
@@ -554,7 +554,7 @@
 				9A66296823CF4EFC0025125D /* NetworkManagerTests.swift in Sources */,
 				9A2E843723D892FC00843EA9 /* ClientsTests.swift in Sources */,
 				9A2E843923D8930600843EA9 /* ServersTests.swift in Sources */,
-				9A66296623CF4EF10025125D /* DashOSCServerTests.swift in Sources */,
+				9A66296623CF4EF10025125D /* DashOSCListenerTests.swift in Sources */,
 				9AC1E5A523CE50EA00757262 /* TestingExtensions.swift in Sources */,
 				9ABDE08B23CE2621004189B3 /* TestingConstants.swift in Sources */,
 				9A66296423CF4EE50025125D /* DashOSCClientTests.swift in Sources */,
