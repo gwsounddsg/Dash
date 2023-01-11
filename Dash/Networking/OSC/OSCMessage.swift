@@ -45,4 +45,10 @@ public struct OSCMessage: OSCElement {
         self.address = address
         self.arguments = arguments
     }
+
+
+    func addressPart(_ index: Int) -> String {
+        let elements = address.split(separator: "/")
+        return String(elements[index])
+    }
 }

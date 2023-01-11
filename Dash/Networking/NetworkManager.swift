@@ -42,7 +42,7 @@ extension NetworkManager {
     }
     
     
-    func sendOSC(message: Message, to client: DashNetworkType.Client) -> Bool {
+    func sendOSC(message: OSCMessage, to client: DashNetworkType.Client) -> Bool {
         return clients.sendOSC(message: message, to: client)
     }
     
@@ -63,12 +63,11 @@ extension NetworkManager {
     }
     
     
-    func redirectFromVezer(data: Message) {
-        guard let name = data.addressPart(1) else {return}
-        let coord: Coordinate = data.addressPart(2) == "x" ? .x : .y
-        let val = data.values[0] as? Float ?? 0.0
+    func redirectFromVezer(message: OSCMessage) {
+        let coord: Coordinate = message.addressPart(2) == "x" ? .x : .y
+        let val = message.arguments[0] as? Float ?? 0.0
         
-        let ds100Data = DS100(ds100Mapping, input: name, x: val, y: val, spread: 0.5)
+        let ds100Data = DS100(ds100Mapping, input: message.address, x: val, y: val, spread: 0.5)
         _ = send(ds100: [ds100Data], coordinates: coord)
     }
     
@@ -84,9 +83,7 @@ extension NetworkManager {
 
 
 // MARK: - ServersProtocol
-
 extension NetworkManager: ListenersProtocol {
-    
     func liveBlackTrax(_ data: RTTrP) {
         // send to ds100?
         if output == .blacktrax {
@@ -100,16 +97,18 @@ extension NetworkManager: ListenersProtocol {
         let dictInfo: [String: RTTrP] = [DashNotifData.rttrp: data]
         post(DashNotif.blacktrax, dictInfo)
     }
-    
-    func recordedVezer(_ data: Message) {
+
+
+    func recordedVezer(_ data: OSCMessage) {
         if output == .vezer {
-            redirectFromVezer(data: data)
+            redirectFromVezer(message: data)
         }
         
         let info = [DashNotifData.message: data]
         NotificationCenter.default.post(name: DashNotif.recordedVezerIn, object: nil, userInfo: info)
     }
-    
+
+
     func command(control: ControlMessage, data: Any?) {
         switch control {
         case .switchActive:

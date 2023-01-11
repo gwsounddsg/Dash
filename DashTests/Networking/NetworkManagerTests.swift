@@ -96,7 +96,7 @@ extension NetworkManagerTests {
         let val: Float = 3.2
         let msg = Message("/trackable/name/coord", [val])
         
-        manager.redirectFromVezer(data: msg)
+        manager.redirectFromVezer(message: msg)
         
         if !mClients.invokedSendDs100 {
             XCTAssertTrue(false, "send ds100 not called")
