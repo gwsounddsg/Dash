@@ -7,6 +7,9 @@ import Foundation
 import Network
 
 
+
+
+
 class OSCClient {
     private var _client: NWConnection?
     private var _address: NWEndpoint.Host = "127.0.0.1"
@@ -22,6 +25,7 @@ class OSCClient {
         if _client == nil {return nil}
     }
 }
+
 
 
 
@@ -114,7 +118,7 @@ extension OSCClient {
     func send(_ element: OSCElement) {
         _client?.send(content: element.data, completion: .contentProcessed { error in
             if error != nil {
-                print("OSCClient.send() error: \(error)")
+                print("OSCClient.send() error: \(String(describing: error))")
             }
             else {
                 print("Message sent")
