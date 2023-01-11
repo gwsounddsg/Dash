@@ -27,7 +27,7 @@ class OSCClient {
 
 
     deinit {
-        _client?.cancel()
+        disconnect()
     }
 }
 
@@ -48,9 +48,6 @@ extension OSCClient {
 
         disconnect()
         _client = NWConnection(to: .hostPort(host: _address, port: _port), using: .udp)
-        if _client == nil {
-            return
-        }
 
         _client!.stateUpdateHandler = { (newState) in
             switch newState {
@@ -77,6 +74,7 @@ extension OSCClient {
 
     func disconnect() {
         _client?.cancel()
+        _client = nil
     }
 }
 
