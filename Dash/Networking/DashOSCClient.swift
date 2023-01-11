@@ -18,12 +18,15 @@ class DashOSCClient {
 
     var address: String {
         get { _client.address() }
-    }
-    var port: Int {
-        get { _client.port() }
+        set { _client.connect(to: NWEndpoint.Host(newValue), with: NWEndpoint.Port(String(port))!)}
     }
 
-    
+    var port: Int {
+        get { _client.port() }
+        set { _client.connect(to: NWEndpoint.Host(address), with: NWEndpoint.Port(String(newValue))!)}
+    }
+
+
     init(_ type: DashNetworkType.Client, _ address: String, _ port: Int, _ client: OSCClient = OSCClient()) {
         self.type = type
         _client = client
@@ -32,6 +35,20 @@ class DashOSCClient {
     }
 
 
+    func printNetwork() {
+        print("Client")
+        print("|\tType: \(type)")
+        print("|\tAddress: \(address)")
+        print("|\tPort: \(port)")
+    }
+}
+
+
+
+
+
+//MARK: - Sending
+extension DashOSCClient {
     /// Regular OSC message
     func send(message: OSCMessage) {
         clientSend(message)
@@ -76,14 +93,6 @@ class DashOSCClient {
         }
         
         clientSend(bundle)
-    }
-    
-    
-    func printNetwork() {
-        print("Client")
-        print("|\tType: \(type)")
-        print("|\tAddress: \(address)")
-        print("|\tPort: \(port)")
     }
 
 
