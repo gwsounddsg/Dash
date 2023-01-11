@@ -24,7 +24,7 @@ class DashListener {
     var delegate: DashListenerDelegate?
 
     internal var _listener: NWListener?
-    internal var _connection: NWConnection?
+    internal var _connection: NWConnectionProtocol?
 
 
     init(_ address: String, _ port: Int, _ queueName: String, _ type: DashNetworkType.Listener) {
