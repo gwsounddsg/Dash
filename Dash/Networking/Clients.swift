@@ -12,7 +12,6 @@ import Foundation
 
 
 class Clients {
-
     var vezer: DashOSCClient?
     var ds100Main: DashOSCClient?
     
@@ -72,7 +71,7 @@ class Clients {
     
     // MARK: - Sending Messages
     
-    func sendOSC(message: Message, to client: DashNetworkType.Client) -> Bool {
+    func sendOSC(message: OSCMessage, to client: DashNetworkType.Client) -> Bool {
         switch client {
         case .vezer:
             if !isVezerConnected {return false}
@@ -120,13 +119,13 @@ class Clients {
 extension Clients {
     
     @objc
-    func preferenceChange(_ notif: Notification) {
-        updateDefaults(notif)
+    func preferenceChange(_ notification: Notification) {
+        updateDefaults(notification)
     }
     
     
-    func updateDefaults(_ notif: Notification, _ defaults: UserDefaultsProtocol = UserDefaults.standard) {
-        guard let userInfo = notif.userInfo as? [String: String] else {
+    func updateDefaults(_ notification: Notification, _ defaults: UserDefaultsProtocol = UserDefaults.standard) {
+        guard let userInfo = notification.userInfo as? [String: String] else {
             return
         }
         
@@ -134,7 +133,7 @@ extension Clients {
             return
         }
         
-        switch notif.name {
+        switch notification.name {
         case DashNotif.userPrefClientDS100MainIP:
             ds100Main?.address = data
             updateDefault(data, DashDefaultIDs.Network.Client.ds100MainIP, defaults)
