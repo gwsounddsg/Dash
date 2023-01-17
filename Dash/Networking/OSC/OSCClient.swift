@@ -29,14 +29,9 @@ class OSCClient {
     deinit {
         disconnect()
     }
-}
 
 
-
-
-
-//MARK: - Connections
-extension OSCClient {
+    //MARK: - Connections
     func connect() {
         connect(to: _address, with: _port)
     }
@@ -76,14 +71,9 @@ extension OSCClient {
         _client?.cancel()
         _client = nil
     }
-}
 
 
-
-
-
-// MARK: - Endpoints
-extension OSCClient {
+    // MARK: - Endpoints
     func address() -> String {
         return _address.debugDescription
     }
@@ -110,14 +100,9 @@ extension OSCClient {
         _port = newPort
         connect()
     }
-}
 
 
-
-
-
-// MARK: - Sending
-extension OSCClient {
+    // MARK: - Sending
     func send(_ element: OSCElement) {
         _client?.send(content: element.data, completion: .contentProcessed { error in
             if error != nil {
@@ -128,13 +113,9 @@ extension OSCClient {
             }
         })
     }
-}
 
 
-
-
-// MARK: - Query
-extension OSCClient {
+    // MARK: - Query
     func isConnected() -> Bool {
         return _client != nil
     }
