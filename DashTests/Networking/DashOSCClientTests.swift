@@ -179,34 +179,91 @@ extension DashOSCClientTests {
 
 private class MockDashOSCClient: DashOSCClient {
 
-    var invokedClientSend = false
-    var invokedClientSendParameter: OSCElement?
-    var invokedClientSendList = [OSCElement]()
-
-    var invokedClientAddress = false
-    var invokedClientAddressParameter: String?
-    var invokedClientAddressList = [String]()
-
-    var invokedClientPort = false
-    var invokedClientPortParameter: Int?
-    var invokedClientPortList = [Int]()
-
-
-    override func clientSend(_ message: OSCElement) {
-        invokedClientSend = true
-        invokedClientSendParameter = message
-        invokedClientSendList.append(message)
+    convenience init() {
+        self.init(<#_#>, "", 0, <#_#>)
     }
 
-//    override func clientAddress(_ newAddress: String) {
-//        invokedClientAddress = true
-//        invokedClientAddressParameter = newAddress
-//        invokedClientAddressList.append(newAddress)
-//    }
-//
-//    override func clientPort(_ newPort: Int) {
-//        invokedClientPort = true
-//        invokedClientPortParameter = newPort
-//        invokedClientPortList.append(newPort)
-//    }
+    var invokedClientSend = false
+    var invokedClientSendCount = 0
+    var invokedClientSendParameters: (element: OSCElement, Void)?
+    var invokedClientSendParametersList = [(element: OSCElement, Void)]()
+
+    override func clientSend(_ element: OSCElement) {
+        invokedClientSend = true
+        invokedClientSendCount += 1
+        invokedClientSendParameters = (element, ())
+        invokedClientSendParametersList.append((element, ()))
+    }
+
+    var invokedConnect = false
+    var invokedConnectCount = 0
+
+    override func connect() {
+        invokedConnect = true
+        invokedConnectCount += 1
+    }
+
+    var invokedPrintNetwork = false
+    var invokedPrintNetworkCount = 0
+
+    override func printNetwork() {
+        invokedPrintNetwork = true
+        invokedPrintNetworkCount += 1
+    }
+
+    var invokedPort = false
+    var invokedPortCount = 0
+    var stubbedPortResult: Int! = 0
+
+    override func port() -> Int {
+        invokedPort = true
+        invokedPortCount += 1
+        return stubbedPortResult
+    }
+
+    var invokedSetPort = false
+    var invokedSetPortCount = 0
+    var invokedSetPortParameters: (newPort: Int, Void)?
+    var invokedSetPortParametersList = [(newPort: Int, Void)]()
+
+    override func setPort(_ newPort: Int) {
+        invokedSetPort = true
+        invokedSetPortCount += 1
+        invokedSetPortParameters = (newPort, ())
+        invokedSetPortParametersList.append((newPort, ()))
+    }
+
+    var invokedAddress = false
+    var invokedAddressCount = 0
+    var stubbedAddressResult: String! = ""
+
+    override func address() -> String {
+        invokedAddress = true
+        invokedAddressCount += 1
+        return stubbedAddressResult
+    }
+
+    var invokedSetAddress = false
+    var invokedSetAddressCount = 0
+    var invokedSetAddressParameters: (newAddress: String, Void)?
+    var invokedSetAddressParametersList = [(newAddress: String, Void)]()
+
+    override func setAddress(_ newAddress: String) {
+        invokedSetAddress = true
+        invokedSetAddressCount += 1
+        invokedSetAddressParameters = (newAddress, ())
+        invokedSetAddressParametersList.append((newAddress, ()))
+    }
+
+    var invokedChangeEndpoints = false
+    var invokedChangeEndpointsCount = 0
+    var invokedChangeEndpointsParameters: (address: String, port: Int)?
+    var invokedChangeEndpointsParametersList = [(address: String, port: Int)]()
+
+    override func changeEndpoints(address: String, port: Int) {
+        invokedChangeEndpoints = true
+        invokedChangeEndpointsCount += 1
+        invokedChangeEndpointsParameters = (address, port)
+        invokedChangeEndpointsParametersList.append((address, port))
+    }
 }

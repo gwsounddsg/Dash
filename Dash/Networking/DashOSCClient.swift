@@ -16,22 +16,17 @@ class DashOSCClient {
     let type: DashNetworkType.Client
     let _client: OSCClient
 
-    var address: String {
-        get { _client.address() }
-        set { _client.connect(to: NWEndpoint.Host(newValue), with: NWEndpoint.Port(String(port))!)}
-    }
-
-    var port: Int {
-        get { _client.port() }
-        set { _client.connect(to: NWEndpoint.Host(address), with: NWEndpoint.Port(String(newValue))!)}
-    }
+    private var _port: Int
+    private var _address: String
 
 
     init(_ type: DashNetworkType.Client, _ address: String, _ port: Int, _ client: OSCClient = OSCClient()) {
+        _port = port
+        _address = address
         self.type = type
         _client = client
-        client.setEndpoints(address: address, port: port)
-        client.connect()
+
+        connect()
     }
     
 
@@ -39,12 +34,48 @@ class DashOSCClient {
         _client.send(element)
     }
 
+
+    internal func connect() {
+        if _client.isConnected() {_client.disconnect()}
+        _client.connect(to: NWEndpoint.Host(_address), with: NWEndpoint.Port(String(_port))!)
+    }
+
     
     func printNetwork() {
         print("Client")
         print("|\tType: \(type)")
-        print("|\tAddress: \(address)")
-        print("|\tPort: \(port)")
+        print("|\tAddress: \(_address)")
+        print("|\tPort: \(_port)")
+    }
+
+
+    //MARK: - Getters / Setters
+    func port() -> Int {
+        return _port
+    }
+
+
+    func setPort(_ newPort: Int) {
+        _port = newPort
+        connect()
+    }
+
+
+    func address() -> String {
+        return _address
+    }
+
+
+    func setAddress(_ newAddress: String) {
+        _address = newAddress
+        connect()
+    }
+
+
+    func changeEndpoints(_ address: String, _ port: Int) {
+        _address = address
+        _port = port
+        connect()
     }
 }
 

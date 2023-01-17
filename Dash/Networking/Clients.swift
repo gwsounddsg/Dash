@@ -132,7 +132,7 @@ extension Clients {
         
         switch notification.name {
         case DashNotif.userPrefClientDS100MainIP:
-            ds100Main?.address = data
+            ds100Main?.setAddress(data)
             updateDefault(data, DashDefaultIDs.Network.Client.ds100MainIP, defaults)
             
         case DashNotif.userPrefClientDS100MainPort:
@@ -140,11 +140,11 @@ extension Clients {
                 print("Bad DS100 Main port number for string: \(data)")
                 return
             }
-            ds100Main?.port = val
+            ds100Main?.setPort(val)
             updateDefault(val, DashDefaultIDs.Network.Client.ds100MainPort, defaults)
             
         case DashNotif.userPrefClientVezerIP:
-            vezer?.address = data
+            vezer?.setAddress(data)
             updateDefault(data, DashDefaultIDs.Network.Client.vezerIP, defaults)
             
         case DashNotif.userPrefClientVezerPort:
@@ -152,7 +152,7 @@ extension Clients {
                 print("Bad Vezer port number for string: \(data)")
                 return
             }
-            vezer?.port = val
+            vezer?.setPort(val)
             updateDefault(val, DashDefaultIDs.Network.Client.vezerPort, defaults)
             
         default:
@@ -189,8 +189,7 @@ private extension Clients {
             vezer = DashOSCClient(.vezer, addy, port)
         }
         else {
-            vezer!.address = addy
-            vezer!.port = port
+            vezer!.changeEndpoints(addy, port)
         }
     }
 
@@ -212,8 +211,7 @@ private extension Clients {
             ds100Main = DashOSCClient(.ds100Main, addy, port)
         }
         else {
-            ds100Main!.address = addy
-            ds100Main!.port = port
+            ds100Main!.changeEndpoints(addy, port)
         }
     }
 
