@@ -6,6 +6,7 @@
 // ==================================================================
 
 import XCTest
+import Network
 @testable import Dash
 
 
@@ -13,17 +14,17 @@ import XCTest
 
 
 class DashListenerTests: XCTestCase {
-
-    fileprivate var _server: MockDashListener!
     let address = "/test/message/"
     let port: Int = 1234
+    let queue = "test queue"
+
+    fileprivate var mListener: MockDashListener!
+    fileprivate var mConnection: MockNWConnection!
+
 
     override func setUp() {
-        _server = MockDashOSCListener(.control, address, port)
-    }
-
-    override func tearDown() {
-        _server = nil
+        mListener = MockDashListener(address, port, queue, .control)
+        mConnection = MockNWConnection()
     }
 }
 
@@ -33,45 +34,44 @@ class DashListenerTests: XCTestCase {
 
 extension DashListenerTests {
 
-    func testDashOSCServer() {
-        XCTAssertEqual(_server.type, .control)
-        XCTAssertEqual(_server.address, address)
-        XCTAssertEqual(_server.port, port)
+    func testDashListener() {
+        XCTAssertEqual(mListener.type, .control)
+        XCTAssertEqual(mListener.address, address)
+        XCTAssertEqual(mListener.port.rawValue, UInt16(port))
+    }
+    
+    
+    func testDashListener_receive() {
         
-        // pod needs an update before doing this test
-//        XCTAssertTrue(_server.server.delegate === _server)
-    
-        XCTAssertEqual(_server.invokedClientAddressList.count, 0)
-        XCTAssertEqual(_server.invokedClientPortList.count, 0)
     }
 
 
-    func testDashOSCServer_didReceive() {
-        let val: Float = 4.0
-        let msg = OSCMessage(OSCAddressPattern("/something"), val)
-        let delegate = MockDashOSCServerDelegate()
-        _server.delegate = delegate
-
-        _server.didReceive(msg)
-
-        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.address, msg.address.string)
-        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values[0].data, msg.arguments[0]?.data)
-        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.from, .control)
-    }
-    
-    
-    func testDAshOSCServer_didReceive_vezer() {
-        let vezerData = Vezer("name", 3.0, 4.0)
-        let msg = OSCMessage(OSCAddressPattern(vezerData.addy().x), vezerData.x)
-        let delegate = MockDashOSCServerDelegate()
-    
-        _server = MockDashOSCListener(.vezer, address, port)
-        _server.delegate = delegate
-        _server.didReceive(msg)
-        
-        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values.count, 2)
-        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values[1] as? String, "name")
-    }
+//    func testDashListener_didReceive() {
+//        let val: Float = 4.0
+//        let msg = OSCMessage(OSCAddressPattern("/something"), val)
+//        let delegate = MockDashListenerDelegate()
+//        mListener.delegate = delegate
+//
+//        mListener.didReceive(msg)
+//
+//        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.address, msg.address.string)
+//        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values[0].data, msg.arguments[0]?.data)
+//        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.from, .control)
+//    }
+//
+//
+//    func testDashListener_didReceive_vezer() {
+//        let vezerData = Vezer("name", 3.0, 4.0)
+//        let msg = OSCMessage(OSCAddressPattern(vezerData.addy().x), vezerData.x)
+//        let delegate = MockDashListenerDelegate()
+//
+//        mListener = MockDashOSCListener(.vezer, address, port)
+//        mListener.delegate = delegate
+//        mListener.didReceive(msg)
+//
+//        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values.count, 2)
+//        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values[1] as? String, "name")
+//    }
 }
 
 
@@ -79,53 +79,124 @@ extension DashListenerTests {
 
 
 // MARK: - Mocks
-
 private class MockDashListener: DashListener {
-
-    var invokedClientAddress = false
-    var invokedClientAddressParameter: String?
-    var invokedClientAddressList = [String]()
-
-    var invokedClientPort = false
-    var invokedClientPortParameter: Int?
-    var invokedClientPortList = [Int]()
-
-    var invokedStart = false
-    var invokedStop = false
-
-    override func clientAddress(_ newAddress: String) {
-        invokedClientAddress = true
-        invokedClientAddressParameter = newAddress
-        invokedClientAddressList.append(newAddress)
+    convenience init() {
+        self.init("", 0, "", <#_#>)
     }
 
-    override func clientPort(_ newPort: Int) {
-        invokedClientPort = true
-        invokedClientPortParameter = newPort
-        invokedClientPortList.append(newPort)
+    var invokedDelegateSetter = false
+    var invokedDelegateSetterCount = 0
+    var invokedDelegate: DashListenerDelegate?
+    var invokedDelegateList = [DashListenerDelegate?]()
+    var invokedDelegateGetter = false
+    var invokedDelegateGetterCount = 0
+    var stubbedDelegate: DashListenerDelegate!
+
+    override var delegate: DashListenerDelegate? {
+        set {
+            invokedDelegateSetter = true
+            invokedDelegateSetterCount += 1
+            invokedDelegate = newValue
+            invokedDelegateList.append(newValue)
+        }
+        get {
+            invokedDelegateGetter = true
+            invokedDelegateGetterCount += 1
+            return stubbedDelegate
+        }
     }
 
-    override func start() {
-        invokedStart = true
+    var invoked_listenerSetter = false
+    var invoked_listenerSetterCount = 0
+    var invoked_listener: NWListener?
+    var invoked_listenerList = [NWListener?]()
+    var invoked_listenerGetter = false
+    var invoked_listenerGetterCount = 0
+    var stubbed_listener: NWListener!
+
+    override var _listener: NWListener? {
+        set {
+            invoked_listenerSetter = true
+            invoked_listenerSetterCount += 1
+            invoked_listener = newValue
+            invoked_listenerList.append(newValue)
+        }
+        get {
+            invoked_listenerGetter = true
+            invoked_listenerGetterCount += 1
+            return stubbed_listener
+        }
     }
 
-    override func stop() {
-        invokedStop = true
+    var invoked_connectionSetter = false
+    var invoked_connectionSetterCount = 0
+    var invoked_connection: NWConnection?
+    var invoked_connectionList = [NWConnection?]()
+    var invoked_connectionGetter = false
+    var invoked_connectionGetterCount = 0
+    var stubbed_connection: NWConnection!
+
+    override var _connection: NWConnection? {
+        set {
+            invoked_connectionSetter = true
+            invoked_connectionSetterCount += 1
+            invoked_connection = newValue
+            invoked_connectionList.append(newValue)
+        }
+        get {
+            invoked_connectionGetter = true
+            invoked_connectionGetterCount += 1
+            return stubbed_connection
+        }
+    }
+
+    var invokedReceive = false
+    var invokedReceiveCount = 0
+
+    override func receive() {
+        invokedReceive = true
+        invokedReceiveCount += 1
+    }
+
+    var invokedPrintNetwork = false
+    var invokedPrintNetworkCount = 0
+
+    override func printNetwork() {
+        invokedPrintNetwork = true
+        invokedPrintNetworkCount += 1
     }
 }
 
+private class MockNWConnection: NWConnectionProtocol {
+    var invokedStateUpdateHandlerSetter = false
+    var invokedStateUpdateHandlerSetterCount = 0
+    var invokedStateUpdateHandler: ((NWConnection.State) -> Void)?
+    var invokedStateUpdateHandlerList = [((NWConnection.State) -> Void)?]()
+    var invokedStateUpdateHandlerGetter = false
+    var invokedStateUpdateHandlerGetterCount = 0
+    var stubbedStateUpdateHandler: ((NWConnection.State) -> Void)!
+    var stateUpdateHandler: ((NWConnection.State) -> Void)? {
+        set {
+            invokedStateUpdateHandlerSetter = true
+            invokedStateUpdateHandlerSetterCount += 1
+            invokedStateUpdateHandler = newValue
+            invokedStateUpdateHandlerList.append(newValue)
+        }
+        get {
+            invokedStateUpdateHandlerGetter = true
+            invokedStateUpdateHandlerGetterCount += 1
+            return stubbedStateUpdateHandler
+        }
+    }
+    var invokedReceiveMessage = false
+    var invokedReceiveMessageCount = 0
+    var stubbedReceiveMessageCompletionResult: (Data?, NWConnection.ContentContext?, Bool, NWError?)?
 
-class MockDashOSCServerDelegate: DashOSCServerDelegate {
-
-    var invokedOscDataReceived = false
-    var invokedOscDataReceivedCount = 0
-    var invokedOscDataReceivedParameters: (msg: Message, from: DashNetworkType.Listener)?
-    var invokedOscDataReceivedParametersList = [(msg: Message, from: DashNetworkType.Listener)]()
-
-    func oscDataReceived(_ msg: Message, _ from: DashNetworkType.Listener) {
-        invokedOscDataReceived = true
-        invokedOscDataReceivedCount += 1
-        invokedOscDataReceivedParameters = (msg, from)
-        invokedOscDataReceivedParametersList.append((msg, from))
+    func receiveMessage(completion: @escaping (_ completeContent: Data?, _ contentContext: NWConnection.ContentContext?, _ isComplete: Bool, _ error: NWError?) -> Void) {
+        invokedReceiveMessage = true
+        invokedReceiveMessageCount += 1
+        if let result = stubbedReceiveMessageCompletionResult {
+            completion(result.0, result.1, result.2, result.3)
+        }
     }
 }

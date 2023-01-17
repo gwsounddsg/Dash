@@ -14,6 +14,7 @@
 		57AF9D7723B2B54E001A27A6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7623B2B54E001A27A6 /* Extensions.swift */; };
 		57AF9D7B23B2B869001A27A6 /* DS100.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AF9D7A23B2B869001A27A6 /* DS100.swift */; };
 		6B21898E7B892105727D0E3C /* Pods_Dash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04122E6F38157B5B5F16FD38 /* Pods_Dash.framework */; };
+		9A05A700296F5E8F00F861D0 /* ExtNWConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A05A6FF296F5E8F00F861D0 /* ExtNWConnection.swift */; };
 		9A2E843723D892FC00843EA9 /* ClientsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2E843623D892FC00843EA9 /* ClientsTests.swift */; };
 		9A2E843923D8930600843EA9 /* ServersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2E843823D8930600843EA9 /* ServersTests.swift */; };
 		9A534387295A019F0040EDCB /* DashOSCListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A534386295A019F0040EDCB /* DashOSCListener.swift */; };
@@ -83,6 +84,7 @@
 		57AF9D7A23B2B869001A27A6 /* DS100.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DS100.swift; sourceTree = "<group>"; };
 		651BB45AE5E5B9541C7EA030 /* Pods-Dash.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dash.release.xcconfig"; path = "Target Support Files/Pods-Dash/Pods-Dash.release.xcconfig"; sourceTree = "<group>"; };
 		9005CB6A86854E374AE5B036 /* Pods-DashTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DashTests.debug.xcconfig"; path = "Target Support Files/Pods-DashTests/Pods-DashTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A05A6FF296F5E8F00F861D0 /* ExtNWConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtNWConnection.swift; sourceTree = "<group>"; };
 		9A2E843623D892FC00843EA9 /* ClientsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsTests.swift; sourceTree = "<group>"; };
 		9A2E843823D8930600843EA9 /* ServersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServersTests.swift; sourceTree = "<group>"; };
 		9A534386295A019F0040EDCB /* DashOSCListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashOSCListener.swift; sourceTree = "<group>"; };
@@ -219,6 +221,14 @@
 			path = Dash;
 			sourceTree = "<group>";
 		};
+		9A05A6FE296F5E6A00F861D0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9A05A6FF296F5E8F00F861D0 /* ExtNWConnection.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		9AC6902323C3A8470047320A /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,6 +323,7 @@
 				9A534386295A019F0040EDCB /* DashOSCListener.swift */,
 				CD183FE03BD8D9093937E2B8 /* Listeners.swift */,
 				9AEA615623C50CBB00B27003 /* NetworkManager.swift */,
+				9A05A6FE296F5E6A00F861D0 /* Extensions */,
 				9AE588702925802900BCB9E8 /* OSC */,
 			);
 			path = Networking;
@@ -532,6 +543,7 @@
 				CD18365974C9B59DBD97409F /* ExtInt.swift in Sources */,
 				CD1830524CC75693D73F5A5E /* ExtFloat.swift in Sources */,
 				CD1839FBBDC7FC6D7E7ABAB5 /* ExtString.swift in Sources */,
+				9A05A700296F5E8F00F861D0 /* ExtNWConnection.swift in Sources */,
 				CD183B81B3176A36A44EAC5E /* ExtBool.swift in Sources */,
 				CD183EBDF0A6B9AE00CDAA77 /* OSCType.swift in Sources */,
 				CD183AE2A5A030B7B2A97F11 /* Blob.swift in Sources */,
