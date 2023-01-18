@@ -81,7 +81,7 @@ extension DashListenerTests {
 // MARK: - Mocks
 private class MockDashListener: DashListener {
     convenience init() {
-        self.init("", 0, "", <#_#>)
+        self.init("", 0, "", .control)
     }
 
     var invokedDelegateSetter = false
@@ -130,13 +130,13 @@ private class MockDashListener: DashListener {
 
     var invoked_connectionSetter = false
     var invoked_connectionSetterCount = 0
-    var invoked_connection: NWConnection?
-    var invoked_connectionList = [NWConnection?]()
+    var invoked_connection: NWConnectionProtocol?
+    var invoked_connectionList = [NWConnectionProtocol?]()
     var invoked_connectionGetter = false
     var invoked_connectionGetterCount = 0
-    var stubbed_connection: NWConnection!
+    var stubbed_connection: NWConnectionProtocol!
 
-    override var _connection: NWConnection? {
+    override var _connection: NWConnectionProtocol? {
         set {
             invoked_connectionSetter = true
             invoked_connectionSetterCount += 1
