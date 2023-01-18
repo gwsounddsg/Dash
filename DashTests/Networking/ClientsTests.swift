@@ -15,8 +15,10 @@ import XCTest
 class ClientsTests: XCTestCase {
 
     var clients: Clients!
-    var mVezer: MDashOSCClient!
-    var mDS100Main: MDashOSCClient!
+    var mVezer: MockDashOSCClient!
+    var mDS100Main: MockDashOSCClient!
+    var mVezerOSCClient: MockOSCClient!
+    var mDS100MainOSCClient: MockOSCClient!
     
     override func setUp() {
         clients = Clients()
@@ -60,8 +62,8 @@ extension ClientsTests {
         
         clients.connectVezer(from: mockDefaults)
         
-        XCTAssertEqual(mVezer.invokedAddress, addy)
-        XCTAssertEqual(mVezer.invokedPort, port)
+        XCTAssertEqual(mVezer.invokedSetAddressParameters?.newAddress, addy)
+        XCTAssertEqual(mVezer.invokedSetPortParameters?.newPort, port)
         XCTAssertTrue(clients.isVezerConnected)
     }
     
@@ -78,8 +80,8 @@ extension ClientsTests {
     
         clients.connectDS100Main(from: mockDefaults)
     
-        XCTAssertEqual(mDS100Main.invokedAddress, addy)
-        XCTAssertEqual(mDS100Main.invokedPort, port)
+        XCTAssertEqual(mDS100Main.invokedSetAddressParameters?.newAddress, addy)
+        XCTAssertEqual(mDS100Main.invokedSetPortParameters?.newPort, port)
         XCTAssertTrue(clients.isDS100MainConnected)
     }
 }
@@ -93,46 +95,60 @@ extension ClientsTests {
 extension ClientsTests {
 
     func testClients_sendOSC_vezer() {
-        let message = Message("/testing/sendosc/vezer", [nil])
+        let message = OSCMessage("/testing/sendosc/vezer", [])
         mockAll(true)
         
         let result = clients.sendOSC(message: message, to: .vezer)
         
         XCTAssertTrue(result)
-        XCTAssertEqual(mVezer.invokedSendMessageParameters?.message.address, message.address)
+        XCTAssertNotNil(mVezer.invokedClientSendParameters)
+        
+        guard let newMessage = mVezer.invokedClientSendParameters?.element as? OSCMessage else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertEqual(newMessage.address, message.address)
     }
     
     
     func testClients_sendOSC_vezer_notConnected() {
-        let message = Message("/testing/sendosc/vezer/notconnected", [nil])
+        let message = OSCMessage("/testing/sendosc/vezer/notconnected", [])
         mockAll(false)
         
         let result = clients.sendOSC(message: message, to: .vezer)
         
         XCTAssertFalse(result)
-        XCTAssertFalse(mVezer.invokedSendMessage)
+        XCTAssertFalse(mVezer.invokedClientSend)
     }
     
     
     func testClients_sendOSC_ds100Main() {
-        let message = Message("/testing/sendosc/ds100Main", [nil])
+        let message = OSCMessage("/testing/sendosc/ds100Main", [])
         mockAll(true)
     
         let result = clients.sendOSC(message: message, to: .ds100Main)
     
         XCTAssertTrue(result)
-        XCTAssertEqual(mDS100Main.invokedSendMessageParameters?.message.address, message.address)
+        XCTAssertNotNil(mDS100Main.invokedClientSendParameters)
+        
+        guard let newMessage = mDS100Main.invokedClientSendParameters?.element as? OSCMessage else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertEqual(newMessage.address, message.address)
     }
     
     
     func testClients_sendOSC_ds100Main_notConnected() {
-        let message = Message("/testing/sendosc/ds100Main/notconnected", [nil])
+        let message = OSCMessage("/testing/sendosc/ds100Main/notconnected", [])
         mockAll(false)
     
         let result = clients.sendOSC(message: message, to: .ds100Main)
     
         XCTAssertFalse(result)
-        XCTAssertFalse(mDS100Main.invokedSendMessage)
+        XCTAssertFalse(mDS100Main.invokedClientSend)
     }
     
     
@@ -197,7 +213,7 @@ extension ClientsTests {
         
         clients.updateDefaults(notif, mDefaults)
         
-        XCTAssertEqual(mDS100Main.invokedAddress, value)
+        XCTAssertEqual(mDS100Main.invokedSetAddressParameters?.newAddress, value)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Client.ds100MainIP)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? String, value)
     }
@@ -212,7 +228,7 @@ extension ClientsTests {
         
         clients.updateDefaults(notif, mDefaults)
         
-        XCTAssertEqual(mDS100Main.invokedPort, Int(value))
+        XCTAssertEqual(mDS100Main.invokedSetPortParameters?.newPort, Int(value))
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Client.ds100MainPort)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
     }
@@ -227,7 +243,7 @@ extension ClientsTests {
         
         clients.updateDefaults(notif, mDefaults)
         
-        XCTAssertEqual(mVezer.invokedAddress, value)
+        XCTAssertEqual(mVezer.invokedSetAddressParameters?.newAddress, value)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Client.vezerIP)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? String, value)
     }
@@ -242,7 +258,7 @@ extension ClientsTests {
         
         clients.updateDefaults(notif, mDefaults)
         
-        XCTAssertEqual(mVezer.invokedPort, Int(value))
+        XCTAssertEqual(mVezer.invokedSetPortParameters?.newPort, Int(value))
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Client.vezerPort)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
     }
@@ -257,8 +273,11 @@ extension ClientsTests {
 extension ClientsTests {
     
     func mockAll(_ connected: Bool = false) {
-        mVezer = MDashOSCClient(.vezer, "/client/vezer", 1111)
-        mDS100Main = MDashOSCClient(.ds100Main, "/client/ds100/main", 2222)
+        mVezerOSCClient = MockOSCClient()
+        mDS100MainOSCClient = MockOSCClient()
+        
+        mVezer = MockDashOSCClient(.vezer, "/client/vezer", 1111, mVezerOSCClient)
+        mDS100Main = MockDashOSCClient(.ds100Main, "/client/ds100/main", 2222, mDS100MainOSCClient)
         
         clients.vezer = mVezer
         clients.ds100Main = mDS100Main
@@ -284,125 +303,125 @@ extension ClientsTests {
 
 // MARK: - Mocks
 
-class MDashOSCClient: DashOSCClient {
-    
-    var invokedAddressSetter = false
-    var invokedAddressSetterCount = 0
-    var invokedAddress: String?
-    var invokedAddressList = [String]()
-    var invokedAddressGetter = false
-    var invokedAddressGetterCount = 0
-    var stubbedAddress: String! = ""
-    override var address: String {
-        set {
-            invokedAddressSetter = true
-            invokedAddressSetterCount += 1
-            invokedAddress = newValue
-            invokedAddressList.append(newValue)
-        }
-        get {
-            invokedAddressGetter = true
-            invokedAddressGetterCount += 1
-            return stubbedAddress
-        }
-    }
-    var invokedPortSetter = false
-    var invokedPortSetterCount = 0
-    var invokedPort: Int?
-    var invokedPortList = [Int]()
-    var invokedPortGetter = false
-    var invokedPortGetterCount = 0
-    var stubbedPort: Int! = 0
-    override var port: Int {
-        set {
-            invokedPortSetter = true
-            invokedPortSetterCount += 1
-            invokedPort = newValue
-            invokedPortList.append(newValue)
-        }
-        get {
-            invokedPortGetter = true
-            invokedPortGetterCount += 1
-            return stubbedPort
-        }
-    }
+class MockDashOSCClient: DashOSCClient {
+
     var invokedClientSend = false
     var invokedClientSendCount = 0
-    var invokedClientSendParameters: (message: OSCElement, Void)?
-    var invokedClientSendParametersList = [(message: OSCElement, Void)]()
-    
-    override func clientSend(_ message: OSCElement) {
+    var invokedClientSendParameters: (element: OSCElement, Void)?
+    var invokedClientSendParametersList = [(element: OSCElement, Void)]()
+
+    override func clientSend(_ element: OSCElement) {
         invokedClientSend = true
         invokedClientSendCount += 1
-        invokedClientSendParameters = (message, ())
-        invokedClientSendParametersList.append((message, ()))
+        invokedClientSendParameters = (element, ())
+        invokedClientSendParametersList.append((element, ()))
     }
-    
-    var invokedClientAddress = false
-    var invokedClientAddressCount = 0
-    var invokedClientAddressParameters: (newAddress: String, Void)?
-    var invokedClientAddressParametersList = [(newAddress: String, Void)]()
-    
-    override func clientAddress(_ newAddress: String) {
-        invokedClientAddress = true
-        invokedClientAddressCount += 1
-        invokedClientAddressParameters = (newAddress, ())
-        invokedClientAddressParametersList.append((newAddress, ()))
+
+    var invokedConnect = false
+    var invokedConnectCount = 0
+
+    override func connect() {
+        invokedConnect = true
+        invokedConnectCount += 1
     }
-    
-    var invokedClientPort = false
-    var invokedClientPortCount = 0
-    var invokedClientPortParameters: (newPort: Int, Void)?
-    var invokedClientPortParametersList = [(newPort: Int, Void)]()
-    
-    override func clientPort(_ newPort: Int) {
-        invokedClientPort = true
-        invokedClientPortCount += 1
-        invokedClientPortParameters = (newPort, ())
-        invokedClientPortParametersList.append((newPort, ()))
+
+    var invokedPrintNetwork = false
+    var invokedPrintNetworkCount = 0
+
+    override func printNetwork() {
+        invokedPrintNetwork = true
+        invokedPrintNetworkCount += 1
     }
-    
+
+    var invokedPort = false
+    var invokedPortCount = 0
+    var stubbedPortResult: Int! = 0
+
+    override func port() -> Int {
+        invokedPort = true
+        invokedPortCount += 1
+        return stubbedPortResult
+    }
+
+    var invokedSetPort = false
+    var invokedSetPortCount = 0
+    var invokedSetPortParameters: (newPort: Int, Void)?
+    var invokedSetPortParametersList = [(newPort: Int, Void)]()
+
+    override func setPort(_ newPort: Int) {
+        invokedSetPort = true
+        invokedSetPortCount += 1
+        invokedSetPortParameters = (newPort, ())
+        invokedSetPortParametersList.append((newPort, ()))
+    }
+
+    var invokedAddress = false
+    var invokedAddressCount = 0
+    var stubbedAddressResult: String! = ""
+
+    override func address() -> String {
+        invokedAddress = true
+        invokedAddressCount += 1
+        return stubbedAddressResult
+    }
+
+    var invokedSetAddress = false
+    var invokedSetAddressCount = 0
+    var invokedSetAddressParameters: (newAddress: String, Void)?
+    var invokedSetAddressParametersList = [(newAddress: String, Void)]()
+
+    override func setAddress(_ newAddress: String) {
+        invokedSetAddress = true
+        invokedSetAddressCount += 1
+        invokedSetAddressParameters = (newAddress, ())
+        invokedSetAddressParametersList.append((newAddress, ()))
+    }
+
+    var invokedChangeEndpoints = false
+    var invokedChangeEndpointsCount = 0
+    var invokedChangeEndpointsParameters: (address: String, port: Int)?
+    var invokedChangeEndpointsParametersList = [(address: String, port: Int)]()
+
+    override func changeEndpoints(_ address: String, _ port: Int) {
+        invokedChangeEndpoints = true
+        invokedChangeEndpointsCount += 1
+        invokedChangeEndpointsParameters = (address, port)
+        invokedChangeEndpointsParametersList.append((address, port))
+    }
+
     var invokedSendMessage = false
     var invokedSendMessageCount = 0
-    var invokedSendMessageParameters: (message: Message, Void)?
-    var invokedSendMessageParametersList = [(message: Message, Void)]()
-    
-    override func send(message: Message) {
+    var invokedSendMessageParameters: (message: OSCMessage, Void)?
+    var invokedSendMessageParametersList = [(message: OSCMessage, Void)]()
+
+    override func send(message: OSCMessage) {
         invokedSendMessage = true
         invokedSendMessageCount += 1
         invokedSendMessageParameters = (message, ())
         invokedSendMessageParametersList.append((message, ()))
     }
-    
+
     var invokedSendDataCoordinate = false
     var invokedSendDataCoordinateCount = 0
     var invokedSendDataCoordinateParameters: (data: [DS100], coordinate: Coordinate)?
     var invokedSendDataCoordinateParametersList = [(data: [DS100], coordinate: Coordinate)]()
-    
-    override func send(data: [DS100], coordinate: Coordinate = .all) {
+
+    override func send(data: [DS100], coordinate: Coordinate) {
         invokedSendDataCoordinate = true
         invokedSendDataCoordinateCount += 1
         invokedSendDataCoordinateParameters = (data, coordinate)
         invokedSendDataCoordinateParametersList.append((data, coordinate))
     }
-    
+
     var invokedSendData = false
     var invokedSendDataCount = 0
     var invokedSendDataParameters: (data: [Vezer], Void)?
     var invokedSendDataParametersList = [(data: [Vezer], Void)]()
-    
+
     override func send(data: [Vezer]) {
         invokedSendData = true
         invokedSendDataCount += 1
         invokedSendDataParameters = (data, ())
         invokedSendDataParametersList.append((data, ()))
-    }
-    
-    var invokedPrintNetwork = false
-    var invokedPrintNetworkCount = 0
-    
-    override func printNetwork() {
-        invokedPrintNetwork = true
-        invokedPrintNetworkCount += 1
     }
 }

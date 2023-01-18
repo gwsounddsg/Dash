@@ -77,14 +77,10 @@ class DashOSCClient {
         _port = port
         connect()
     }
-}
 
 
-
-
-
-//MARK: - Sending
-extension DashOSCClient {
+    //MARK: - Sending
+    
     /// Regular OSC message
     func send(message: OSCMessage) {
         clientSend(message)

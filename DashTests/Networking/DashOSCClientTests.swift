@@ -20,7 +20,7 @@ class DashOSCClientTests: XCTestCase {
     let port: Int = 1234
     let address = "/test/message/"
     var client: DashOSCClient!
-    fileprivate var mClient: MockOSCClient!
+    var mClient: MockOSCClient!
 
 
     override func setUp() {
@@ -224,7 +224,7 @@ extension DashOSCClientTests {
 
 // MARK: - Mocks
 
-private class MockOSCClient: OSCClient {
+class MockOSCClient: OSCClient {
 
     var invokedConnect = false
     var invokedConnectCount = 0
