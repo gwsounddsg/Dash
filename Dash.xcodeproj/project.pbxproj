@@ -27,7 +27,6 @@
 		9AC6902523C3A8800047320A /* RttTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902423C3A8800047320A /* RttTableView.swift */; };
 		9AC6902723C3A9240047320A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC6902623C3A9240047320A /* Constants.swift */; };
 		9AC6902A23C3AD570047320A /* RttTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC6902923C3AD570047320A /* RttTableView.xib */; };
-		9AD1100B23CE093200BBFE73 /* ReceiveUDPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD1100A23CE093200BBFE73 /* ReceiveUDPTests.swift */; };
 		9AEA614D23C4DE6700B27003 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AEA614C23C4DE6700B27003 /* Preferences.storyboard */; };
 		9AEA614F23C4DFCB00B27003 /* PreferencesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA614E23C4DFCB00B27003 /* PreferencesVC.swift */; };
 		9AEA615123C4E0D400B27003 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEA615023C4E0D400B27003 /* PreferencesWindowController.swift */; };
@@ -100,7 +99,6 @@
 		9AD10FFC23CE08F900BBFE73 /* DashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD1100023CE08F900BBFE73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AD1100623CE091B00BBFE73 /* DashTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DashTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		9AD1100A23CE093200BBFE73 /* ReceiveUDPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveUDPTests.swift; sourceTree = "<group>"; };
 		9AEA614C23C4DE6700B27003 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		9AEA614E23C4DFCB00B27003 /* PreferencesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesVC.swift; sourceTree = "<group>"; };
 		9AEA615023C4E0D400B27003 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
@@ -267,7 +265,6 @@
 				9A66296323CF4EE50025125D /* DashOSCClientTests.swift */,
 				9A66296523CF4EF10025125D /* DashOSCListenerTests.swift */,
 				9A66296723CF4EFC0025125D /* NetworkManagerTests.swift */,
-				9AD1100A23CE093200BBFE73 /* ReceiveUDPTests.swift */,
 				9A2E843823D8930600843EA9 /* ServersTests.swift */,
 			);
 			path = Networking;
@@ -574,7 +571,6 @@
 				9AC1E5A523CE50EA00757262 /* TestingExtensions.swift in Sources */,
 				9ABDE08B23CE2621004189B3 /* TestingConstants.swift in Sources */,
 				9A66296423CF4EE50025125D /* DashOSCClientTests.swift in Sources */,
-				9AD1100B23CE093200BBFE73 /* ReceiveUDPTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
