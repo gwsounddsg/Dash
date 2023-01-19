@@ -125,7 +125,7 @@ class PreferencesVC: NSViewController {
 extension PreferencesVC {
     
     func updateFieldsWithDefaults() {
-        let idNetIn = DashDefaultIDs.Network.Server.self
+        let idNetIn = DashDefaultIDs.Network.Listener.self
         let idNetOut = DashDefaultIDs.Network.Client.self
     
         inputBlackTraxText.stringValue = get(userDefault: idNetIn.blacktraxPort)

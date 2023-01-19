@@ -127,7 +127,7 @@ enum Coordinate {
 
 enum DashDefaultIDs {
     enum Network {
-        enum Server {
+        enum Listener {
             static let blacktraxPort = "networkIncomingBlackTraxPort"
             static let controlPort = "networkIncomingControlPort"
             static let vezerPort = "networkIncomingVezerPort"

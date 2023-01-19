@@ -197,7 +197,7 @@ extension Listeners {
                 print("Bad BlackTrax port number for string: \(data)")
                 return
             }
-            updateDefault(val!, DashDefaultIDs.Network.Server.blacktraxPort, defaults)
+            updateDefault(val!, DashDefaultIDs.Network.Listener.blacktraxPort, defaults)
             connectBlackTrax(from: defaults)
             blackTrax?.printNetwork()
 
@@ -207,7 +207,7 @@ extension Listeners {
                 print("Bad Vezer port number for string: \(data)")
                 return
             }
-            updateDefault(val!, DashDefaultIDs.Network.Server.vezerPort, defaults)
+            updateDefault(val!, DashDefaultIDs.Network.Listener.vezerPort, defaults)
             connectVezer(from: defaults)
             vezer?.printNetwork()
     
@@ -217,7 +217,7 @@ extension Listeners {
                 print("Bad Control port number for string: \(data)")
                 return
             }
-            updateDefault(val!, DashDefaultIDs.Network.Server.controlPort, defaults)
+            updateDefault(val!, DashDefaultIDs.Network.Listener.controlPort, defaults)
             connectControl(from: defaults)
             control?.printNetwork()
     
@@ -244,9 +244,9 @@ extension Listeners {
 // MARK: - Utility
 private extension Listeners {
     func doConnectBlackTrax(_ defaults: UserDefaultsProtocol = UserDefaults.standard) throws {
-        guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Server.blacktraxPort, from: defaults) else {
+        guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Listener.blacktraxPort, from: defaults) else {
             blackTrax = nil
-            throw DashError.CantGetDefaultValueFor(DashDefaultIDs.Network.Server.blacktraxPort)
+            throw DashError.CantGetDefaultValueFor(DashDefaultIDs.Network.Listener.blacktraxPort)
         }
 
         if blackTrax != nil && blackTrax!.port.rawValue == port {return}
@@ -258,7 +258,7 @@ private extension Listeners {
     
     
     func doConnectVezer(_ defaults: UserDefaultsProtocol) throws {
-        let keys = DashDefaultIDs.Network.Server.self
+        let keys = DashDefaultIDs.Network.Listener.self
         
         guard let port: Int = getDefault(withKey: keys.vezerPort, from: defaults) else {
             vezer = nil
@@ -274,7 +274,7 @@ private extension Listeners {
     
     
     func doConnectControl(_ defaults: UserDefaultsProtocol) throws {
-        let keys = DashDefaultIDs.Network.Server.self
+        let keys = DashDefaultIDs.Network.Listener.self
         
         guard let port: Int = getDefault(withKey: keys.controlPort, from: defaults) else {
             control = nil

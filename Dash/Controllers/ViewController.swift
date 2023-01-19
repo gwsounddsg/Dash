@@ -277,7 +277,7 @@ extension ViewController {
     
     @objc
     func resetDefaults(_ notif: Notification) {
-        let idNetIn = DashDefaultIDs.Network.Server.self
+        let idNetIn = DashDefaultIDs.Network.Listener.self
         let idNetOut = DashDefaultIDs.Network.Client.self
         let defaultNetIn = DashDefaultValues.Network.Incoming.self
         let defaultNetOut = DashDefaultValues.Network.Outgoing.self
@@ -329,7 +329,7 @@ private extension ViewController {
     
     
     func setupDefaults() {
-        let idNetIn = DashDefaultIDs.Network.Server.self
+        let idNetIn = DashDefaultIDs.Network.Listener.self
         let idNetOut = DashDefaultIDs.Network.Client.self
         let defaultNetIn = DashDefaultValues.Network.Incoming.self
         let defaultNetOut = DashDefaultValues.Network.Outgoing.self

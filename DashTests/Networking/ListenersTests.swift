@@ -174,7 +174,7 @@ extension ListenersTests {
         listeners.updateDefaults(notif, mDefaults)
         
         XCTAssertEqual(mBlackTrax.invokedConnectParameters?.port, Int(value))
-        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Server.blacktraxPort)
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Listener.blacktraxPort)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
     }
     
@@ -189,7 +189,7 @@ extension ListenersTests {
         listeners.updateDefaults(notif, mDefaults)
         
         XCTAssertEqual(mVezer.invokedPort, Int(value))
-        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Server.vezerPort)
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Listener.vezerPort)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
     }
     
@@ -204,7 +204,7 @@ extension ListenersTests {
         listeners.updateDefaults(notif, mDefaults)
         
         XCTAssertEqual(mControl.invokedPort, Int(value))
-        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Server.controlPort)
+        XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Listener.controlPort)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
     }
 }
