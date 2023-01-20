@@ -16,27 +16,24 @@ protocol DashListenerDelegate {
 
 
 class DashListener {
-    let address: String
-    let port: NWEndpoint.Port
-    let queue: DispatchQueue
     let type: DashNetworkType.Listener
-
     var delegate: DashListenerDelegate?
 
-    internal var _listener: NWListener?
+    internal let _listener: NWListener
     internal var _connection: NWConnectionProtocol?
 
+    private var _queue: DispatchQueue
 
-    init(_ address: String, _ port: Int, _ queueName: String, _ type: DashNetworkType.Listener) {
-        self.address = address
-        self.port = NWEndpoint.Port(rawValue: UInt16(port))!
+    
+    init(_ listener: NWListener, _ queueName: String, _ type: DashNetworkType.Listener) {
+        _listener = listener
+        _queue = DispatchQueue(label: queueName)
         self.type = type
-        queue = DispatchQueue(label: queueName)
     }
 
 
     deinit {
-        _listener?.cancel()
+        _listener.cancel()
     }
 
 
@@ -56,14 +53,25 @@ class DashListener {
             self.receive() // loop
         }
     }
+    
+    
+    //MARK: - Getters
+    
+    func port() -> Int {
+        return Int(_listener.port!.rawValue)
+    }
+    
+    
+    func queue() -> String {
+        return _queue.label
+    }
 
 
     func printNetwork() {
         print("DashListener:")
         print("|\ttype: \(type)")
-        print("|\taddress: \(address)")
-        print("|\tport: \(port)")
-        print("|\tqueue: \(queue.label)")
+        print("|\tport: \(port())")
+        print("|\tqueue: \(_queue.label)")
     }
 }
 
@@ -74,23 +82,19 @@ class DashListener {
 //MARK: - Connection
 extension DashListener {
     func connect() {
-        do {_listener = try NWListener(using: .udp, on: port)}
-        catch {print("Couldn't connect listener with error: \(error)")}
-
         setupConnectionHandler()
         setupConnectionHandler()
 
-        _listener!.start(queue: queue)
-        print("Started Listening to port: \(port) on queue: \(queue.label)")
+        _listener.start(queue: _queue)
+        print("Started Listening to port: \(port()) on queue: \(_queue.label)")
     }
 
 
     private func setupStateHandler() {
-        if _listener == nil {return}
-        _listener!.stateUpdateHandler = { state in
+        _listener.stateUpdateHandler = { state in
             switch state {
             case .ready:
-                print("Listening on port \(String(describing: self._listener!.port))")
+                print("Listening on port \(String(describing: self._listener.port))")
             case .failed(let error):
                 print("Listener failed with error: \(error)")
             default:
@@ -101,14 +105,13 @@ extension DashListener {
 
 
     private func setupConnectionHandler() {
-        if _listener == nil {return}
-        _listener!.newConnectionHandler = { [weak self] connection in
+        _listener.newConnectionHandler = { [weak self] connection in
             guard let strongSelf = self else {
                 print("Error: weak self")
                 return
             }
 
-            connection.start(queue: strongSelf.queue)
+            connection.start(queue: strongSelf._queue)
             strongSelf.createConnection(connection)
         }
     }

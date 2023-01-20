@@ -7,6 +7,7 @@
 
 import Foundation
 import RTTrPSwift
+import Network
 
 
 protocol ListenersProtocol: AnyObject {
@@ -60,7 +61,7 @@ class Listeners: DashListenerDelegate, DashOSCListenerDelegate {
         isBlackTraxConnected = false
         
         do {
-            try doConnectBlackTrax(defaults)
+            try newConnection(.blackTrax, defaults)
             isBlackTraxConnected = true
         }
         catch {
@@ -73,7 +74,7 @@ class Listeners: DashListenerDelegate, DashOSCListenerDelegate {
         isVezerConnected = false
         
         do {
-            try doConnectVezer(defaults)
+            try newConnection(.vezer, defaults)
             isVezerConnected = true
         }
         catch {
@@ -86,7 +87,7 @@ class Listeners: DashListenerDelegate, DashOSCListenerDelegate {
         isControlConnected = false
         
         do {
-            try doConnectControl(defaults)
+            try newConnection(.control, defaults)
             isControlConnected = true
         }
         catch {
@@ -243,48 +244,52 @@ extension Listeners {
 
 // MARK: - Utility
 private extension Listeners {
-    func doConnectBlackTrax(_ defaults: UserDefaultsProtocol = UserDefaults.standard) throws {
-        guard let port: Int = getDefault(withKey: DashDefaultIDs.Network.Listener.blacktraxPort, from: defaults) else {
-            blackTrax = nil
-            throw DashError.CantGetDefaultValueFor(DashDefaultIDs.Network.Listener.blacktraxPort)
+    
+    func newConnection(_ type: DashNetworkType.Listener, _ defaults: UserDefaultsProtocol = UserDefaults.standard) throws {
+        let port = try getPortForType(type)
+        let newListener: NWListener = try createNewListener(with: port)
+        
+        switch type {
+        case .blackTrax:
+            blackTrax = DashListener(newListener, "BlackTrax udp listener", .blackTrax)
+            blackTrax!.delegate = self
+            blackTrax!.connect()
+        case .vezer:
+            vezer = DashOSCListener(newListener, "Vezer udp listener", .vezer)
+            vezer!.delegate = self
+            vezer!.connect()
+        case .control:
+            control = DashOSCListener(newListener, "Control udp listener", .control)
+            control!.delegate = self
+            control!.connect()
         }
-
-        if blackTrax != nil && blackTrax!.port.rawValue == port {return}
-
-        blackTrax = DashListener("127.0.0.1", port, "BlackTrax udp listener", .blackTrax)
-        blackTrax!.delegate = self
-        blackTrax!.connect()
     }
     
     
-    func doConnectVezer(_ defaults: UserDefaultsProtocol) throws {
+    func getPortForType(_ type: DashNetworkType.Listener, _ defaults: UserDefaultsProtocol = UserDefaults.standard) throws -> String {
         let keys = DashDefaultIDs.Network.Listener.self
+        var portKey: String
         
-        guard let port: Int = getDefault(withKey: keys.vezerPort, from: defaults) else {
-            vezer = nil
-            throw DashError.CantGetDefaultValueFor(keys.vezerPort)
+        switch type {
+        case .blackTrax:
+            portKey = keys.blacktraxPort
+        case .vezer:
+            portKey = keys.vezerPort
+        case .control:
+            portKey = keys.controlPort
         }
-
-        if vezer != nil && vezer!.port.rawValue == port {return}
-
-        vezer = DashOSCListener("127.0.0.1", port, "Vezer udp listener", .vezer)
-        vezer!.delegate = self
-        vezer!.connect()
+        
+        guard let port: String = getDefault(withKey: portKey, from: defaults) else {
+            throw DashError.CantGetDefaultValueFor(portKey)
+        }
+        
+        return port
     }
     
     
-    func doConnectControl(_ defaults: UserDefaultsProtocol) throws {
-        let keys = DashDefaultIDs.Network.Listener.self
-        
-        guard let port: Int = getDefault(withKey: keys.controlPort, from: defaults) else {
-            control = nil
-            throw DashError.CantGetDefaultValueFor(keys.controlPort)
-        }
-
-        if control != nil && control!.port.rawValue == port {return}
-
-        control = DashOSCListener("127.0.0.1", port, "Control udp listener", .control)
-        control!.delegate = self
-        control!.connect()
+    func createNewListener(with port: String) throws  -> NWListener {
+        let endpoint = NWEndpoint.Port(port)!
+        let newListener = try NWListener(using: .udp, on: endpoint)
+        return newListener
     }
 }
