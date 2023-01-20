@@ -17,7 +17,7 @@ class NetworkManagerTests: XCTestCase {
 
     var manager: NetworkManager!
     var mClients: MockClients!
-    var mServers: MockServers!
+    var mServers: MockListeners!
 
     
     override func setUp() {
@@ -53,7 +53,7 @@ extension NetworkManagerTests {
     func testNetworkManager_sendOSC() {
         mockAll()
         mClients.stubbedSendOSCResult = true
-        let msg = Message("/sendosc", [nil])
+        let msg = OSCMessage("/sendosc", [])
         
         let result = manager.sendOSC(message: msg, to: .vezer)
         
@@ -94,7 +94,7 @@ extension NetworkManagerTests {
         mockAll()
         mClients.stubbedSendResult = true
         let val: Float = 3.2
-        let msg = Message("/trackable/name/coord", [val])
+        let msg = OSCMessage("/trackable/name/coord", [])
         
         manager.redirectFromVezer(message: msg)
         
@@ -204,7 +204,7 @@ extension NetworkManagerTests {
 
     func mockAll() {
         mClients = MockClients()
-        mServers = MockServers()
+        mServers = MockListeners()
         manager = NetworkManager(mClients, mServers)
     }
 }
@@ -217,16 +217,20 @@ extension NetworkManagerTests {
 
 // swiftlint:disable weak_delegate
 
-class MockServers: Listeners {
-    
+class MockListeners: Listeners {
+
+    convenience init() {
+        self.init(withObservers: false)
+    }
+
     var invokedBlackTraxSetter = false
     var invokedBlackTraxSetterCount = 0
-    var invokedBlackTrax: ReceiveUDP?
-    var invokedBlackTraxList = [ReceiveUDP]()
+    var invokedBlackTrax: DashListener?
+    var invokedBlackTraxList = [DashListener?]()
     var invokedBlackTraxGetter = false
     var invokedBlackTraxGetterCount = 0
-    var stubbedBlackTrax: ReceiveUDP!
-    override var blackTrax: ReceiveUDP {
+    var stubbedBlackTrax: DashListener!
+    override var blackTrax: DashListener? {
         set {
             invokedBlackTraxSetter = true
             invokedBlackTraxSetterCount += 1
@@ -241,12 +245,12 @@ class MockServers: Listeners {
     }
     var invokedVezerSetter = false
     var invokedVezerSetterCount = 0
-    var invokedVezer: DashOSCServer?
-    var invokedVezerList = [DashOSCServer?]()
+    var invokedVezer: DashOSCListener?
+    var invokedVezerList = [DashOSCListener?]()
     var invokedVezerGetter = false
     var invokedVezerGetterCount = 0
-    var stubbedVezer: DashOSCServer!
-    override var vezer: DashOSCServer? {
+    var stubbedVezer: DashOSCListener!
+    override var vezer: DashOSCListener? {
         set {
             invokedVezerSetter = true
             invokedVezerSetterCount += 1
@@ -261,12 +265,12 @@ class MockServers: Listeners {
     }
     var invokedControlSetter = false
     var invokedControlSetterCount = 0
-    var invokedControl: DashOSCServer?
-    var invokedControlList = [DashOSCServer?]()
+    var invokedControl: DashOSCListener?
+    var invokedControlList = [DashOSCListener?]()
     var invokedControlGetter = false
     var invokedControlGetterCount = 0
-    var stubbedControl: DashOSCServer!
-    override var control: DashOSCServer? {
+    var stubbedControl: DashOSCListener!
+    override var control: DashOSCListener? {
         set {
             invokedControlSetter = true
             invokedControlSetterCount += 1
@@ -328,7 +332,7 @@ class MockServers: Listeners {
     var invokedConnectAllParameters: (defaults: UserDefaultsProtocol, Void)?
     var invokedConnectAllParametersList = [(defaults: UserDefaultsProtocol, Void)]()
     var stubbedConnectAllResult: [DashNetworkType.Listener]! = []
-    
+
     override func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> [DashNetworkType.Listener] {
         invokedConnectAll = true
         invokedConnectAllCount += 1
@@ -336,47 +340,59 @@ class MockServers: Listeners {
         invokedConnectAllParametersList.append((defaults, ()))
         return stubbedConnectAllResult
     }
-    
+
     var invokedConnectBlackTrax = false
     var invokedConnectBlackTraxCount = 0
     var invokedConnectBlackTraxParameters: (defaults: UserDefaultsProtocol, Void)?
     var invokedConnectBlackTraxParametersList = [(defaults: UserDefaultsProtocol, Void)]()
-    
+
     override func connectBlackTrax(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
         invokedConnectBlackTrax = true
         invokedConnectBlackTraxCount += 1
         invokedConnectBlackTraxParameters = (defaults, ())
         invokedConnectBlackTraxParametersList.append((defaults, ()))
     }
-    
+
     var invokedConnectVezer = false
     var invokedConnectVezerCount = 0
     var invokedConnectVezerParameters: (defaults: UserDefaultsProtocol, Void)?
     var invokedConnectVezerParametersList = [(defaults: UserDefaultsProtocol, Void)]()
-    
+
     override func connectVezer(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
         invokedConnectVezer = true
         invokedConnectVezerCount += 1
         invokedConnectVezerParameters = (defaults, ())
         invokedConnectVezerParametersList.append((defaults, ()))
     }
-    
+
     var invokedConnectControl = false
     var invokedConnectControlCount = 0
     var invokedConnectControlParameters: (defaults: UserDefaultsProtocol, Void)?
     var invokedConnectControlParametersList = [(defaults: UserDefaultsProtocol, Void)]()
-    
+
     override func connectControl(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
         invokedConnectControl = true
         invokedConnectControlCount += 1
         invokedConnectControlParameters = (defaults, ())
         invokedConnectControlParametersList.append((defaults, ()))
     }
+
+    var invokedPrintNetworks = false
+    var invokedPrintNetworksCount = 0
+
+    override func printNetworks() {
+        invokedPrintNetworks = true
+        invokedPrintNetworksCount += 1
+    }
 }
 
 
 class MockClients: Clients {
-    
+
+    convenience init() {
+        self.init(withObservers: false)
+    }
+
     var invokedVezerSetter = false
     var invokedVezerSetterCount = 0
     var invokedVezer: DashOSCClient?
@@ -438,7 +454,7 @@ class MockClients: Clients {
     var invokedConnectAllParameters: (defaults: UserDefaultsProtocol, Void)?
     var invokedConnectAllParametersList = [(defaults: UserDefaultsProtocol, Void)]()
     var stubbedConnectAllResult: [DashNetworkType.Client]! = []
-    
+
     override func connectAll(from defaults: UserDefaultsProtocol = UserDefaults.standard) -> [DashNetworkType.Client] {
         invokedConnectAll = true
         invokedConnectAllCount += 1
@@ -446,51 +462,51 @@ class MockClients: Clients {
         invokedConnectAllParametersList.append((defaults, ()))
         return stubbedConnectAllResult
     }
-    
+
     var invokedConnectVezer = false
     var invokedConnectVezerCount = 0
     var invokedConnectVezerParameters: (defaults: UserDefaultsProtocol, Void)?
     var invokedConnectVezerParametersList = [(defaults: UserDefaultsProtocol, Void)]()
-    
+
     override func connectVezer(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
         invokedConnectVezer = true
         invokedConnectVezerCount += 1
         invokedConnectVezerParameters = (defaults, ())
         invokedConnectVezerParametersList.append((defaults, ()))
     }
-    
+
     var invokedConnectDS100Main = false
     var invokedConnectDS100MainCount = 0
     var invokedConnectDS100MainParameters: (defaults: UserDefaultsProtocol, Void)?
     var invokedConnectDS100MainParametersList = [(defaults: UserDefaultsProtocol, Void)]()
-    
+
     override func connectDS100Main(from defaults: UserDefaultsProtocol = UserDefaults.standard) {
         invokedConnectDS100Main = true
         invokedConnectDS100MainCount += 1
         invokedConnectDS100MainParameters = (defaults, ())
         invokedConnectDS100MainParametersList.append((defaults, ()))
     }
-    
+
     var invokedSendOSC = false
     var invokedSendOSCCount = 0
-    var invokedSendOSCParameters: (message: Message, client: DashNetworkType.Client)?
-    var invokedSendOSCParametersList = [(message: Message, client: DashNetworkType.Client)]()
+    var invokedSendOSCParameters: (message: OSCMessage, client: DashNetworkType.Client)?
+    var invokedSendOSCParametersList = [(message: OSCMessage, client: DashNetworkType.Client)]()
     var stubbedSendOSCResult: Bool! = false
-    
-    override func sendOSC(message: Message, to client: DashNetworkType.Client) -> Bool {
+
+    override func sendOSC(message: OSCMessage, to client: DashNetworkType.Client) -> Bool {
         invokedSendOSC = true
         invokedSendOSCCount += 1
         invokedSendOSCParameters = (message, client)
         invokedSendOSCParametersList.append((message, client))
         return stubbedSendOSCResult
     }
-    
+
     var invokedSendDs100 = false
     var invokedSendDs100Count = 0
     var invokedSendDs100Parameters: (data: [DS100], coordinate: Coordinate)?
     var invokedSendDs100ParametersList = [(data: [DS100], coordinate: Coordinate)]()
     var stubbedSendDs100Result: Bool! = false
-    
+
     override func send(ds100 data: [DS100], coordinate: Coordinate = .all) -> Bool {
         invokedSendDs100 = true
         invokedSendDs100Count += 1
@@ -498,13 +514,13 @@ class MockClients: Clients {
         invokedSendDs100ParametersList.append((data, coordinate))
         return stubbedSendDs100Result
     }
-    
+
     var invokedSend = false
     var invokedSendCount = 0
     var invokedSendParameters: (data: [Vezer], Void)?
     var invokedSendParametersList = [(data: [Vezer], Void)]()
     var stubbedSendResult: Bool! = false
-    
+
     override func send(vezer data: [Vezer]) -> Bool {
         invokedSend = true
         invokedSendCount += 1
@@ -512,10 +528,10 @@ class MockClients: Clients {
         invokedSendParametersList.append((data, ()))
         return stubbedSendResult
     }
-    
+
     var invokedPrintNetworks = false
     var invokedPrintNetworksCount = 0
-    
+
     override func printNetworks() {
         invokedPrintNetworks = true
         invokedPrintNetworksCount += 1

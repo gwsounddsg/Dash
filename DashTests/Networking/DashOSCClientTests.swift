@@ -51,6 +51,7 @@ extension DashOSCClientTests {
 
         guard let sentMsg = mClient.invokedSendParameters?.element as? OSCMessage else {
            XCTFail("element is not an OSCMessage")
+            return
         }
 
         XCTAssertEqual(sentMsg.address, message.address)
