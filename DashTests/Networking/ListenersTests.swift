@@ -392,39 +392,91 @@ class MockDashOSCListener: DashOSCListener {
 
 
 class MockDashListener: DashListener {
+    
+
 
     convenience init() {
-        self.init("", 0, "", .vezer)
+        self.init(NWListener(), "", .control)
     }
 
+    var invokedDelegateSetter = false
+    var invokedDelegateSetterCount = 0
+    var invokedDelegate: DashListenerDelegate?
+    var invokedDelegateList = [DashListenerDelegate?]()
+    var invokedDelegateGetter = false
+    var invokedDelegateGetterCount = 0
     var stubbedDelegate: DashListenerDelegate!
     override var delegate: DashListenerDelegate? {
         set {
+            invokedDelegateSetter = true
+            invokedDelegateSetterCount += 1
+            invokedDelegate = newValue
+            invokedDelegateList.append(newValue)
         }
         get {
+            invokedDelegateGetter = true
+            invokedDelegateGetterCount += 1
             return stubbedDelegate
         }
     }
-    var stubbed_listener: NWListener!
-    override var _listener: NWListener? {
-        set {
-        }
-        get {
-            return stubbed_listener
-        }
-    }
+    var invoked_connectionSetter = false
+    var invoked_connectionSetterCount = 0
+    var invoked_connection: NWConnectionProtocol?
+    var invoked_connectionList = [NWConnectionProtocol?]()
+    var invoked_connectionGetter = false
+    var invoked_connectionGetterCount = 0
     var stubbed_connection: NWConnectionProtocol!
     override var _connection: NWConnectionProtocol? {
         set {
+            invoked_connectionSetter = true
+            invoked_connectionSetterCount += 1
+            invoked_connection = newValue
+            invoked_connectionList.append(newValue)
         }
         get {
+            invoked_connectionGetter = true
+            invoked_connectionGetterCount += 1
             return stubbed_connection
         }
     }
+    var invokedReceive = false
+    var invokedReceiveCount = 0
 
     override func receive() {
+        invokedReceive = true
+        invokedReceiveCount += 1
     }
 
-    override func printNetwork() {
+    var invokedPort = false
+    var invokedPortCount = 0
+    var stubbedPortResult: Int! = 0
+
+    override func port() -> Int {
+        invokedPort = true
+        invokedPortCount += 1
+        return stubbedPortResult
     }
+
+    var invokedQueue = false
+    var invokedQueueCount = 0
+    var stubbedQueueResult: String! = ""
+
+    override func queue() -> String {
+        invokedQueue = true
+        invokedQueueCount += 1
+        return stubbedQueueResult
+    }
+
+    var invokedPrintNetwork = false
+    var invokedPrintNetworkCount = 0
+
+    override func printNetwork() {
+        invokedPrintNetwork = true
+        invokedPrintNetworkCount += 1
+    }
+}
+
+
+class MockNWListener: NWListener {
+    
 }

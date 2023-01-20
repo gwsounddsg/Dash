@@ -19,13 +19,13 @@ class DashListener {
     let type: DashNetworkType.Listener
     var delegate: DashListenerDelegate?
 
-    internal let _listener: NWListener
+    internal var _listener: NWListenerProtocol
     internal var _connection: NWConnectionProtocol?
 
     private var _queue: DispatchQueue
 
     
-    init(_ listener: NWListener, _ queueName: String, _ type: DashNetworkType.Listener) {
+    init(_ listener: NWListenerProtocol, _ queueName: String, _ type: DashNetworkType.Listener) {
         _listener = listener
         _queue = DispatchQueue(label: queueName)
         self.type = type
