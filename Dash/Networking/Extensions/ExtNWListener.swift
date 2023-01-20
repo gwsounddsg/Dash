@@ -20,6 +20,4 @@ protocol NWListenerProtocol {
     
     func cancel()
     func start(queue: DispatchQueue)
-    
-    
 }
