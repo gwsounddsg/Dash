@@ -124,7 +124,7 @@ extension Listeners {
 
 
 
-// MARK: - DashOSCServerDelegate
+// MARK: - DashOSCListenerDelegate
 extension Listeners {
     func oscMessageReceived(_ message: OSCMessage, _ from: DashNetworkType.Listener) {
         switch from {
@@ -190,41 +190,39 @@ extension Listeners {
         guard let data = userInfo[DashNotifData.userPref] else {
             return
         }
-    
-        switch notif.name {
-        case DashNotif.userPrefServerBlackTraxPort:
-            let val = Int(data)
-            if val == nil {
-                print("Bad BlackTrax port number for string: \(data)")
-                return
-            }
-            updateDefault(val!, DashDefaultIDs.Network.Listener.blacktraxPort, defaults)
-            connectBlackTrax(from: defaults)
-            blackTrax?.printNetwork()
-
-        case DashNotif.userPrefServerVezerPort:
-            let val = Int(data)
-            if val == nil {
-                print("Bad Vezer port number for string: \(data)")
-                return
-            }
-            updateDefault(val!, DashDefaultIDs.Network.Listener.vezerPort, defaults)
-            connectVezer(from: defaults)
-            vezer?.printNetwork()
-    
-        case DashNotif.userPrefServerControlPort:
-            let val = Int(data)
-            if val == nil {
-                print("Bad Control port number for string: \(data)")
-                return
-            }
-            updateDefault(val!, DashDefaultIDs.Network.Listener.controlPort, defaults)
-            connectControl(from: defaults)
-            control?.printNetwork()
-    
-        default:
+        
+        guard let newPort = Int(data) else {
+            print("Bad \(notif.name) port number for string: \(data)")
             return
         }
+    
+        switch notif.name {
+            case DashNotif.userPrefServerBlackTraxPort: updatePortBlackTrax(newPort, defaults)
+            case DashNotif.userPrefServerVezerPort:     updatePortVezer(newPort, defaults)
+            case DashNotif.userPrefServerControlPort:   updatePortConrol(newPort, defaults)
+            default: return
+        }
+    }
+    
+    
+    fileprivate func updatePortBlackTrax(_ newPort: Int, _ defaults: UserDefaultsProtocol) {
+        updateDefault(newPort, DashDefaultIDs.Network.Listener.blacktraxPort, defaults)
+        connectBlackTrax(from: defaults)
+        blackTrax?.printNetwork()
+    }
+    
+    
+    fileprivate func updatePortVezer(_ newPort: Int, _ defaults: UserDefaultsProtocol) {
+        updateDefault(newPort, DashDefaultIDs.Network.Listener.vezerPort, defaults)
+        connectVezer(from: defaults)
+        vezer?.printNetwork()
+    }
+    
+    
+    fileprivate func updatePortConrol(_ newPort: Int, _ defaults: UserDefaultsProtocol) {
+        updateDefault(newPort, DashDefaultIDs.Network.Listener.controlPort, defaults)
+        connectControl(from: defaults)
+        control?.printNetwork()
     }
     
     

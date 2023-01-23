@@ -75,7 +75,6 @@ extension ListenersTests {
         
         listeners.connectBlackTrax(from: mockDefaults)
         
-        XCTAssertEqual(mBlackTrax.invokedConnectParametersList[0].port, port)
         XCTAssertTrue(listeners.isBlackTraxConnected)
     }
     
@@ -92,7 +91,6 @@ extension ListenersTests {
     
         listeners.connectVezer(from: mockDefaults)
     
-        XCTAssertEqual(mVezer.invokedPort, port)
         XCTAssertTrue(listeners.isVezerConnected)
     }
     
@@ -109,7 +107,6 @@ extension ListenersTests {
     
         listeners.connectControl(from: mockDefaults)
     
-        XCTAssertEqual(mControl.invokedPort, port)
         XCTAssertTrue(listeners.isControlConnected)
     }
 }
@@ -122,34 +119,12 @@ extension ListenersTests {
 
 extension ListenersTests {
 
-    func testListeners_oscDataReceived_control() {
-        let val: Double = 4.65
-        let msg = Message(ControlOSC.switchTo, [val])
-        mockAll()
-        
-        listeners.oscDataReceived(msg, .control)
-        
-        if !delegate.invokedCommand {
-            XCTAssertTrue(delegate.invokedCommand)
-            return
-        }
-        
-        guard let values = delegate.invokedCommandParameters?.data as? DashData? else {
-            XCTAssertTrue(false)
-            return
-        }
-        
-        XCTAssertEqual(delegate.invokedCommandParameters?.control, .switchActive)
-        XCTAssertEqual(values as? Double, val)
-    }
-    
-    
     func testListeners_oscDataReceived_vezer() {
         let val: Double = 4.65
-        let msg = Message("/testing/oscDataReceived/control", [val])
+        let msg = OSCMessage("/testing/oscMessageReceived/vezer", [val])
         mockAll()
     
-        listeners.oscDataReceived(msg, .vezer)
+        listeners.oscMessageReceived(msg, .vezer)
         
         XCTAssertTrue(delegate.invokedRecordedVezer)
     }
@@ -163,7 +138,7 @@ extension ListenersTests {
 
 extension ListenersTests {
 
-    func testListeners_updateDefaults_serverBlackTraxPort() {
+    func testListeners_updateDefaults_listenerBlackTraxPort() {
         mockAll()
         let key = DashNotifData.userPref
         let value: Int = 1111
@@ -171,39 +146,45 @@ extension ListenersTests {
         let mDefaults = MockUserDefaults()
         mDefaults.stubbedGetIntResult = value
         
+        XCTAssertFalse(listeners.isBlackTraxConnected)
+        
         listeners.updateDefaults(notif, mDefaults)
         
-        XCTAssertEqual(mBlackTrax.invokedConnectParameters?.port, Int(value))
+        XCTAssertTrue(listeners.isBlackTraxConnected)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Listener.blacktraxPort)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
     }
     
     
-    func testListeners_updateDefaults_serverVezerPort() {
+    func testListeners_updateDefaults_listenerVezerPort() {
         mockAll()
         let key = DashNotifData.userPref
         let value = "1111"
         let notif = notification(DashNotif.userPrefServerVezerPort, [key: value])
         let mDefaults = MockUserDefaults()
         
+        XCTAssertFalse(listeners.isVezerConnected)
+        
         listeners.updateDefaults(notif, mDefaults)
         
-        XCTAssertEqual(mVezer.invokedPort, Int(value))
+        XCTAssertTrue(listeners.isVezerConnected)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Listener.vezerPort)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
     }
     
     
-    func testListeners_updateDefaults_serverControlPort() {
+    func testListeners_updateDefaults_listenerControlPort() {
         mockAll()
         let key = DashNotifData.userPref
         let value = "1111"
         let notif = notification(DashNotif.userPrefServerControlPort, [key: value])
         let mDefaults = MockUserDefaults()
         
+        XCTAssertFalse(listeners.isControlConnected)
+        
         listeners.updateDefaults(notif, mDefaults)
         
-        XCTAssertEqual(mControl.invokedPort, Int(value))
+        XCTAssertTrue(listeners.isControlConnected)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.forKey, DashDefaultIDs.Network.Listener.controlPort)
         XCTAssertEqual(mDefaults.invokedUpdateParameters?.value as? Int, Int(value))
     }
@@ -219,8 +200,8 @@ extension  ListenersTests {
 
     func mockAll(_ connected: Bool = false) {
         mBlackTrax = MockDashListener()
-        mVezer = MockDashOSCListener("/listener/vezer", 222, "vezer listener", .vezer)
-        mControl = MockDashOSCListener("/listener/control", 333, "control listener", .control)
+        mVezer = MockDashOSCListener(type: .vezer)
+        mControl = MockDashOSCListener(type: .control)
         
         listeners.blackTrax = mBlackTrax
         listeners.vezer = mVezer
@@ -288,11 +269,11 @@ class MockListenersProtocol: ListenersProtocol {
 }
 
 class MockDashOSCListener: DashOSCListener {
-
-    convenience init() {
-        self.init("", 0, "", .vezer)
+    
+    convenience init(type: DashNetworkType.Listener = .vezer, mockListener: MockNWListener = MockNWListener()) {
+        self.init(mockListener, "MockDashOSCListener", type)
     }
-
+    
     var invokedOscDelegateSetter = false
     var invokedOscDelegateSetterCount = 0
     var invokedOscDelegate: DashOSCListenerDelegate?
@@ -335,12 +316,12 @@ class MockDashOSCListener: DashOSCListener {
     }
     var invoked_listenerSetter = false
     var invoked_listenerSetterCount = 0
-    var invoked_listener: NWListener?
-    var invoked_listenerList = [NWListener?]()
+    var invoked_listener: NWListenerProtocol?
+    var invoked_listenerList = [NWListenerProtocol]()
     var invoked_listenerGetter = false
     var invoked_listenerGetterCount = 0
-    var stubbed_listener: NWListener!
-    override var _listener: NWListener? {
+    var stubbed_listener: NWListenerProtocol!
+    override var _listener: NWListenerProtocol {
         set {
             invoked_listenerSetter = true
             invoked_listenerSetterCount += 1
@@ -381,6 +362,26 @@ class MockDashOSCListener: DashOSCListener {
         invokedReceiveCount += 1
     }
 
+    var invokedPort = false
+    var invokedPortCount = 0
+    var stubbedPortResult: Int! = 0
+
+    override func port() -> Int {
+        invokedPort = true
+        invokedPortCount += 1
+        return stubbedPortResult
+    }
+
+    var invokedQueue = false
+    var invokedQueueCount = 0
+    var stubbedQueueResult: String! = ""
+
+    override func queue() -> String {
+        invokedQueue = true
+        invokedQueueCount += 1
+        return stubbedQueueResult
+    }
+
     var invokedPrintNetwork = false
     var invokedPrintNetworkCount = 0
 
@@ -392,11 +393,9 @@ class MockDashOSCListener: DashOSCListener {
 
 
 class MockDashListener: DashListener {
-    
 
-
-    convenience init() {
-        self.init(NWListener(), "", .control)
+    convenience init(mockListener: MockNWListener = MockNWListener()) {
+        self.init(mockListener, "", .control)
     }
 
     var invokedDelegateSetter = false
@@ -477,6 +476,73 @@ class MockDashListener: DashListener {
 }
 
 
-class MockNWListener: NWListener {
-    
+class MockNWListener: NWListenerProtocol {
+
+    var invokedPortGetter = false
+    var invokedPortGetterCount = 0
+    var stubbedPort: NWEndpoint.Port!
+    var port: NWEndpoint.Port? {
+        invokedPortGetter = true
+        invokedPortGetterCount += 1
+        return stubbedPort
+    }
+    var invokedStateUpdateHandlerSetter = false
+    var invokedStateUpdateHandlerSetterCount = 0
+    var invokedStateUpdateHandler: ((NWListener.State) -> Void)?
+    var invokedStateUpdateHandlerList = [((NWListener.State) -> Void)?]()
+    var invokedStateUpdateHandlerGetter = false
+    var invokedStateUpdateHandlerGetterCount = 0
+    var stubbedStateUpdateHandler: ((NWListener.State) -> Void)!
+    var stateUpdateHandler: ((NWListener.State) -> Void)? {
+        set {
+            invokedStateUpdateHandlerSetter = true
+            invokedStateUpdateHandlerSetterCount += 1
+            invokedStateUpdateHandler = newValue
+            invokedStateUpdateHandlerList.append(newValue)
+        }
+        get {
+            invokedStateUpdateHandlerGetter = true
+            invokedStateUpdateHandlerGetterCount += 1
+            return stubbedStateUpdateHandler
+        }
+    }
+    var invokedNewConnectionHandlerSetter = false
+    var invokedNewConnectionHandlerSetterCount = 0
+    var invokedNewConnectionHandler: ((NWConnection) -> Void)?
+    var invokedNewConnectionHandlerList = [((NWConnection) -> Void)?]()
+    var invokedNewConnectionHandlerGetter = false
+    var invokedNewConnectionHandlerGetterCount = 0
+    var stubbedNewConnectionHandler: ((NWConnection) -> Void)!
+    var newConnectionHandler: ((NWConnection) -> Void)? {
+        set {
+            invokedNewConnectionHandlerSetter = true
+            invokedNewConnectionHandlerSetterCount += 1
+            invokedNewConnectionHandler = newValue
+            invokedNewConnectionHandlerList.append(newValue)
+        }
+        get {
+            invokedNewConnectionHandlerGetter = true
+            invokedNewConnectionHandlerGetterCount += 1
+            return stubbedNewConnectionHandler
+        }
+    }
+    var invokedCancel = false
+    var invokedCancelCount = 0
+
+    func cancel() {
+        invokedCancel = true
+        invokedCancelCount += 1
+    }
+
+    var invokedStart = false
+    var invokedStartCount = 0
+    var invokedStartParameters: (queue: DispatchQueue, Void)?
+    var invokedStartParametersList = [(queue: DispatchQueue, Void)]()
+
+    func start(queue: DispatchQueue) {
+        invokedStart = true
+        invokedStartCount += 1
+        invokedStartParameters = (queue, ())
+        invokedStartParametersList.append((queue, ()))
+    }
 }

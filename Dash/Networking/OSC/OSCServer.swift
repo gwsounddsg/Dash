@@ -126,7 +126,7 @@ extension OSCServer {
     func receive() {
         _connection?.receiveMessage { completeContent, contentContext, isComplete, error in
             if error != nil {
-                print("Receive error: \(error)")
+                print("Receive error: \(String(describing: error))")
                 return
             }
 
