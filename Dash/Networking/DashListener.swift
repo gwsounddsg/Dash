@@ -73,14 +73,10 @@ class DashListener {
         print("|\tport: \(port())")
         print("|\tqueue: \(_queue.label)")
     }
-}
 
 
-
-
-
-//MARK: - Connection
-extension DashListener {
+    //MARK: - Connection
+    
     func connect() {
         setupConnectionHandler()
         setupConnectionHandler()

@@ -18,13 +18,21 @@ class DashListenerTests: XCTestCase {
     let port: Int = 1234
     let queue = "test queue"
 
-    fileprivate var mListener: MockDashListener!
+    fileprivate var mListener: MockNWListener!
     fileprivate var mConnection: MockNWConnection!
+    fileprivate var mDelegate: MockDashListenerDelegate!
+    
+    fileprivate var dashListener: DashListener!
 
 
     override func setUp() {
-        mListener = MockDashListener(address, port, queue, .control)
+        mListener = MockNWListener()
         mConnection = MockNWConnection()
+        mDelegate = MockDashListenerDelegate()
+        
+        dashListener = DashListener(mListener, queue, .control)
+        dashListener._connection = mConnection
+        dashListener.delegate = mDelegate
     }
 }
 
@@ -35,43 +43,32 @@ class DashListenerTests: XCTestCase {
 extension DashListenerTests {
 
     func testDashListener() {
-        XCTAssertEqual(mListener.type, .control)
-        XCTAssertEqual(mListener.address, address)
-        XCTAssertEqual(mListener.port.rawValue, UInt16(port))
+        XCTAssertEqual(dashListener.type, .control)
+    }
+    
+    
+    func testDashListener_deinit() {
+        dashListener = nil
+        XCTAssertTrue(mListener.invokedCancel)
     }
     
     
     func testDashListener_receive() {
-        
+        dashListener.receive()
+        XCTAssertTrue(mConnection.invokedReceiveMessage)
     }
-
-
-//    func testDashListener_didReceive() {
-//        let val: Float = 4.0
-//        let msg = OSCMessage(OSCAddressPattern("/something"), val)
-//        let delegate = MockDashListenerDelegate()
-//        mListener.delegate = delegate
-//
-//        mListener.didReceive(msg)
-//
-//        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.address, msg.address.string)
-//        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values[0].data, msg.arguments[0]?.data)
-//        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.from, .control)
-//    }
-//
-//
-//    func testDashListener_didReceive_vezer() {
-//        let vezerData = Vezer("name", 3.0, 4.0)
-//        let msg = OSCMessage(OSCAddressPattern(vezerData.addy().x), vezerData.x)
-//        let delegate = MockDashListenerDelegate()
-//
-//        mListener = MockDashOSCListener(.vezer, address, port)
-//        mListener.delegate = delegate
-//        mListener.didReceive(msg)
-//
-//        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values.count, 2)
-//        XCTAssertEqual(delegate.invokedOscDataReceivedParameters?.msg.values[1] as? String, "name")
-//    }
+    
+    
+    func testDashListener_port() {
+        let val = dashListener.port()
+        XCTAssertEqual(val, port)
+    }
+    
+    
+    func testDashListener_queue() {
+        let val = dashListener.queue()
+        XCTAssertEqual(val, queue)
+    }
 }
 
 
@@ -111,5 +108,21 @@ class MockNWConnection: NWConnectionProtocol {
         if let result = stubbedReceiveMessageCompletionResult {
             completion(result.0, result.1, result.2, result.3)
         }
+    }
+}
+
+
+class MockDashListenerDelegate: DashListenerDelegate {
+
+    var invokedListenerReceived = false
+    var invokedListenerReceivedCount = 0
+    var invokedListenerReceivedParameters: (data: Data, from: DashNetworkType.Listener)?
+    var invokedListenerReceivedParametersList = [(data: Data, from: DashNetworkType.Listener)]()
+
+    func listenerReceived(_ data: Data, _ from: DashNetworkType.Listener) {
+        invokedListenerReceived = true
+        invokedListenerReceivedCount += 1
+        invokedListenerReceivedParameters = (data, from)
+        invokedListenerReceivedParametersList.append((data, from))
     }
 }
