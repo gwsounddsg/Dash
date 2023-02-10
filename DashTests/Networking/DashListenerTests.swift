@@ -60,6 +60,7 @@ extension DashListenerTests {
     
     
     func testDashListener_port() {
+        mListener.stubbedPort = NWEndpoint.Port(rawValue: UInt16(port))
         let val = dashListener.port()
         XCTAssertEqual(val, port)
     }
