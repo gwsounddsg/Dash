@@ -65,7 +65,7 @@ extension NetworkManager {
     
     func redirectFromVezer(message: OSCMessage) {
         let coord: Coordinate = message.addressPart(2) == "x" ? .x : .y
-        let val = message.arguments[0] as? Float ?? 0.0
+        let val: Float = message.arguments.first as? Float ?? 0.0
         
         let ds100Data = DS100(ds100Mapping, input: message.address, x: val, y: val, spread: 0.5)
         _ = send(ds100: [ds100Data], coordinates: coord)
