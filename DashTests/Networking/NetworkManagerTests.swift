@@ -94,7 +94,7 @@ extension NetworkManagerTests {
         mockAll()
         mClients.stubbedSendResult = true
         let val: Float = 3.2
-        let msg = OSCMessage("/trackable/name/coord", [])
+        let msg = OSCMessage("/trackable/name/coord", [val])
         
         manager.redirectFromVezer(message: msg)
         
