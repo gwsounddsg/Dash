@@ -94,7 +94,7 @@ extension DashOSCClientTests {
         client.setPort(newPort)
 
         XCTAssertEqual(client.port(), newPort)
-        XCTAssertTrue(mClient.invokedConnect)
+        XCTAssertTrue(mClient.invokedConnectTo)
     }
 
 
@@ -109,7 +109,7 @@ extension DashOSCClientTests {
         client.setAddress(newAddress)
 
         XCTAssertEqual(client.address(), newAddress)
-        XCTAssertTrue(mClient.invokedConnect)
+        XCTAssertTrue(mClient.invokedConnectTo)
     }
 }
 
