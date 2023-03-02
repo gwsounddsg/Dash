@@ -62,8 +62,8 @@ extension ClientsTests {
         
         clients.connectVezer(from: mockDefaults)
         
-        XCTAssertEqual(mVezer.invokedSetAddressParameters?.newAddress, addy)
-        XCTAssertEqual(mVezer.invokedSetPortParameters?.newPort, port)
+        XCTAssertEqual(mVezer.invokedChangeEndpointsParameters?.address, addy)
+        XCTAssertEqual(mVezer.invokedChangeEndpointsParameters?.port, port)
         XCTAssertTrue(clients.isVezerConnected)
     }
     
@@ -80,8 +80,8 @@ extension ClientsTests {
     
         clients.connectDS100Main(from: mockDefaults)
     
-        XCTAssertEqual(mDS100Main.invokedSetAddressParameters?.newAddress, addy)
-        XCTAssertEqual(mDS100Main.invokedSetPortParameters?.newPort, port)
+        XCTAssertEqual(mDS100Main.invokedChangeEndpointsParameters?.address, addy)
+        XCTAssertEqual(mDS100Main.invokedChangeEndpointsParameters?.port, port)
         XCTAssertTrue(clients.isDS100MainConnected)
     }
 }
