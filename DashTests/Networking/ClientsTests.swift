@@ -130,9 +130,9 @@ extension ClientsTests {
         let result = clients.sendOSC(message: message, to: .ds100Main)
     
         XCTAssertTrue(result)
-        XCTAssertNotNil(mDS100Main.invokedClientSendParameters)
+        XCTAssertNotNil(mDS100Main.invokedSendMessage)
         
-        guard let newMessage = mDS100Main.invokedClientSendParameters?.element as? OSCMessage else {
+        guard let newMessage = mDS100Main.invokedSendMessageParameters?.message as? OSCMessage else {
             XCTFail()
             return
         }
