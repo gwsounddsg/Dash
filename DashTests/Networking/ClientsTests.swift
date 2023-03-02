@@ -101,9 +101,9 @@ extension ClientsTests {
         let result = clients.sendOSC(message: message, to: .vezer)
         
         XCTAssertTrue(result)
-        XCTAssertNotNil(mVezer.invokedClientSendParameters)
+        XCTAssertTrue(mVezer.invokedSendMessage)
         
-        guard let newMessage = mVezer.invokedClientSendParameters?.element as? OSCMessage else {
+        guard let newMessage = mVezer.invokedSendMessageParameters?.message as? OSCMessage else {
             XCTFail()
             return
         }
