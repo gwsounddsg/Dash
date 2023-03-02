@@ -64,7 +64,7 @@ extension DashOSCClientTests {
         client.connect()
 
         XCTAssertTrue(mClient.invokedDisconnect)
-        XCTAssertTrue(mClient.invokedConnect)
+        XCTAssertTrue(mClient.invokedConnectTo)
     }
 
 
@@ -72,7 +72,7 @@ extension DashOSCClientTests {
         client.connect()
 
         XCTAssertFalse(mClient.invokedDisconnect)
-        XCTAssertTrue(mClient.invokedConnect)
+        XCTAssertTrue(mClient.invokedConnectTo)
     }
 }
 
