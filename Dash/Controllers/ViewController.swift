@@ -382,9 +382,7 @@ private extension ViewController {
     
     func checkTrackable(_ name: String) {
         if networkManager.currentTrackables[name] == nil {
-            var str = name
-            str.remove(at: str.startIndex)
-            networkManager.currentTrackables[name] = Int(str)
+            networkManager.currentTrackables[name] = Int(name)
         }
     }
 }
