@@ -56,6 +56,8 @@ extension RttTableView {
     
     
     func reload() {
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
